@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace Scenes.MortonOrder
         [SerializeField] private GameObject _player;
         [Header("Prefabs")]
         [SerializeField] private GameObject _avaterPrefab;
+        [SerializeField] private GameObject _test;
         [Header("Parameters")]
         [SerializeField] private MortonOrderDepth _depth = MortonOrderDepth.depth8;
 
@@ -27,6 +29,7 @@ namespace Scenes.MortonOrder
         private int _prevOrderNumber = -1;
         private List<int> _prevOrderNumbers = new List<int>();
         private Dictionary<int, List<Vector3>> _otherPositionSet = new Dictionary<int, List<Vector3>>(); //Otherの座標集合
+        private Dictionary<int, List<GameObject>> _avaterPoolObjectSet = new Dictionary<int, List<GameObject>>();
         private ObjectPool<GameObject> _avaterPool;
 
         void Awake()
@@ -47,6 +50,13 @@ namespace Scenes.MortonOrder
 
         void Start()
         {
+            for (int i = 0; i < 100; i++)
+            {
+                for (int j = 0; j < 100; j++)
+                {
+                    Instantiate(_test, new Vector3(2 * i, 0, 2 * j), Quaternion.identity);
+                }
+            }
             //空間定義
             _downPos = transform.position - transform.localScale / 2;
             _upPos = transform.position + transform.localScale / 2;
@@ -136,34 +146,38 @@ namespace Scenes.MortonOrder
             _prevOrderNumbers = new List<int>(newOrderNumbers);
 
             //アバター削除
-            /*foreach (var orderNumber in removeOrderNumbers)
+            foreach (var orderNumber in removeOrderNumbers)
             {
-                foreach (var otherPosition in _otherPositionSet[orderNumber])
+                //オブジェクト削除
+                foreach (var avater in _avaterPoolObjectSet[orderNumber])
                 {
-                    
+                    _avaterPool.Release(avater);
                 }
-            }*/
+
+                //キー開放
+                _avaterPoolObjectSet.Remove(orderNumber);
+            }
+
             //アバター追加
             foreach (var orderNumber in addOrderNumbers)
             {
+                //キー作成
+                if (!_avaterPoolObjectSet.ContainsKey(orderNumber))
+                {
+                    _avaterPoolObjectSet.Add(orderNumber, new List<GameObject>());
+                }
+
+                //アバター追加
                 foreach (var otherPosition in _otherPositionSet[orderNumber])
                 {
+                    //オブジェクト追加
                     var avater = _avaterPool.Get();
                     avater.transform.position = otherPosition;
+
+                    //辞書登録
+                    _avaterPoolObjectSet[orderNumber].Add(avater);
                 }
             }
-            //モートン空間外を除外
-            /*orderNumbers.RemoveAll(x => x.Equals(-1));
-
-            //アバターを配置
-            foreach (var orderNumber in orderNumbers)
-            {
-                foreach (var otherPosition in _otherPositionSet[orderNumber])
-                {
-                    var avater = _avaterPool.Get();
-                    avater.transform.position = otherPosition;
-                }
-            }*/
         }
     }
 }
