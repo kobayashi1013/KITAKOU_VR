@@ -14,6 +14,9 @@ namespace Scenes.MortonOrder
             depth2 = 2,
             depth4 = 4,
             depth8 = 8,
+            depth16 = 16,
+            depth32 = 32,
+            depth64 = 64,
         }
  
         [Header("SceneObjects")]
