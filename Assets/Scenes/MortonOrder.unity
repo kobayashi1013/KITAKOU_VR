@@ -503,4 +503,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 576521448}
+  _avaterPrefab: {fileID: 6818368420496311487, guid: f09fab69f441cd04bb7dbc4351650da7, type: 3}
   _depth: 8

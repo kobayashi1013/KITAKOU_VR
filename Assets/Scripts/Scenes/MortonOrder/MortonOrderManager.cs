@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -25,13 +25,18 @@ namespace Scenes.MortonOrder
         private Vector3 _downPos; //モデルの端
         private Vector3 _upPos;
         private int _prevOrderNumber = -1;
+        private List<int> _prevOrderNumbers = new List<int>();
         private Dictionary<int, List<Vector3>> _otherPositionSet = new Dictionary<int, List<Vector3>>(); //Otherの座標集合
         private ObjectPool<GameObject> _avaterPool;
 
         void Awake()
         {
             //オブジェクトプール設定
-            new ObjectPool<GameObject>(CreatePoolObject, GetPoolObject, ReleasePoolObject, DestroyPoolObject);
+            _avaterPool = new ObjectPool<GameObject>(
+                createFunc: () => Instantiate(_avaterPrefab),
+                actionOnGet: target => target.SetActive(true),
+                actionOnRelease: target => target.SetActive(false),
+                actionOnDestroy: target => Destroy(target));
 
             //Other座標集合のキー設定
             for (int i = 0; i < Mathf.Pow((int)_depth, 3); i++)
@@ -72,27 +77,6 @@ namespace Scenes.MortonOrder
                 CreateAvater(playerMortonPosition);
                 _prevOrderNumber = newOrderNumber;
             }
-        }
-
-        //オブジェクトプール
-        public GameObject CreatePoolObject()
-        {
-            return Instantiate(_avaterPrefab);
-        }
-
-        public void GetPoolObject(GameObject obj)
-        {
-            obj.SetActive(true);
-        }
-
-        public void ReleasePoolObject(GameObject obj)
-        {
-            obj.SetActive(false);
-        }
-
-        public void DestroyPoolObject(GameObject obj)
-        {
-            Destroy(obj);
         }
 
         //モートン座標への変換
@@ -136,15 +120,40 @@ namespace Scenes.MortonOrder
             int[] dz = { -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
             //モートン空間番号を取得
-            var orderNumbers = new List<int>();
+            var newOrderNumbers = new List<int>();
             for (int i = 0; i < 27; i++)
             {
                 int orderNumber = GetOrderNumber3D(new Vector3(position.x + dx[i], position.y + dy[i], position.z + dz[i]));
-                orderNumbers.Add(orderNumber);
+                newOrderNumbers.Add(orderNumber);
             }
 
             //モートン空間外を除外
-            orderNumbers.RemoveAll(x => x.Equals(-1));
+            newOrderNumbers.RemoveAll(x => x.Equals(-1));
+
+            //モートン空間の変更
+            var addOrderNumbers = newOrderNumbers.Except(_prevOrderNumbers).ToList();
+            var removeOrderNumbers = _prevOrderNumbers.Except(newOrderNumbers).ToList();
+            _prevOrderNumbers = new List<int>(newOrderNumbers);
+
+            //アバター削除
+            /*foreach (var orderNumber in removeOrderNumbers)
+            {
+                foreach (var otherPosition in _otherPositionSet[orderNumber])
+                {
+                    
+                }
+            }*/
+            //アバター追加
+            foreach (var orderNumber in addOrderNumbers)
+            {
+                foreach (var otherPosition in _otherPositionSet[orderNumber])
+                {
+                    var avater = _avaterPool.Get();
+                    avater.transform.position = otherPosition;
+                }
+            }
+            //モートン空間外を除外
+            /*orderNumbers.RemoveAll(x => x.Equals(-1));
 
             //アバターを配置
             foreach (var orderNumber in orderNumbers)
@@ -154,7 +163,7 @@ namespace Scenes.MortonOrder
                     var avater = _avaterPool.Get();
                     avater.transform.position = otherPosition;
                 }
-            }
+            }*/
         }
     }
 }
