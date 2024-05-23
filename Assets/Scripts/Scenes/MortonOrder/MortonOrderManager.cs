@@ -1,11 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace Scenes.MortonOrder
+namespace Prefabs
 {
     public class MortonOrderManager : MonoBehaviour
     {
