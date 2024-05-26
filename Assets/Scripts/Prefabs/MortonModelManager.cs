@@ -131,6 +131,8 @@ namespace Prefabs
         //アバター生成
         private void CreateAvater(Vector3 position)
         {
+            Debug.Log("update player space");
+
             //前後空間
             int[] dx = { -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1 };
             int[] dy = { -1, -1, -1, 0, 0, 0, 1, 1, 1, -1, -1, -1, 0, 0, 0, 1, 1, 1, -1, -1, -1, 0, 0, 0, 1, 1, 1 };
