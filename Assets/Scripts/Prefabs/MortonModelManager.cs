@@ -173,6 +173,7 @@ namespace Prefabs
                     //オブジェクト追加
                     var avater = _avaterPool.Get();
                     avater.transform.position = otherPosition;
+                    avater.transform.rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
 
                     //キー作成
                     if (!_avaterPoolObjectSet.ContainsKey(spaceNumber))
