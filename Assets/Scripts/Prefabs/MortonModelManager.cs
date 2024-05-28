@@ -18,7 +18,6 @@ namespace Prefabs
             depth64 = 64,
         }
 
-        [SerializeField] private GameObject _test;
         [Header("SceneObjects")]
         [SerializeField] private GameObject _playerObject;
         [Header("Prefabs")]
@@ -48,14 +47,6 @@ namespace Prefabs
 
         void Start()
         {
-            for (int i = 0; i < 100; i++)
-            {
-                for (int j = 0; j < 100; j++)
-                {
-                    Instantiate(_test, new Vector3(2 * i, 0, 2 * j), Quaternion.identity);
-                }
-            }
-
             //モートンモデル空間の定義（座標）
             _mortonModelAnchor0 = transform.position - transform.localScale / 2; //下限
             _mortonModelAnchor1 = transform.position + transform.localScale / 2; //上限
