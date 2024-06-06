@@ -6,27 +6,26 @@ namespace Prefabs
 {
     public class Gemini : MonoBehaviour
     {
-        [System.Serializable]
-        public class ResponseData
-        {
-            //Geminiからのリスポンス
-            public int answer;
-        }
-
         [SerializeField] private string _googleAppScriptId; //Google App Script ID
+
+        private string _googleAppScriptUrl;
 
         private void Start()
         {
-            StartCoroutine(ApiConnection("test"));
+            //GoogleAppScriptURL
+            _googleAppScriptUrl = "https://script.google.com/macros/s/" + _googleAppScriptId + "/exec";
+
+            StartCoroutine(ApiConnection("今から災害がおこります。あなたは私を励ましてください。"));
         }
 
-        private IEnumerator ApiConnection(string userText)
+        private IEnumerator ApiConnection(string userMessage)
         {
-            string url = "https://script.google.com/macros/s/" + _googleAppScriptId + "/exec?userText=" + UnityWebRequest.EscapeURL(userText);
-            Debug.Log(url);
-            var request = UnityWebRequest.Get(url);
+            WWWForm form = new WWWForm();
+            form.AddField("userMessage", userMessage);
+            UnityWebRequest request = UnityWebRequest.Post(_googleAppScriptUrl, form);
 
             yield return request.SendWebRequest();
+
             if (request.result == UnityWebRequest.Result.ConnectionError //接続エラー
                 || request.result == UnityWebRequest.Result.ProtocolError) //プロトコルエラー
             {
@@ -34,9 +33,7 @@ namespace Prefabs
             }
             else //成功
             {
-                var result = request.downloadHandler.text;
-                Debug.Log(result);
-                var response = JsonUtility.FromJson<ResponseData>(result);
+                Debug.Log(request.downloadHandler.text);
             }
         }
     }
