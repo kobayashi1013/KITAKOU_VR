@@ -6,14 +6,14 @@ namespace Prefabs
 {
     public class Gemini : MonoBehaviour
     {
-        [SerializeField] private string _googleAppScriptId; //Google App Script ID
+        [SerializeField] private string _googleAppsScriptId; //Google App Script ID
 
-        private string _googleAppScriptUrl;
+        private string _googleAppsScriptUrl;
 
         private void Start()
         {
             //GoogleAppScriptURL
-            _googleAppScriptUrl = "https://script.google.com/macros/s/" + _googleAppScriptId + "/exec";
+            _googleAppsScriptUrl = "https://script.google.com/macros/s/" + _googleAppsScriptId + "/exec";
 
             StartCoroutine(ApiConnection("ç°Ç©ÇÁç–äQÇ™Ç®Ç±ÇËÇ‹Ç∑ÅBÇ†Ç»ÇΩÇÕéÑÇó„Ç‹ÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB"));
         }
@@ -22,7 +22,7 @@ namespace Prefabs
         {
             WWWForm form = new WWWForm();
             form.AddField("userMessage", userMessage);
-            UnityWebRequest request = UnityWebRequest.Post(_googleAppScriptUrl, form);
+            UnityWebRequest request = UnityWebRequest.Post(_googleAppsScriptUrl, form);
 
             yield return request.SendWebRequest();
 
