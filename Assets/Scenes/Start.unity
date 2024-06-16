@@ -617,8 +617,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u65E5\u672C\u8A9E"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7187f5ac2fc8bda498186d1a42d950f9, type: 2}
-  m_sharedMaterial: {fileID: -5865297965482273382, guid: 7187f5ac2fc8bda498186d1a42d950f9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9aca35d96417ab54cbbcaf6cc6e64313, type: 2}
+  m_sharedMaterial: {fileID: 4170535840332020440, guid: 9aca35d96417ab54cbbcaf6cc6e64313, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
