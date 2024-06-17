@@ -8,6 +8,8 @@ namespace Scenes.InScene.Manager
 {
     public class InSceneManager : MonoBehaviour
     {
+        [Header("Players")]
+        public GameObject _playerPosition;
         public GameObject _vrPlayerPrefab;
         public GameObject _pcPlayerPrefab;
 
@@ -16,11 +18,11 @@ namespace Scenes.InScene.Manager
             //プレイヤースポーン
             if (SystemData.Instance.sceneMode == SceneMode.VR)
             {
-                Instantiate(_vrPlayerPrefab, Vector3.zero, Quaternion.identity);
+                Instantiate(_vrPlayerPrefab, _playerPosition.transform.position, Quaternion.identity);
             }
             else if (SystemData.Instance.sceneMode == SceneMode.PC)
             {
-                Instantiate(_pcPlayerPrefab, Vector3.zero, Quaternion.identity);
+                Instantiate(_pcPlayerPrefab, _playerPosition.transform.position, Quaternion.identity);
             }
         }
     }
