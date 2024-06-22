@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utils;
 using Constant;
+using Unity.VisualScripting;
 
 namespace Scenes.InScene.Manager
 {
@@ -13,17 +14,27 @@ namespace Scenes.InScene.Manager
         public GameObject _vrPlayerPrefab;
         public GameObject _pcPlayerPrefab;
 
+        public static InSceneManager Instance;
+        [HideInInspector] public GameObject playerObject;
+
         void Start()
         {
+            //インスタンス
+            if (Instance == null) Instance = this;
+            else Destroy(this.gameObject);
+
             //プレイヤースポーン
             if (SystemData.Instance.sceneMode == SceneMode.VR)
             {
-                Instantiate(_vrPlayerPrefab, _playerPosition.transform.position, Quaternion.identity);
+                playerObject = Instantiate(_vrPlayerPrefab, _playerPosition.transform.position, Quaternion.identity);
             }
             else if (SystemData.Instance.sceneMode == SceneMode.PC)
             {
-                Instantiate(_pcPlayerPrefab, _playerPosition.transform.position, Quaternion.identity);
+                playerObject = Instantiate(_pcPlayerPrefab, _playerPosition.transform.position, Quaternion.identity);
             }
+
+            //スポナー削除
+            Destroy(_playerPosition);
         }
     }
 }
