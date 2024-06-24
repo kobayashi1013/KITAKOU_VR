@@ -590,7 +590,7 @@ MonoBehaviour:
   _playerPosition: {fileID: 1985309065}
   _vrPlayerPrefab: {fileID: 2814109903584468359, guid: af02ea87c1f3c4c48b4e5fbbe838a393, type: 3}
   _pcPlayerPrefab: {fileID: 1717615204849754559, guid: f0a7539159cc37841b8418ab2dcbd6b7, type: 3}
-  PlayerObject: {fileID: 0}
+  playerObject: {fileID: 0}
 --- !u!114 &1730811610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -606,9 +606,9 @@ MonoBehaviour:
   _floorSet: {fileID: 1691151317}
   _mortonModelObject: {fileID: 2002584205}
   _avaterPrefab: {fileID: 2703912922696878516, guid: 52b71038a8fa97d4da51b08d1fdf5c26, type: 3}
-  _depthX: 8
-  _depthY: 8
-  _depthZ: 8
+  _depthX: 4
+  _depthY: 2
+  _depthZ: 4
 --- !u!1001 &1884873252
 PrefabInstance:
   m_ObjectHideFlags: 0

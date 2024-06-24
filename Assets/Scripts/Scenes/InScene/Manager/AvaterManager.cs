@@ -85,7 +85,7 @@ namespace Scenes.InScene.Manager
                     lengthZ = _matWidthZ;
                     while (lengthZ < transform.localScale.z * PLANEOBJECT_SCALERATE)
                     {
-                        //À•W‚Ì‰ñ“]
+                        //À•W’²ß
                         var position = new Vector3(
                             basePosition.x + lengthX - _matWidthX / 2,
                             basePosition.y,
