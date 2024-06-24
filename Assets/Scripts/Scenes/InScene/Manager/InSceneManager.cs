@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utils;
 using Constant;
-using Unity.VisualScripting;
 
 namespace Scenes.InScene.Manager
 {
@@ -17,7 +16,7 @@ namespace Scenes.InScene.Manager
         public static InSceneManager Instance;
         [HideInInspector] public GameObject playerObject;
 
-        void Start()
+        private void Start()
         {
             //インスタンス
             if (Instance == null) Instance = this;
