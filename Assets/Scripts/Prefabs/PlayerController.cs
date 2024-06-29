@@ -4,7 +4,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-namespace Scenes.InScene
+namespace Prefabs
 {
     public class PlayerController : MonoBehaviour
     {

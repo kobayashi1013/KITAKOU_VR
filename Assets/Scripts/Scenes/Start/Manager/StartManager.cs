@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using Utils;
 using Constant;
 
-namespace Start.Manager
+namespace Scenes.Start.Manager
 {
     public class StartManager : MonoBehaviour
     {
