@@ -6,7 +6,7 @@ using UnityEngine.Pool;
 using UniRx;
 using UniRx.Triggers;
 
-namespace Scenes.InScene.Manager
+namespace Scenes.InMain.Manager
 {
     public class AvaterManager : MonoBehaviour
     {

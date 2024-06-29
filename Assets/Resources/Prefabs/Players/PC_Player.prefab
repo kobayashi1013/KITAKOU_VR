@@ -165,5 +165,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterController: {fileID: 2814970413368284130}
+  _playerCamera: {fileID: 3222775981789473197}
   _playerRotationSensitive: 1
   _playerSpeed: 3

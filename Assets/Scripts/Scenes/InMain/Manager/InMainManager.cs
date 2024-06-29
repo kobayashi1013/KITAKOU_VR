@@ -4,7 +4,7 @@ using UnityEngine;
 using Utils;
 using Constant;
 
-namespace Scenes.InScene.Manager
+namespace Scenes.InMain.Manager
 {
     public class InMainManager : MonoBehaviour
     {
