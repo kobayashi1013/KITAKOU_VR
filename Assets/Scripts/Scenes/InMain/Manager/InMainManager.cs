@@ -6,14 +6,14 @@ using Constant;
 
 namespace Scenes.InScene.Manager
 {
-    public class InSceneManager : MonoBehaviour
+    public class InMainManager : MonoBehaviour
     {
         [Header("Players")]
         public GameObject _playerPosition;
         public GameObject _vrPlayerPrefab;
         public GameObject _pcPlayerPrefab;
 
-        public static InSceneManager Instance;
+        public static InMainManager Instance;
         [HideInInspector] public GameObject playerObject;
 
         private void Start()

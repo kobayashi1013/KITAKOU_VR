@@ -47,7 +47,7 @@ namespace Scenes.InScene.Manager
         {
             //プレイヤー空間変更の監視
             this.FixedUpdateAsObservable()
-                .Select(_ => ConvertToMortonModelPosition(InSceneManager.Instance.playerObject.transform.position))
+                .Select(_ => ConvertToMortonModelPosition(InMainManager.Instance.playerObject.transform.position))
                 .Where(x => GetSpaceNumber3D(x) != _prevPlayerSpaceNumber)
                 .Subscribe(x => CreateAvater(x));
 

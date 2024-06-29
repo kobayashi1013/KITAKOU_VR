@@ -26,7 +26,7 @@ namespace Start.Manager
             SystemData.Instance.SetSceneMode(SceneMode.VR);
 
             //メインシーンへ移動
-            SceneManager.LoadScene((int)SceneName.InScene);
+            SceneManager.LoadScene((int)SceneName.InMainScene);
         }
 
         public void PushPcButton()
@@ -37,7 +37,7 @@ namespace Start.Manager
             SystemData.Instance.SetSceneMode(SceneMode.PC);
 
             //メインシーンへ移動
-            SceneManager.LoadScene((int)SceneName.InScene);
+            SceneManager.LoadScene((int)SceneName.InMainScene);
         }
     }
 }
