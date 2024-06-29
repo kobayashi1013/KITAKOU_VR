@@ -39,5 +39,10 @@ namespace Scenes.Start.Manager
             //ƒƒCƒ“ƒV[ƒ“‚ÖˆÚ“®
             SceneManager.LoadScene((int)SceneName.InMainScene);
         }
+
+        public void PushSettingButton()
+        {
+            SceneManager.LoadScene((int)SceneName.BasicSettingScene);
+        }
     }
 }
