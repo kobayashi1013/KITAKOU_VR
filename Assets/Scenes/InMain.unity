@@ -527,7 +527,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1691151318}
   m_Layer: 0
-  m_Name: FloorSet
+  m_Name: AvaterSet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -657,7 +657,7 @@ GameObject:
   - component: {fileID: 1730811609}
   - component: {fileID: 1730811610}
   m_Layer: 0
-  m_Name: InSceneManager
+  m_Name: InMainManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -706,7 +706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a7f5ebfa062684a9d56907e3a1e2e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _floorSet: {fileID: 1691151317}
+  _avaterSet: {fileID: 1691151317}
   _mortonModelObject: {fileID: 1717284914}
   _avaterPrefab: {fileID: 2703912922696878516, guid: 52b71038a8fa97d4da51b08d1fdf5c26, type: 3}
   _depthX: 4

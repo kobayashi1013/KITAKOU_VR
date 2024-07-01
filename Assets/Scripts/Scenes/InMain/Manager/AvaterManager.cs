@@ -24,7 +24,7 @@ namespace Scenes.InMain.Manager
         }
 
         [Header("Scene Objects")]
-        [SerializeField] private GameObject _floorSet; //スポーン床集合
+        [SerializeField] private GameObject _avaterSet; //アバター集合
         [SerializeField] private GameObject _mortonModelObject; //モートンモデル
         [Header("Prefabs")]
         [SerializeField] private GameObject _avaterPrefab;
@@ -53,7 +53,7 @@ namespace Scenes.InMain.Manager
 
             //オブジェクトプール設定
             _avaterPool = new ObjectPool<GameObject>(
-                createFunc: () => Instantiate(_avaterPrefab),
+                createFunc: () => Instantiate(_avaterPrefab, _avaterSet.transform),
                 actionOnGet: target => target.SetActive(true),
                 actionOnRelease: target => target.SetActive(false),
                 actionOnDestroy: target => Destroy(target));
@@ -64,7 +64,7 @@ namespace Scenes.InMain.Manager
             Destroy(_mortonModelObject);
 
             //座標回収
-            var seedFloorTransformList = new List<Transform>(_floorSet.transform.Cast<Transform>());
+            var seedFloorTransformList = new List<Transform>(_avaterSet.transform.Cast<Transform>());
             foreach (var transform in seedFloorTransformList)
             {
                 //SeedFloorのベースポイント
