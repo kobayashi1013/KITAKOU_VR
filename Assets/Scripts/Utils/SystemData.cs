@@ -1,4 +1,7 @@
 using Constant;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
 
 namespace Utils
 {
@@ -6,20 +9,38 @@ namespace Utils
     {
         public static SystemData Instance;
         public SceneMode sceneMode { get; private set; }
-        public float width1 { get; private set; }
-        public float width2 { get; private set; }
+        public Dictionary<string, RoomData> roomDataList = new Dictionary<string, RoomData>();
+
+        public SystemData()
+        {
+            //RoomDataì«Ç›çûÇ›
+            var csvFile = Resources.Load("Csv/RoomDataCsv") as TextAsset;
+            var csvData = new List<string[]>();
+            var roomData = new RoomData();
+            var reader = new StringReader(csvFile.text);
+
+            int height = 0;
+            while (reader.Peek() > -1)
+            {
+                string line = reader.ReadLine();
+                csvData.Add(line.Split(','));
+                height++;
+            }
+
+            for (int i = 0; i < height; i++)
+            {
+                roomData.name = csvData[i][1];
+                roomData.width0 = 1.0f;
+                roomData.width1 = 1.0f;
+
+                roomDataList.Add(csvData[i][0], roomData);
+            }
+        }
 
         public void SetSceneMode(SceneMode mode)
         {
             //Debug.Log("SetSceneMode(" + mode + ")");
             sceneMode = mode;
-        }
-
-        private void SetWidth(float w1, float w2)
-        {
-            //Debug.Log(w1 + " : " + w2);
-            width1 = w1;
-            width2 = w2;
         }
     }
 }
