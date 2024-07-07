@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 using UniRx;
 using UniRx.Triggers;
+using Utils;
 
 namespace Scenes.InMain.Manager
 {
@@ -40,8 +41,6 @@ namespace Scenes.InMain.Manager
         private Dictionary<int, List<GameObject>> _avaterPoolObjectSet = new Dictionary<int, List<GameObject>>(); //オブジェクトプール用の辞書
         private List<int> _prevNeighborSpaceNumbers = new List<int>();
         private int _prevPlayerSpaceNumber = -1; //前インターバルのプレイヤー空間
-        private float _matWidthX = 1f;
-        private float _matWidthZ = 1f;
 
         private void Start()
         {
@@ -64,36 +63,36 @@ namespace Scenes.InMain.Manager
             Destroy(_mortonModelObject);
 
             //座標回収
-            var seedFloorTransformList = new List<Transform>(_avaterSet.transform.Cast<Transform>());
-            foreach (var transform in seedFloorTransformList)
+            var seedFloorList = FindObjectsOfType<RoomId>();
+            foreach (var floor in seedFloorList)
             {
                 //SeedFloorのベースポイント
                 var basePosition = new Vector3(
-                    transform.position.x - transform.localScale.x / 2 * PLANEOBJECT_SCALERATE,
-                    transform.position.y,
-                    transform.position.z - transform.localScale.z / 2 * PLANEOBJECT_SCALERATE);
+                    floor.transform.position.x - floor.transform.localScale.x / 2 * PLANEOBJECT_SCALERATE,
+                    floor.transform.position.y,
+                    floor.transform.position.z - floor.transform.localScale.z / 2 * PLANEOBJECT_SCALERATE);
 
                 //SeedFloorの回転
-                Quaternion rotation = Quaternion.AngleAxis(transform.eulerAngles.y, Vector3.up);
+                Quaternion rotation = Quaternion.AngleAxis(floor.transform.eulerAngles.y, Vector3.up);
 
                 //座標配置
-                float lengthX = _matWidthX;
-                float lengthZ = _matWidthZ;
+                float lengthX = SystemData.Instance.roomDataList[floor.roomId].width0;
+                float lengthZ = SystemData.Instance.roomDataList[floor.roomId].width1;
 
-                while (lengthX < transform.localScale.x * PLANEOBJECT_SCALERATE)
+                while (lengthX < floor.transform.localScale.x * PLANEOBJECT_SCALERATE)
                 {
-                    lengthZ = _matWidthZ;
-                    while (lengthZ < transform.localScale.z * PLANEOBJECT_SCALERATE)
+                    lengthZ = SystemData.Instance.roomDataList[floor.roomId].width1;
+                    while (lengthZ < floor.transform.localScale.z * PLANEOBJECT_SCALERATE)
                     {
                         //座標調節
                         var position = new Vector3(
-                            basePosition.x + lengthX - _matWidthX / 2,
+                            basePosition.x + lengthX - SystemData.Instance.roomDataList[floor.roomId].width0 / 2,
                             basePosition.y,
-                            basePosition.z + lengthZ - _matWidthZ / 2);
+                            basePosition.z + lengthZ - SystemData.Instance.roomDataList[floor.roomId].width1 / 2);
 
-                        var offset = position - transform.position;
+                        var offset = position - floor.transform.position;
                         offset = rotation * offset;
-                        position = offset + transform.position;
+                        position = offset + floor.transform.position;
 
                         //座標の登録
                         var mortonModelPosition = ConvertToMortonModelPosition(position); //モートンモデル座標に変換
@@ -106,13 +105,13 @@ namespace Scenes.InMain.Manager
 
                         _avaterPositionSet[mortonSpaceNumber].Add(position); //座標の登録
 
-                        lengthZ += _matWidthZ;
+                        lengthZ += SystemData.Instance.roomDataList[floor.roomId].width1;
                     }
 
-                    lengthX += _matWidthX;
+                    lengthX += SystemData.Instance.roomDataList[floor.roomId].width0;
                 }
 
-                Destroy(transform.gameObject);
+                Destroy(floor.transform.gameObject);
             }
         }
 

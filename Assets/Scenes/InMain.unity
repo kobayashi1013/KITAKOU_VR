@@ -713,9 +713,9 @@ MonoBehaviour:
   _avaterSet: {fileID: 1691151317}
   _mortonModelObject: {fileID: 1717284914}
   _avaterPrefab: {fileID: 2703912922696878516, guid: 52b71038a8fa97d4da51b08d1fdf5c26, type: 3}
-  _depthX: 32
+  _depthX: 4
   _depthY: 4
-  _depthZ: 32
+  _depthZ: 4
 --- !u!1001 &1884873252
 PrefabInstance:
   m_ObjectHideFlags: 0
