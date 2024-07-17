@@ -813,7 +813,7 @@ GameObject:
   - component: {fileID: 564161471}
   - component: {fileID: 564161472}
   m_Layer: 0
-  m_Name: StartManager
+  m_Name: Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

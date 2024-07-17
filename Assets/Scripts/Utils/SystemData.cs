@@ -1,7 +1,7 @@
-using Constant;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using Constant;
 
 namespace Utils
 {
@@ -30,6 +30,7 @@ namespace Utils
             for (int i = 0; i < height; i++)
             {
                 roomData.name = csvData[i][1];
+                roomData.state = RoomState.Student;
                 roomData.width0 = 1.0f;
                 roomData.width1 = 1.0f;
 
