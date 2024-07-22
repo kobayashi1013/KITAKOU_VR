@@ -1,4 +1,6 @@
-namespace Constant
+using Constant;
+
+namespace Struct
 {
     public struct RoomData
     {

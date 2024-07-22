@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using Constant;
 using TMPro;
 using Utils;
+using Struct;
 
 namespace Scenes.LocationSetting.Manager
 {
