@@ -4,7 +4,7 @@ using UnityEngine;
 using Utils;
 using Constant;
 
-namespace Scenes.InMain.Manager
+namespace Scenes.InMain
 {
     public class InMainManager : MonoBehaviour
     {
@@ -14,7 +14,7 @@ namespace Scenes.InMain.Manager
         public GameObject _pcPlayerPrefab;
 
         public static InMainManager Instance;
-        [HideInInspector] public GameObject playerObject;
+        public GameObject playerObject { get; private set; }
 
         private void Start()
         {

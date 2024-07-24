@@ -7,7 +7,7 @@ using UniRx;
 using UniRx.Triggers;
 using Utils;
 
-namespace Scenes.InMain.Manager
+namespace Scenes.InMain
 {
     public class AvaterManager : MonoBehaviour
     {

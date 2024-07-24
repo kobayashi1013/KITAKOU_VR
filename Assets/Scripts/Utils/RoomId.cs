@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Scenes.LocationSetting.Manager;
+using Scenes.LocationSetting;
 
 namespace Utils
 {

@@ -1,6 +1,6 @@
 namespace Constant
 {
-    public enum RoomState
+    public enum RoomState : int
     {
         Student,
         People,

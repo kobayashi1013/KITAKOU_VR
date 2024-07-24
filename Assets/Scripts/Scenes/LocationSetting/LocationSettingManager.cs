@@ -7,8 +7,9 @@ using Constant;
 using TMPro;
 using Utils;
 using Struct;
+using System;
 
-namespace Scenes.LocationSetting.Manager
+namespace Scenes.LocationSetting
 {
     public class LocationSettingManager : MonoBehaviour
     {
@@ -17,6 +18,7 @@ namespace Scenes.LocationSetting.Manager
 
         [Header("SceneObject")]
         [SerializeField] private TMP_Text _roomNameText;
+        [SerializeField] private TMP_Dropdown _roomState;
         [SerializeField] private TMP_Text _widthValueText0;
         [SerializeField] private TMP_Text _widthValueText1;
         [SerializeField] private Slider _widthSlider0;
@@ -51,6 +53,11 @@ namespace Scenes.LocationSetting.Manager
             LoadRoomData(id);
 
             _prevRoomId = id;
+        }
+
+        public void OnChangeStateButton()
+        {
+
         }
 
         public void MoveSlider0()
@@ -103,8 +110,11 @@ namespace Scenes.LocationSetting.Manager
         /// <param name="id"></param>
         private void LoadRoomData(string id)
         {
+            //ïîâÆñº
             _roomNameText.text = SystemData.Instance.roomDataList[id].name;
 
+            //ïîâÆèÛë‘
+            _roomState.value = (int)SystemData.Instance.roomDataList[id].state;
             _widthValueText0.text = SystemData.Instance.roomDataList[id].width0.ToString("F1");
             _widthSlider0.value = SystemData.Instance.roomDataList[id].width0;
 
@@ -122,6 +132,7 @@ namespace Scenes.LocationSetting.Manager
 
             var roomData = new RoomData();
             roomData.name = SystemData.Instance.roomDataList[id].name;
+            roomData.state = (RoomState)Enum.ToObject(typeof(RoomState), _roomState.value);
             roomData.width0 = float.Parse(_widthValueText0.text);
             roomData.width1 = float.Parse(_widthValueText1.text);
 

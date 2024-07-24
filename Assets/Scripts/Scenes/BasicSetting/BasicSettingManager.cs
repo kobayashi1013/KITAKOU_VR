@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Constant;
 
-namespace Scenes.BasicSetting.Manager
+namespace Scenes.BasicSetting
 {
     public class BasicSettingManager : MonoBehaviour
     {
