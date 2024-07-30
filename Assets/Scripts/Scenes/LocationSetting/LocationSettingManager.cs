@@ -17,6 +17,8 @@ namespace Scenes.LocationSetting
         public static readonly float WIDTH_VALUE_MAX = 5.0f;
 
         [Header("SceneObject")]
+        [SerializeField] private GameObject _contentObject;
+        [SerializeField] private TMP_Text _avaterTotallingText;
         [SerializeField] private TMP_Text _roomNameText;
         [SerializeField] private TMP_Dropdown _roomState;
         [SerializeField] private TMP_Text _widthValueText0;
@@ -33,6 +35,9 @@ namespace Scenes.LocationSetting
         {
             if (Instance == null) Instance = this;
             else Destroy(this.gameObject);
+
+            _contentObject.SetActive(false);
+            _avaterTotallingText.text = "収容人数：" + SystemData.Instance.avaterTotallingNum.ToString();
         }
 
         public void PushBasicSettingButton()
@@ -49,13 +54,23 @@ namespace Scenes.LocationSetting
 
         public void PushRoomButtons(string id)
         {
-            SaveRoomData(_prevRoomId);
-            LoadRoomData(id);
+            //部屋コンフィグの表示
+            if (_contentObject.activeSelf == false) _contentObject.SetActive(true);
+            
+            //部屋データのロード
+            SaveRoomData(_prevRoomId); //前の部屋のデータをセーブする。
+            LoadRoomData(id); //次の部屋のデータをロードする
 
-            _prevRoomId = id;
+            _prevRoomId = id; //現在の部屋インデックスを記録
         }
 
-        public void OnChangeStateButton()
+        public void PushAvaterTotallingButton()
+        {
+            SaveRoomData(_prevRoomId);
+            SceneManager.LoadScene((int)SceneName.AvaterTotallingScene);
+        }
+
+        public void PushChangeStateButton()
         {
 
         }

@@ -4,7 +4,7 @@ namespace Constant
     {
         StartScene,
         InMainScene,
-        AvaterTotalling,
+        AvaterTotallingScene,
         BasicSettingScene,
         LocationSettingScene,
     }

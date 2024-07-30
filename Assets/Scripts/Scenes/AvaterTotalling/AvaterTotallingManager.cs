@@ -36,8 +36,8 @@ namespace Scenes.AvaterTotalling
                 }
             }
 
-            Debug.Log(avaterNum);
-            SceneManager.LoadScene((int)SceneName.StartScene);
+            SystemData.Instance.SetAvaterTotallingNum(avaterNum);
+            SceneManager.LoadScene((int)SceneName.LocationSettingScene);
         }
     }
 }

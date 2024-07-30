@@ -10,6 +10,7 @@ namespace Utils
     {
         public static SystemData Instance;
         public SceneMode sceneMode { get; private set; }
+        public int avaterTotallingNum { get; private set; }
         public Dictionary<string, RoomData> roomDataList = new Dictionary<string, RoomData>();
 
         public SystemData()
@@ -43,6 +44,12 @@ namespace Utils
         {
             //Debug.Log("SetSceneMode(" + mode + ")");
             sceneMode = mode;
+        }
+
+        public void SetAvaterTotallingNum(int num)
+        {
+            //Debug.Log("SetAvaterTotallingNum(" + num + ")");
+            avaterTotallingNum = num;
         }
     }
 }
