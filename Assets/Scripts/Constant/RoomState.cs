@@ -4,7 +4,6 @@ namespace Constant
     {
         Student,
         People,
-        Fire,
         Empty,
     }
 }

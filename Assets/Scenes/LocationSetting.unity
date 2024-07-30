@@ -295,8 +295,6 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: "\u4E00\u822C\u4EBA\u30A8\u30EA\u30A2"
       m_Image: {fileID: 0}
-    - m_Text: "\u706B\u707D"
-      m_Image: {fileID: 0}
     - m_Text: "\u914D\u7F6E\u306A\u3057"
       m_Image: {fileID: 0}
   m_OnValueChanged:
