@@ -531,7 +531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1691151318}
   m_Layer: 0
-  m_Name: AvaterSet
+  m_Name: ObjectSet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -660,6 +660,7 @@ GameObject:
   - component: {fileID: 1730811608}
   - component: {fileID: 1730811609}
   - component: {fileID: 1730811610}
+  - component: {fileID: 1730811611}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -706,10 +707,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 1730811607}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 514dc55061c663f499bc8e545c3c3900, type: 3}
+  m_Script: {fileID: 11500000, guid: 84a7f5ebfa062684a9d56907e3a1e2e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mortonModelObject: {fileID: 1717284914}
+  _objectSetTransform: {fileID: 1691151318}
+  _mortonModelTransform: {fileID: 1717284918}
+  _objectPrefab: {fileID: 2703912922696878516, guid: 52b71038a8fa97d4da51b08d1fdf5c26, type: 3}
+  _objectRole: 0
+  _depthX: 8
+  _depthY: 8
+  _depthZ: 8
+--- !u!114 &1730811611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730811607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a7f5ebfa062684a9d56907e3a1e2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectSetTransform: {fileID: 1691151318}
+  _mortonModelTransform: {fileID: 1717284918}
+  _objectPrefab: {fileID: 6976241030112532633, guid: aac99bcd0b5d83a44beff2208c95b4b6, type: 3}
+  _objectRole: 1
+  _depthX: 8
+  _depthY: 8
+  _depthZ: 8
 --- !u!1001 &1884873252
 PrefabInstance:
   m_ObjectHideFlags: 0

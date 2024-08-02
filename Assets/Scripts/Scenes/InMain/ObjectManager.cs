@@ -6,13 +6,13 @@ using UnityEngine.Pool;
 using UniRx;
 using UniRx.Triggers;
 using Utils;
+using Constant;
 
 namespace Scenes.InMain
 {
-    public class AvaterManager : MonoBehaviour
+    public class ObjectManager : MonoBehaviour
     {
         private static readonly int PLANEOBJECT_SCALERATE = 10; //プレーンオブジェクトのスケール比率
-        private static readonly Vector3 _restrictY = new Vector3(1, 0, 1);
 
         private enum MortonModelDepth
         {
@@ -25,19 +25,20 @@ namespace Scenes.InMain
         }
 
         [Header("Scene Objects")]
-        [SerializeField] private GameObject _avaterSet; //アバター集合
-        [SerializeField] private GameObject _mortonModelObject; //モートンモデル
+        [SerializeField] private Transform _objectSetTransform; //オブジェクトセット
+        [SerializeField] private Transform _mortonModelTransform; //モートンモデル
         [Header("Prefabs")]
-        [SerializeField] private GameObject _avaterPrefab;
+        [SerializeField] private GameObject _objectPrefab;
         [Header("Parameters")]
+        [SerializeField] private RoomState _objectRole;
         [SerializeField] private MortonModelDepth _depthX = MortonModelDepth.depth8;
         [SerializeField] private MortonModelDepth _depthY = MortonModelDepth.depth8;
         [SerializeField] private MortonModelDepth _depthZ = MortonModelDepth.depth8;
 
-        private ObjectPool<GameObject> _avaterPool; //アバター収納
+        private ObjectPool<GameObject> _objectPool; //オブジェクト収納
         private Vector3 _mortonModelAnchor; //モートンモデルの端
         private Vector3 _mortonModelScale; //モートンモデルスケール
-        private Dictionary<int, List<Vector3>> _avaterPositionSet = new Dictionary<int, List<Vector3>>(); //アバターの座標集合
+        private Dictionary<int, List<Vector3>> _objectPositionSet = new Dictionary<int, List<Vector3>>(); //アバターの座標集合
         private Dictionary<int, List<GameObject>> _avaterPoolObjectSet = new Dictionary<int, List<GameObject>>(); //オブジェクトプール用の辞書
         private List<int> _prevNeighborSpaceNumbers = new List<int>();
         private int _prevPlayerSpaceNumber = -1; //前インターバルのプレイヤー空間
@@ -51,21 +52,28 @@ namespace Scenes.InMain
                 .Subscribe(x => CreateAvater(x));
 
             //オブジェクトプール設定
-            _avaterPool = new ObjectPool<GameObject>(
-                createFunc: () => Instantiate(_avaterPrefab, _avaterSet.transform),
+            _objectPool = new ObjectPool<GameObject>(
+                createFunc: () => Instantiate(_objectPrefab, _objectSetTransform),
                 actionOnGet: target => target.SetActive(true),
                 actionOnRelease: target => target.SetActive(false),
                 actionOnDestroy: target => Destroy(target));
 
             //モートンモデル空間定義（座標）
-            _mortonModelAnchor = _mortonModelObject.transform.position - _mortonModelObject.transform.localScale / 2; //端座標
-            _mortonModelScale = _mortonModelObject.transform.localScale; //ローカルスケール
-            Destroy(_mortonModelObject);
+            _mortonModelAnchor = _mortonModelTransform.transform.position - _mortonModelTransform.transform.localScale / 2; //端座標
+            _mortonModelScale = _mortonModelTransform.transform.localScale; //ローカルスケール
+            Destroy(_mortonModelTransform.gameObject);
 
             //座標回収
             var seedFloorList = FindObjectsOfType<RoomId>();
             foreach (var floor in seedFloorList)
             {
+                //オブジェクト判定
+                if (SystemData.Instance.roomDataList[floor.roomId].state != _objectRole)
+                {
+                    Destroy(floor.gameObject);
+                    continue;
+                }
+
                 //SeedFloorのベースポイント
                 var basePosition = new Vector3(
                     floor.transform.position.x - floor.transform.localScale.x / 2 * PLANEOBJECT_SCALERATE,
@@ -98,12 +106,12 @@ namespace Scenes.InMain
                         var mortonModelPosition = ConvertToMortonModelPosition(position); //モートンモデル座標に変換
                         var mortonSpaceNumber = GetSpaceNumber3D(mortonModelPosition); //スペース番号の取得
 
-                        if (!_avaterPositionSet.ContainsKey(mortonSpaceNumber)) //辞書の追加
+                        if (!_objectPositionSet.ContainsKey(mortonSpaceNumber)) //辞書の追加
                         {
-                            _avaterPositionSet.Add(mortonSpaceNumber, new List<Vector3>());
+                            _objectPositionSet.Add(mortonSpaceNumber, new List<Vector3>());
                         }
 
-                        _avaterPositionSet[mortonSpaceNumber].Add(position); //座標の登録
+                        _objectPositionSet[mortonSpaceNumber].Add(position); //座標の登録
 
                         lengthZ += SystemData.Instance.roomDataList[floor.roomId].width1;
                     }
@@ -172,16 +180,16 @@ namespace Scenes.InMain
             var removeSpaceNumbers = _prevNeighborSpaceNumbers.Except(neighborSpaceNumbers).ToList();
             _prevNeighborSpaceNumbers = new List<int>(neighborSpaceNumbers);
 
-            //アバター削除
+            //オブジェクト削除
             foreach (var spaceNumber in removeSpaceNumbers)
             {
                 //キー確認
-                if (!_avaterPositionSet.ContainsKey(spaceNumber)) continue;
+                if (!_objectPositionSet.ContainsKey(spaceNumber)) continue;
 
                 //オブジェクト削除
                 foreach (var avater in _avaterPoolObjectSet[spaceNumber])
                 {
-                    _avaterPool.Release(avater);
+                    _objectPool.Release(avater);
                 }
 
                 //キー開放
@@ -192,13 +200,13 @@ namespace Scenes.InMain
             foreach (var spaceNumber in addSpaceNumbers)
             {
                 //キー確認
-                if (!_avaterPositionSet.ContainsKey(spaceNumber)) continue;
+                if (!_objectPositionSet.ContainsKey(spaceNumber)) continue;
 
                 //アバター追加
-                foreach (var otherPosition in _avaterPositionSet[spaceNumber])
+                foreach (var otherPosition in _objectPositionSet[spaceNumber])
                 {
                     //オブジェクト追加
-                    var avater = _avaterPool.Get();
+                    var avater = _objectPool.Get();
                     avater.transform.position = otherPosition;
                     avater.transform.rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
 
