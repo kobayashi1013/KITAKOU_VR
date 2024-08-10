@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 2896757174422642069}
   m_Layer: 0
   m_Name: PC_Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -164,7 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d1ecfac7d2ea34fb013a4667a672d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layer:
+    serializedVersion: 2
+    m_Bits: 64
   _characterController: {fileID: 2814970413368284130}
-  _playerCamera: {fileID: 3222775981789473197}
   _playerRotationSensitive: 1
   _playerSpeed: 3

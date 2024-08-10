@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using Unity.VisualScripting;
+using System.Linq;
 
 namespace Prefabs
 {
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField] LayerMask layer;
         private static readonly float _gravity = 9.81f;
 
         [Header("Components")]
@@ -40,6 +43,20 @@ namespace Prefabs
             else _yVelocity -= _gravity * Time.deltaTime; //‹ó’†
 
             return _yVelocity;
+        }
+
+        /*private void FixedUpdate()
+        {
+            Collider[] hits = Physics.OverlapSphere(transform.position, 0.5f, layer);
+            foreach (var hit in hits)
+            {
+                hit.gameObject.transform.Translate((hit.gameObject.transform.position - this.transform.position) * 0.01f);
+            }
+        }*/
+
+        private void Update()
+        {
+            //Time.deltaTime‚ðŽg‚¤•û–@
         }
     }
 }
