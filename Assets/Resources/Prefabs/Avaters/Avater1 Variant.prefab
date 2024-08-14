@@ -482,15 +482,18 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c1ddc597a5d3c0645bea4104ea5837a5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8387857657518472412}
+      addedObject: {fileID: 1094806631886885767}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c1ddc597a5d3c0645bea4104ea5837a5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9086613316425715996}
   m_SourcePrefab: {fileID: 100100000, guid: c1ddc597a5d3c0645bea4104ea5837a5, type: 3}
 --- !u!1 &2703912922696878516 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c1ddc597a5d3c0645bea4104ea5837a5, type: 3}
   m_PrefabInstance: {fileID: 2974438076176315621}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &8387857657518472412
-CapsuleCollider:
+--- !u!143 &1094806631886885767
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -507,8 +510,24 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3
+  serializedVersion: 3
   m_Height: 1.8
-  m_Direction: 1
+  m_Radius: 0.3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.001
+  m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &9086613316425715996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2703912922696878516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af9c8a0f544a79145ba82a36c44e6797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterCntroller: {fileID: 1094806631886885767}

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
-using Unity.VisualScripting;
-using System.Linq;
+using Prefabs.Avater;
 
 namespace Prefabs
 {
@@ -12,6 +11,7 @@ namespace Prefabs
     {
         [SerializeField] LayerMask layer;
         private static readonly float _gravity = 9.81f;
+        private static readonly float _colliderRange = 0.8f; //プレイヤーの周囲ぶつかり範囲
 
         [Header("Components")]
         [SerializeField] private CharacterController _characterController;
@@ -20,6 +20,8 @@ namespace Prefabs
         [SerializeField] private float _playerSpeed = 1.0f; //スピード
 
         private float _yVelocity = 0f;
+        private List<AvaterController> _avaterControllerList = new List<AvaterController>();
+        private float _collectionTime = 0f;
 
         void Start ()
         {
@@ -34,6 +36,10 @@ namespace Prefabs
                 .Select(x => new Vector3(Input.GetAxis("Horizontal"), x, Input.GetAxis("Vertical")) * _playerSpeed)
                 .Select(x => transform.TransformDirection(x))
                 .Subscribe(x => _characterController.Move(x * Time.deltaTime));
+
+            //周囲のアバターを押しのける
+            this.FixedUpdateAsObservable()
+                .Subscribe(x => AvaterMover(Time.fixedDeltaTime));
         }
 
         //重力
@@ -45,18 +51,35 @@ namespace Prefabs
             return _yVelocity;
         }
 
-        /*private void FixedUpdate()
+        /// <summary>
+        /// アバターを押しのける処理
+        /// </summary>
+        /// <param name="deltaTime"></param>　//インターバル時間
+        private void AvaterMover(float deltaTime)
         {
-            Collider[] hits = Physics.OverlapSphere(transform.position, 0.5f, layer);
-            foreach (var hit in hits)
-            {
-                hit.gameObject.transform.Translate((hit.gameObject.transform.position - this.transform.position) * 0.01f);
-            }
-        }*/
+            _collectionTime += deltaTime;
 
-        private void Update()
-        {
-            //Time.deltaTimeを使う方法
+            if (_collectionTime >= 0.1f)
+            {
+                _collectionTime = 0f;
+                _avaterControllerList.Clear();
+
+                var hits = Physics.OverlapSphere(this.transform.position, _colliderRange, layer);
+                foreach (var hit in hits)
+                {
+                    _avaterControllerList.Add(hit.GetComponent<AvaterController>());
+                }
+            }
+
+            foreach (var controller in _avaterControllerList)
+            {
+                var direction = new Vector3(
+                    controller.transform.position.x - this.transform.position.x,
+                    0f,
+                    controller.transform.position.z - this.transform.position.z);
+
+                controller.Move(direction.normalized, deltaTime);
+            }
         }
     }
 }
