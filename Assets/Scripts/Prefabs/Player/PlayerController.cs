@@ -5,17 +5,17 @@ using UniRx;
 using UniRx.Triggers;
 using Prefabs.Avater;
 
-namespace Prefabs
+namespace Prefabs.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] LayerMask layer;
         private static readonly float _gravity = 9.81f;
         private static readonly float _colliderRange = 0.8f; //プレイヤーの周囲ぶつかり範囲
 
         [Header("Components")]
         [SerializeField] private CharacterController _characterController;
         [Header("Parameters")]
+        [SerializeField] LayerMask _avaterLayer; //アバターのレイヤー
         [SerializeField] private float _playerRotationSensitive = 1.0f; //感度
         [SerializeField] private float _playerSpeed = 1.0f; //スピード
 
@@ -31,10 +31,22 @@ namespace Prefabs
                 .Subscribe(x => transform.Rotate(0, x, 0));
 
             //プレイヤー移動
-            this.UpdateAsObservable()
+            /*this.UpdateAsObservable()
                 .Select(_ => UseGravity()) //重力
                 .Select(x => new Vector3(Input.GetAxis("Horizontal"), x, Input.GetAxis("Vertical")) * _playerSpeed)
                 .Select(x => transform.TransformDirection(x))
+                .Subscribe(x => _characterController.Move(x * Time.deltaTime));*/
+            //プレイヤー移動
+            this.UpdateAsObservable()
+                .Select(_ => new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")))
+                .Select(x => x * _playerSpeed * UseDash())
+                .Select(x => transform.TransformDirection(x))
+                .Subscribe(x => _characterController.Move(x * Time.deltaTime));
+
+            //重力
+            this.UpdateAsObservable()
+                .Select(_ => UseGravity())
+                .Select(x => new Vector3(0, x, 0))
                 .Subscribe(x => _characterController.Move(x * Time.deltaTime));
 
             //周囲のアバターを押しのける
@@ -52,6 +64,16 @@ namespace Prefabs
         }
 
         /// <summary>
+        /// ダッシュを使う
+        /// </summary>
+        /// <returns></returns>
+        private float UseDash()
+        {
+            if (Input.GetKey(KeyCode.LeftShift)) return 1.6f;
+            else return 1.0f;
+        }
+
+        /// <summary>
         /// アバターを押しのける処理
         /// </summary>
         /// <param name="deltaTime"></param>　//インターバル時間
@@ -64,7 +86,7 @@ namespace Prefabs
                 _collectionTime = 0f;
                 _avaterControllerList.Clear();
 
-                var hits = Physics.OverlapSphere(this.transform.position, _colliderRange, layer);
+                var hits = Physics.OverlapSphere(this.transform.position, _colliderRange, _avaterLayer);
                 foreach (var hit in hits)
                 {
                     _avaterControllerList.Add(hit.GetComponent<AvaterController>());
