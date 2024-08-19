@@ -10,7 +10,7 @@ namespace Utils
     {
         public static SystemData Instance;
         public SceneMode sceneMode { get; private set; }
-        public MortonModelDepth mortonModelDepth { get; private set; }
+        public MortonModelDepth mortonModelDepth { get; private set; } = MortonModelDepth.depth4;
         public int avaterTotallingNum { get; private set; }
         public Dictionary<string, RoomData> roomDataList = new Dictionary<string, RoomData>();
 
