@@ -10,6 +10,7 @@ namespace Utils
     {
         public static SystemData Instance;
         public SceneMode sceneMode { get; private set; }
+        public MortonModelDepth mortonModelDepth { get; private set; }
         public int avaterTotallingNum { get; private set; }
         public Dictionary<string, RoomData> roomDataList = new Dictionary<string, RoomData>();
 
@@ -44,6 +45,12 @@ namespace Utils
         {
             //Debug.Log("SetSceneMode(" + mode + ")");
             sceneMode = mode;
+        }
+
+        public void SetMortonModelDepth(MortonModelDepth depth)
+        {
+            //Debug.Log("SetMortonModelDepth(" + depth + ")");
+            mortonModelDepth = depth;
         }
 
         public void SetAvaterTotallingNum(int num)

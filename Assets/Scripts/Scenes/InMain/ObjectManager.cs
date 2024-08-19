@@ -13,16 +13,7 @@ namespace Scenes.InMain
     public class ObjectManager : MonoBehaviour
     {
         private static readonly int PLANEOBJECT_SCALERATE = 10; //プレーンオブジェクトのスケール比率
-
-        private enum MortonModelDepth
-        {
-            depth2 = 2,
-            depth4 = 4,
-            depth8 = 8,
-            depth16 = 16,
-            depth32 = 32,
-            depth64 = 64,
-        }
+        private static readonly int Y_DEPTH = 3; //三階建て
 
         [Header("Scene Objects")]
         [SerializeField] private Transform _objectSetTransform; //オブジェクトセット
@@ -31,9 +22,6 @@ namespace Scenes.InMain
         [SerializeField] private GameObject _objectPrefab;
         [Header("Parameters")]
         [SerializeField] private RoomState _objectRole;
-        [SerializeField] private MortonModelDepth _depthX = MortonModelDepth.depth8;
-        [SerializeField] private MortonModelDepth _depthY = MortonModelDepth.depth8;
-        [SerializeField] private MortonModelDepth _depthZ = MortonModelDepth.depth8;
 
         private ObjectPool<GameObject> _objectPool; //オブジェクト収納
         private Vector3 _mortonModelAnchor; //モートンモデルの端
@@ -127,9 +115,9 @@ namespace Scenes.InMain
         private Vector3 ConvertToMortonModelPosition(Vector3 position)
         {
             var mortonModelPosition = new Vector3(
-                (position.x - _mortonModelAnchor.x) / _mortonModelScale.x * (int)_depthX,
-                (position.y - _mortonModelAnchor.y) / _mortonModelScale.y * (int)_depthY,
-                (position.z - _mortonModelAnchor.z) / _mortonModelScale.z * (int)_depthZ);
+                (position.x - _mortonModelAnchor.x) / _mortonModelScale.x * (int)SystemData.Instance.mortonModelDepth,
+                (position.y - _mortonModelAnchor.y) / _mortonModelScale.y * (int)Y_DEPTH,
+                (position.z - _mortonModelAnchor.z) / _mortonModelScale.z * (int)SystemData.Instance.mortonModelDepth);
 
             return mortonModelPosition;
         }
@@ -137,9 +125,9 @@ namespace Scenes.InMain
         //モートン空間番号の取得
         private int GetSpaceNumber3D(Vector3 position)
         {
-            if (position.x < 0 || position.x >= (int)_depthX
-                || position.y < 0 || position.y >= (int)_depthY
-                || position.z < 0 || position.z >= (int)_depthZ) return -1;
+            if (position.x < 0 || position.x >= (int)SystemData.Instance.mortonModelDepth
+                || position.y < 0 || position.y >= (int)Y_DEPTH
+                || position.z < 0 || position.z >= (int)SystemData.Instance.mortonModelDepth) return -1;
 
             return BitSeparate3D((int)position.x)
                 | BitSeparate3D((int)position.y) << 1
