@@ -31,12 +31,6 @@ namespace Prefabs.Player
                 .Subscribe(x => transform.Rotate(0, x, 0));
 
             //プレイヤー移動
-            /*this.UpdateAsObservable()
-                .Select(_ => UseGravity()) //重力
-                .Select(x => new Vector3(Input.GetAxis("Horizontal"), x, Input.GetAxis("Vertical")) * _playerSpeed)
-                .Select(x => transform.TransformDirection(x))
-                .Subscribe(x => _characterController.Move(x * Time.deltaTime));*/
-            //プレイヤー移動
             this.UpdateAsObservable()
                 .Select(_ => new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")))
                 .Select(x => x * _playerSpeed * UseDash())

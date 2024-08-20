@@ -714,9 +714,6 @@ MonoBehaviour:
   _mortonModelTransform: {fileID: 1717284918}
   _objectPrefab: {fileID: 2703912922696878516, guid: 52b71038a8fa97d4da51b08d1fdf5c26, type: 3}
   _objectRole: 0
-  _depthX: 8
-  _depthY: 8
-  _depthZ: 8
 --- !u!114 &1730811611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -731,11 +728,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectSetTransform: {fileID: 1691151318}
   _mortonModelTransform: {fileID: 1717284918}
-  _objectPrefab: {fileID: 6976241030112532633, guid: aac99bcd0b5d83a44beff2208c95b4b6, type: 3}
+  _objectPrefab: {fileID: 3117790793098712572, guid: 7bf966d89797eb54f87a465e0db394d0, type: 3}
   _objectRole: 1
-  _depthX: 8
-  _depthY: 8
-  _depthZ: 8
 --- !u!1001 &1884873252
 PrefabInstance:
   m_ObjectHideFlags: 0
