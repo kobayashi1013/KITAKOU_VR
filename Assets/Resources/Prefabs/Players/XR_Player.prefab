@@ -687,8 +687,10 @@ GameObject:
   - component: {fileID: 3984355730510938641}
   - component: {fileID: 2576140810764176970}
   - component: {fileID: 6195094594401195837}
-  - component: {fileID: 2158997445996587890}
   - component: {fileID: 8523362034275993378}
+  - component: {fileID: 2158997445996587890}
+  - component: {fileID: 114796998743479953}
+  - component: {fileID: 1882129217298666539}
   m_Layer: 0
   m_Name: XR_Player
   m_TagString: Player
@@ -770,7 +772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_System: {fileID: 3984355730510938641}
-  m_MoveSpeed: 3
+  m_MoveSpeed: 1
   m_EnableStrafe: 1
   m_EnableFly: 0
   m_UseGravity: 1
@@ -838,6 +840,21 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 5679559465392274706, guid: f491e62db7fb1674489e2edf90ae73f2, type: 3}
+--- !u!114 &8523362034275993378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2814109903584468359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af6bf904e410ee8479f9093d8830d1f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LocomotionProvider: {fileID: 2576140810764176970}
+  m_MinHeight: 0
+  m_MaxHeight: Infinity
 --- !u!143 &2158997445996587890
 CharacterController:
   m_ObjectHideFlags: 0
@@ -857,14 +874,14 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 1.8
   m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8523362034275993378
+  m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &114796998743479953
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -873,12 +890,91 @@ MonoBehaviour:
   m_GameObject: {fileID: 2814109903584468359}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af6bf904e410ee8479f9093d8830d1f8, type: 3}
+  m_Script: {fileID: 11500000, guid: 24ce0f8c51db358409bcfa38576c7f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LocomotionProvider: {fileID: 2576140810764176970}
-  m_MinHeight: 0
-  m_MaxHeight: Infinity
+  _avaterLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _playerSpeed: 2
+--- !u!114 &1882129217298666539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2814109903584468359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: f491e62db7fb1674489e2edf90ae73f2, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a79607df-9c40-4e6b-9bb4-bf8ac291af1b
+    m_ActionName: Head/Position
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a02997bb-bd49-4775-a58f-329e3fd4be5d
+    m_ActionName: Head/Rotation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8800c609-1da2-4897-b915-14fba3151a30
+    m_ActionName: LeftHand/Position
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6a0613e3-e2fc-403d-b92d-6124e67575d8
+    m_ActionName: LeftHand/Rotation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b6192f28-8342-42f8-8321-a086795d43e8
+    m_ActionName: RightHand/Position
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c16334ba-7c4b-40f9-aea4-ce7c7d503e62
+    m_ActionName: RightHand/Rotation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2a02fd7c-1e90-4b90-be0b-d0adb5e3d869
+    m_ActionName: LeftHandLocomotion/Move
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0acb1a7e-46e5-4b8c-8b8f-ce84f23bb4e0
+    m_ActionName: RightHandLocomotion/Turn
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114796998743479953}
+        m_TargetAssemblyTypeName: Prefabs.Player.PlayerController_VR, Assembly-CSharp
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 710bdaae-eb0e-4166-af90-1a9b939391a2
+    m_ActionName: RightHandLocomotion/Dash
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: RightHandLocomotion
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &3774851680373904135
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
 using Constant;
+using UnityEngine.XR.Management;
 
 namespace Scenes.Start
 {
@@ -16,17 +17,33 @@ namespace Scenes.Start
             {
                 SystemData.Instance = new SystemData();
             }
+
+            //XRの無効化
+            XRGeneralSettings.Instance.Manager.StopSubsystems();
+            XRGeneralSettings.Instance.Manager.DeinitializeLoader();
         }
 
         public void PushVrButton()
         {
+            StartCoroutine(StartVR());
+        }
+
+        public IEnumerator StartVR()
+        {
             //Debug.Log("Start VR Mode");
 
-            //VRモード
-            SystemData.Instance.SetSceneMode(SceneMode.VR);
+            //XRの有効化
+            yield return XRGeneralSettings.Instance.Manager.InitializeLoader();
+            if (XRGeneralSettings.Instance.Manager.activeLoader != null)
+            {
+                XRGeneralSettings.Instance.Manager.StartSubsystems();
 
-            //メインシーンへ移動
-            SceneManager.LoadScene((int)SceneName.InMainScene);
+                //VRモード
+                SystemData.Instance.SetSceneMode(SceneMode.VR);
+
+                //メインシーンへ移動
+                SceneManager.LoadScene((int)SceneName.InMainScene);
+            }
         }
 
         public void PushPcButton()

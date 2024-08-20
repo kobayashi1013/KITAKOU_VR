@@ -65,7 +65,7 @@ namespace Prefabs.Player
         /// <returns></returns>
         private float UseDash()
         {
-            if (Input.GetKey(KeyCode.LeftShift)) return 1.6f;
+            if (Input.GetKey(KeyCode.LeftShift)) return 1.8f;
             else return 1.0f;
         }
 

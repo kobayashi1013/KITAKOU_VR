@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4daa9b7de6749554da8b8c18a72f217f, type: 3}
   m_Name: PrefabTable
   m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 8605624810596649917, guid: 6b3a443986a84f04baebd3f05b95ea4e, type: 3}
+  - {fileID: 3117790793098712572, guid: 7bf966d89797eb54f87a465e0db394d0, type: 3}
+  student: 0000000001000000
+  people: 00000000
