@@ -19,6 +19,8 @@ namespace Prefabs.Player
         [SerializeField] private float _playerRotationSensitive = 1.0f; //感度
         [SerializeField] private float _playerSpeed = 1.0f; //スピード
 
+        [HideInInspector] public float moveState;
+
         private float _yVelocity = 0f;
         private List<AvaterController> _avaterControllerList = new List<AvaterController>();
         private float _collectionTime = 0f;
@@ -66,6 +68,14 @@ namespace Prefabs.Player
             if (Input.GetKey(KeyCode.LeftShift)) return 1.6f;
             else return 1.0f;
         }
+
+        /*private void PlayerMover()
+        {
+            //方向入力
+            Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            
+
+        }*/
 
         /// <summary>
         /// アバターを押しのける処理

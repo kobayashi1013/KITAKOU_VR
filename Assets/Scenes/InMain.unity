@@ -660,7 +660,6 @@ GameObject:
   - component: {fileID: 1730811608}
   - component: {fileID: 1730811609}
   - component: {fileID: 1730811610}
-  - component: {fileID: 1730811611}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -712,24 +711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectSetTransform: {fileID: 1691151318}
   _mortonModelTransform: {fileID: 1717284918}
-  _objectPrefab: {fileID: 2703912922696878516, guid: 52b71038a8fa97d4da51b08d1fdf5c26, type: 3}
-  _objectRole: 0
---- !u!114 &1730811611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1730811607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a7f5ebfa062684a9d56907e3a1e2e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectSetTransform: {fileID: 1691151318}
-  _mortonModelTransform: {fileID: 1717284918}
-  _objectPrefab: {fileID: 3117790793098712572, guid: 7bf966d89797eb54f87a465e0db394d0, type: 3}
-  _objectRole: 1
+  _prefabTable: {fileID: 11400000, guid: b288a4c4a811fe748a0b834720616969, type: 2}
 --- !u!1001 &1884873252
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -15,53 +15,108 @@ namespace Scenes.InMain
         private static readonly int PLANEOBJECT_SCALERATE = 10; //プレーンオブジェクトのスケール比率
         private static readonly int Y_DEPTH = 3; //三階建て
 
-        [Header("Scene Objects")]
+        [Header("SceneObjects")]
         [SerializeField] private Transform _objectSetTransform; //オブジェクトセット
         [SerializeField] private Transform _mortonModelTransform; //モートンモデル
-        [Header("Prefabs")]
-        [SerializeField] private GameObject _objectPrefab;
-        [Header("Parameters")]
-        [SerializeField] private RoomState _objectRole;
+        [Header("PrefabObjects")]
+        [SerializeField] private PrefabTable _prefabTable;
 
-        private ObjectPool<GameObject> _objectPool; //オブジェクト収納
         private Vector3 _mortonModelAnchor; //モートンモデルの端
         private Vector3 _mortonModelScale; //モートンモデルスケール
-        private Dictionary<int, List<Vector3>> _objectPositionSet = new Dictionary<int, List<Vector3>>(); //アバターの座標集合
-        private Dictionary<int, List<GameObject>> _avaterPoolObjectSet = new Dictionary<int, List<GameObject>>(); //オブジェクトプール用の辞書
-        private List<int> _prevNeighborSpaceNumbers = new List<int>();
-        private int _prevPlayerSpaceNumber = -1; //前インターバルのプレイヤー空間
+        private List<Manager> _managers = new List<Manager>();
+        private List<int> _prevNeighbor = new List<int>();
+        private int _prevSpace = -1; //前インターバルのプレイヤー空間
+
+        private class Manager
+        {
+            private ObjectPool<GameObject> _pool;
+            private Dictionary<int, List<GameObject>> _releases = new Dictionary<int, List<GameObject>>();
+            private Dictionary<int, List<Vector3>> _positions = new Dictionary<int, List<Vector3>>();
+
+            public Manager(GameObject prefab, Transform objectSetTransform)
+            {
+                _pool = new ObjectPool<GameObject>(
+                    createFunc: () => Instantiate(prefab, objectSetTransform),
+                    actionOnGet: target => target.SetActive(true),
+                    actionOnRelease: target => target.SetActive(false),
+                    actionOnDestroy: target => Destroy(target));
+            }
+
+            public void SetPosition(int space, Vector3 position)
+            {
+                if (!_positions.ContainsKey(space)) //辞書の追加
+                {
+                    _positions.Add(space, new List<Vector3>());
+                }
+
+                _positions[space].Add(position); //座標の登録
+            }
+
+            public void Remover(List<int> neighbors)
+            {
+                //オブジェクト削除
+                foreach (var neighbor in neighbors)
+                {
+                    //キー確認
+                    if (!_positions.ContainsKey(neighbor)) continue;
+
+                    //オブジェクト削除
+                    foreach (var avater in _releases[neighbor])
+                    {
+                        _pool.Release(avater);
+                    }
+
+                    //キー開放
+                    _releases.Remove(neighbor);
+                }
+            }
+
+            public void Adder(List<int> neighbors)
+            {
+                //オブジェクト追加
+                foreach (var neighbor in neighbors)
+                {
+                    //キー確認
+                    if (!_positions.ContainsKey(neighbor)) continue;
+
+                    //キー作成
+                    if (!_releases.ContainsKey(neighbor))
+                    {
+                        _releases.Add(neighbor, new List<GameObject>());
+                    }
+
+                    //アバター追加
+                    foreach (var position in _positions[neighbor])
+                    {
+                        //オブジェクト追加
+                        var avater = _pool.Get();
+                        avater.transform.position = position;
+                        avater.transform.rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+
+                        //辞書登録
+                        _releases[neighbor].Add(avater);
+                    }
+                }
+            }
+        }
 
         private void Start()
         {
-            //プレイヤー空間変更の監視
-            this.FixedUpdateAsObservable()
-                .Select(_ => ConvertToMortonModelPosition(InMainManager.Instance.playerObject.transform.position))
-                .Where(x => GetSpaceNumber3D(x) != _prevPlayerSpaceNumber)
-                .Subscribe(x => CreateAvater(x));
-
-            //オブジェクトプール設定
-            _objectPool = new ObjectPool<GameObject>(
-                createFunc: () => Instantiate(_objectPrefab, _objectSetTransform),
-                actionOnGet: target => target.SetActive(true),
-                actionOnRelease: target => target.SetActive(false),
-                actionOnDestroy: target => Destroy(target));
-
             //モートンモデル空間定義（座標）
             _mortonModelAnchor = _mortonModelTransform.transform.position - _mortonModelTransform.transform.localScale / 2; //端座標
             _mortonModelScale = _mortonModelTransform.transform.localScale; //ローカルスケール
             Destroy(_mortonModelTransform.gameObject);
 
+            //マネージャー作成
+            foreach (var prefab in _prefabTable.prefabs)
+            {
+                _managers.Add(new Manager(prefab, _objectSetTransform));
+            }
+            
             //座標回収
             var seedFloorList = FindObjectsOfType<RoomId>();
             foreach (var floor in seedFloorList)
             {
-                //オブジェクト判定
-                if (SystemData.Instance.roomDataList[floor.roomId].state != _objectRole)
-                {
-                    Destroy(floor.gameObject);
-                    continue;
-                }
-
                 //SeedFloorのベースポイント
                 var basePosition = new Vector3(
                     floor.transform.position.x - floor.transform.localScale.x / 2 * PLANEOBJECT_SCALERATE,
@@ -94,12 +149,19 @@ namespace Scenes.InMain
                         var mortonModelPosition = ConvertToMortonModelPosition(position); //モートンモデル座標に変換
                         var mortonSpaceNumber = GetSpaceNumber3D(mortonModelPosition); //スペース番号の取得
 
-                        if (!_objectPositionSet.ContainsKey(mortonSpaceNumber)) //辞書の追加
+                        //配置
+                        if (SystemData.Instance.roomDataList[floor.roomId].state == RoomState.Student)
                         {
-                            _objectPositionSet.Add(mortonSpaceNumber, new List<Vector3>());
+                            var rand = (int)Random.Range(0, _prefabTable.student.Count);
+                            var num = _prefabTable.student[rand];
+                            _managers[num].SetPosition(mortonSpaceNumber, position);
                         }
-
-                        _objectPositionSet[mortonSpaceNumber].Add(position); //座標の登録
+                        else if (SystemData.Instance.roomDataList[floor.roomId].state == RoomState.People)
+                        {
+                            var rand = (int)Random.Range(0, _prefabTable.people.Count);
+                            var num = _prefabTable.people[rand];
+                            _managers[num].SetPosition(mortonSpaceNumber, position);
+                        }
 
                         lengthZ += SystemData.Instance.roomDataList[floor.roomId].width1;
                     }
@@ -108,6 +170,19 @@ namespace Scenes.InMain
                 }
 
                 Destroy(floor.transform.gameObject);
+            }
+        }
+
+        private void Update()
+        {
+            var position = ConvertToMortonModelPosition(InMainManager.Instance.playerObject.transform.position);
+            var space = GetSpaceNumber3D(position);
+
+            if (space != _prevSpace)
+            {
+                //Debug.Log("Space Update");
+                _prevSpace = space;
+                _prevNeighbor = Updater(position, _prevNeighbor);
             }
         }
 
@@ -143,71 +218,33 @@ namespace Scenes.InMain
             return data;
         }
 
-        private void CreateAvater(Vector3 playerPosition)
+        private List<int> Updater(Vector3 playerPosition, List<int> prevNeighbor)
         {
-            //Debug.Log("update player space");
-
             //前後空間
             int[] dx = { -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1 };
             int[] dy = { -1, -1, -1, 0, 0, 0, 1, 1, 1, -1, -1, -1, 0, 0, 0, 1, 1, 1, -1, -1, -1, 0, 0, 0, 1, 1, 1 };
             int[] dz = { -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
-            //モートン空間番号を取得
-            var neighborSpaceNumbers = new List<int>();
+            //隣接空間を取得
+            var neighbor = new List<int>();
             for (int i = 0; i < 27; i++)
             {
-                int mortonSpaceNumber = GetSpaceNumber3D(new Vector3(playerPosition.x + dx[i], playerPosition.y + dy[i], playerPosition.z + dz[i]));
-                neighborSpaceNumbers.Add(mortonSpaceNumber);
+                int number = GetSpaceNumber3D(new Vector3(playerPosition.x + dx[i], playerPosition.y + dy[i], playerPosition.z + dz[i]));
+                neighbor.Add(number);
             }
 
-            //モートン空間外を除外
-            neighborSpaceNumbers.RemoveAll(x => x.Equals(-1));
+            //追加・削除空間の取得
+            neighbor.RemoveAll(x => x.Equals(-1));
+            var addNeighbor = neighbor.Except(prevNeighbor).ToList();
+            var removeNeighbor = prevNeighbor.Except(neighbor).ToList();
 
-            //モートン空間の変更
-            var addSpaceNumbers = neighborSpaceNumbers.Except(_prevNeighborSpaceNumbers).ToList();
-            var removeSpaceNumbers = _prevNeighborSpaceNumbers.Except(neighborSpaceNumbers).ToList();
-            _prevNeighborSpaceNumbers = new List<int>(neighborSpaceNumbers);
-
-            //オブジェクト削除
-            foreach (var spaceNumber in removeSpaceNumbers)
+            foreach (var manager in _managers)
             {
-                //キー確認
-                if (!_objectPositionSet.ContainsKey(spaceNumber)) continue;
-
-                //オブジェクト削除
-                foreach (var avater in _avaterPoolObjectSet[spaceNumber])
-                {
-                    _objectPool.Release(avater);
-                }
-
-                //キー開放
-                _avaterPoolObjectSet.Remove(spaceNumber);
+                manager.Adder(addNeighbor);
+                manager.Remover(removeNeighbor);
             }
 
-            //アバター追加
-            foreach (var spaceNumber in addSpaceNumbers)
-            {
-                //キー確認
-                if (!_objectPositionSet.ContainsKey(spaceNumber)) continue;
-
-                //アバター追加
-                foreach (var otherPosition in _objectPositionSet[spaceNumber])
-                {
-                    //オブジェクト追加
-                    var avater = _objectPool.Get();
-                    avater.transform.position = otherPosition;
-                    avater.transform.rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-
-                    //キー作成
-                    if (!_avaterPoolObjectSet.ContainsKey(spaceNumber))
-                    {
-                        _avaterPoolObjectSet.Add(spaceNumber, new List<GameObject>());
-                    }
-
-                    //辞書登録
-                    _avaterPoolObjectSet[spaceNumber].Add(avater);
-                }
-            }
+            return neighbor;
         }
     }
 }

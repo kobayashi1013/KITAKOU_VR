@@ -53,7 +53,7 @@ namespace Prefabs.Player
 
         private void PlayHeadBob(float state)
         {
-            Debug.Log(state);
+            //Debug.Log(state);
             transform.localPosition = new Vector3(
                 _baseLocalPosition.x,
                 _baseLocalPosition.y + Mathf.Sin(Time.time * _frequency) * _amplitude * state,
