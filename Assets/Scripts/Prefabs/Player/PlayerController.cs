@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using Constant;
 using Prefabs.Avater;
 
 namespace Prefabs.Player
@@ -14,12 +15,11 @@ namespace Prefabs.Player
 
         [Header("Components")]
         [SerializeField] private CharacterController _characterController;
+        [SerializeField] private HeadBob _cameraMoveCs;
         [Header("Parameters")]
         [SerializeField] LayerMask _avaterLayer; //アバターのレイヤー
         [SerializeField] private float _playerRotationSensitive = 1.0f; //感度
         [SerializeField] private float _playerSpeed = 1.0f; //スピード
-
-        [HideInInspector] public float moveState;
 
         private float _yVelocity = 0f;
         private List<AvaterController> _avaterControllerList = new List<AvaterController>();
@@ -34,8 +34,7 @@ namespace Prefabs.Player
 
             //プレイヤー移動
             this.UpdateAsObservable()
-                .Select(_ => new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")))
-                .Select(x => x * _playerSpeed * UseDash())
+                .Select(_ => PlayerMover())
                 .Select(x => transform.TransformDirection(x))
                 .Subscribe(x => _characterController.Move(x * Time.deltaTime));
 
@@ -46,8 +45,8 @@ namespace Prefabs.Player
                 .Subscribe(x => _characterController.Move(x * Time.deltaTime));
 
             //周囲のアバターを押しのける
-            this.FixedUpdateAsObservable()
-                .Subscribe(x => AvaterMover(Time.fixedDeltaTime));
+            this.UpdateAsObservable()
+                .Subscribe(x => AvaterMove());
         }
 
         //重力
@@ -63,29 +62,38 @@ namespace Prefabs.Player
         /// ダッシュを使う
         /// </summary>
         /// <returns></returns>
-        private float UseDash()
+        private bool UseDash()
         {
-            if (Input.GetKey(KeyCode.LeftShift)) return 1.8f;
-            else return 1.0f;
+            if (Input.GetKey(KeyCode.LeftShift)) return true;
+            else return false;
         }
 
-        /*private void PlayerMover()
+        private Vector3 PlayerMover()
         {
             //方向入力
             Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            
+            if (direction.magnitude < 0.01f)
+            {
+                _cameraMoveCs.SetPlayerMoveState(PlayerMoveState.Idle);
+                return Vector3.zero;
+            }
 
-        }*/
+            if (UseDash())
+            {
+                _cameraMoveCs.SetPlayerMoveState(PlayerMoveState.Dash);
+                return direction * _playerSpeed * 1.8f;
+            }
+
+            _cameraMoveCs.SetPlayerMoveState(PlayerMoveState.Walk);
+            return direction * _playerSpeed;
+        }
 
         /// <summary>
         /// アバターを押しのける処理
         /// </summary>
-        /// <param name="deltaTime"></param>　//インターバル時間
-        private void AvaterMover(float deltaTime)
+        private void AvaterMove()
         {
-            _collectionTime += deltaTime;
-
-            if (_collectionTime >= 0.1f)
+            if (_collectionTime > 0.5f)
             {
                 _collectionTime = 0f;
                 _avaterControllerList.Clear();
@@ -104,8 +112,10 @@ namespace Prefabs.Player
                     0f,
                     controller.transform.position.z - this.transform.position.z);
 
-                controller.Move(direction.normalized, deltaTime);
+                controller.Move(direction.normalized * Time.deltaTime);
             }
+
+            _collectionTime += Time.deltaTime;
         }
     }
 }

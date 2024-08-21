@@ -1,63 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
-using UniRx.Triggers;
 using UniRx;
-using Unity.XR.CoreUtils;
+using UniRx.Triggers;
 
 namespace Prefabs.Player
 {
     public class CameraMove : MonoBehaviour
     {
-        [SerializeField] private CharacterController _characterController;
-        [SerializeField, Range(0, 0.1f)] private float _amplitude = 0.015f;
-        [SerializeField, Range(0, 30)] private float _frequency = 10.0f;
+        [SerializeField]
+        private float y_sensitivity = 3f;
+        private float rot_limit = 50.0f;
 
-        private Vector3 _baseLocalPosition;
+        private float x_rot = 0f;
 
-        private void Start()
+        void Start()
         {
-            _baseLocalPosition = transform.localPosition;
-
             this.UpdateAsObservable()
-                .Select(_ => CheckHeadBob())
-                .Subscribe(x => PlayHeadBob(x));
-        }
-        /*private Vector3 FootStepMotion()
-        {
-            Vector3 pos = Vector3.zero;
-            pos.y += Mathf.Sin(Time.time * _frequency) * _amplitude;
-            return pos;
-        }
+                .Subscribe(_ =>
+                {
+                    float y_mouse = Input.GetAxis("Mouse Y");
+                    x_rot -= y_mouse * y_sensitivity;
 
-        private void CheckMotion()
-        {
-            if (!_characterController.isGrounded) return;
+                    if (x_rot < -1 * rot_limit) x_rot = -1 * rot_limit;
+                    else if (x_rot > rot_limit) x_rot = rot_limit;
 
-            PlayMotion(FootStepMotion());
-        }
-
-        private void PlayMotion(Vector3 mortion)
-        {
-            transform.localPosition += mortion;
-        }*/
-
-        private float CheckHeadBob()
-        {
-            if (!_characterController.isGrounded
-                || _characterController.velocity.magnitude == 0f) return 0f; //Ž~‚Ü‚Á‚Ä‚¢‚é
-            else if (Input.GetKey(KeyCode.LeftShift)) return 2f; //‘–‚Á‚Ä‚¢‚é
-            else return 1f; //•à‚¢‚Ä‚¢‚é
-        }
-
-        private void PlayHeadBob(float state)
-        {
-            //Debug.Log(state);
-            transform.localPosition = new Vector3(
-                _baseLocalPosition.x,
-                _baseLocalPosition.y + Mathf.Sin(Time.time * _frequency) * _amplitude * state,
-                _baseLocalPosition.z);
+                    transform.localEulerAngles = new Vector3(
+                        x_rot,
+                        transform.localEulerAngles.y,
+                        transform.localEulerAngles.z);
+                });
         }
     }
 }

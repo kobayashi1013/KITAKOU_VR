@@ -27,8 +27,8 @@ namespace Prefabs.Player
             _moveProvider = GetComponent<ContinuousMoveProviderBase>();
 
             //周囲のアバターを押しのける
-            this.FixedUpdateAsObservable()
-                .Subscribe(_ => AvaterMover(Time.fixedDeltaTime));
+            this.UpdateAsObservable()
+                .Subscribe(_ => AvaterMove());
         }
 
         public void OnDash(InputAction.CallbackContext context)
@@ -47,12 +47,9 @@ namespace Prefabs.Player
         /// <summary>
         /// アバターを押しのける処理
         /// </summary>
-        /// <param name="deltaTime"></param>　//インターバル時間
-        private void AvaterMover(float deltaTime)
+        private void AvaterMove()
         {
-            _collectionTime += deltaTime;
-
-            if (_collectionTime >= 0.1f)
+            if (_collectionTime > 0.5f)
             {
                 _collectionTime = 0f;
                 _avaterControllerList.Clear();
@@ -71,8 +68,10 @@ namespace Prefabs.Player
                     0f,
                     controller.transform.position.z - this.transform.position.z);
 
-                controller.Move(direction.normalized, deltaTime);
+                controller.Move(direction.normalized * Time.deltaTime);
             }
+
+            _collectionTime += Time.deltaTime;
         }
     }
 }

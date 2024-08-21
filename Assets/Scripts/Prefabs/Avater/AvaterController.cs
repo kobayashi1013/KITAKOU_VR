@@ -9,9 +9,9 @@ namespace Prefabs.Avater
         [Header("Component")]
         [SerializeField] private CharacterController _characterCntroller;
 
-        public void Move(Vector3 direction, float distance)
+        public void Move(Vector3 direction)
         {
-            _characterCntroller.Move(direction * distance);
+            _characterCntroller.Move(direction);
         }
     }
 }
