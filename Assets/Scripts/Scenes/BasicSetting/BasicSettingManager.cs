@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using Constant;
@@ -11,6 +12,7 @@ namespace Scenes.BasicSetting
     public class BasicSettingManager : MonoBehaviour
     {
         [SerializeField] private TMP_Dropdown _mortonModelButton;
+        [SerializeField] private Toggle _useFlooding;
 
         private void Start()
         {
@@ -41,6 +43,11 @@ namespace Scenes.BasicSetting
                 SystemData.Instance.SetMortonModelDepth(MortonModelDepth.depth64);
         }
 
+        public void PushUseFlooding()
+        {
+            SystemData.Instance.SetUseFlooding(_useFlooding.isOn);
+        }
+
         public void LoadSetting()
         {
             if (SystemData.Instance.mortonModelDepth == MortonModelDepth.depth4)
@@ -53,6 +60,8 @@ namespace Scenes.BasicSetting
                 _mortonModelButton.value = 3;
             else if (SystemData.Instance.mortonModelDepth == MortonModelDepth.depth64)
                 _mortonModelButton.value = 4;
+
+            _useFlooding.isOn = SystemData.Instance.useFlooding;
         }
     }
 }

@@ -9,9 +9,11 @@ namespace Scenes.InMain
     public class InMainManager : MonoBehaviour
     {
         [Header("Players")]
-        public GameObject _playerPosition;
-        public GameObject _vrPlayerPrefab;
-        public GameObject _pcPlayerPrefab;
+        [SerializeField] private GameObject _playerPosition;
+        [SerializeField] private GameObject _vrPlayerPrefab;
+        [SerializeField] private GameObject _pcPlayerPrefab;
+        [Header("SceneObjects")]
+        [SerializeField] private GameObject _floodingSystem;
 
         public static InMainManager Instance;
         public GameObject playerObject { get; private set; }
@@ -21,6 +23,9 @@ namespace Scenes.InMain
             //インスタンス
             if (Instance == null) Instance = this;
             else Destroy(this.gameObject);
+
+            //洪水の有無
+            if (SystemData.Instance.useFlooding == false) Destroy(_floodingSystem);
 
             //プレイヤースポーン
             if (SystemData.Instance.sceneMode == SceneMode.VR)

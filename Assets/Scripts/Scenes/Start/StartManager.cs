@@ -16,11 +16,11 @@ namespace Scenes.Start
             if (SystemData.Instance == null)
             {
                 SystemData.Instance = new SystemData();
-            }
 
-            //XR‚Ì–³Œø‰»
-            XRGeneralSettings.Instance.Manager.StopSubsystems();
-            XRGeneralSettings.Instance.Manager.DeinitializeLoader();
+                //XR‚Ì–³Œø‰»
+                XRGeneralSettings.Instance.Manager.StopSubsystems();
+                XRGeneralSettings.Instance.Manager.DeinitializeLoader();
+            }
         }
 
         public void PushVrButton()

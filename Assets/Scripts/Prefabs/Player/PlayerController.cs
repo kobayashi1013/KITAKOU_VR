@@ -15,7 +15,6 @@ namespace Prefabs.Player
 
         [Header("Components")]
         [SerializeField] private CharacterController _characterController;
-        [SerializeField] private HeadBob _cameraMoveCs;
         [Header("Parameters")]
         [SerializeField] LayerMask _avaterLayer; //アバターのレイヤー
         [SerializeField] private float _playerRotationSensitive = 1.0f; //感度
@@ -74,17 +73,14 @@ namespace Prefabs.Player
             Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             if (direction.magnitude < 0.01f)
             {
-                _cameraMoveCs.SetPlayerMoveState(PlayerMoveState.Idle);
                 return Vector3.zero;
             }
 
             if (UseDash())
             {
-                _cameraMoveCs.SetPlayerMoveState(PlayerMoveState.Dash);
                 return direction * _playerSpeed * 1.8f;
             }
 
-            _cameraMoveCs.SetPlayerMoveState(PlayerMoveState.Walk);
             return direction * _playerSpeed;
         }
 
