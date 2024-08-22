@@ -37,7 +37,7 @@ namespace Scenes.LocationSetting
             else Destroy(this.gameObject);
 
             _contentObject.SetActive(false);
-            _avaterTotallingText.text = "収容人数：" + SystemData.Instance.avaterTotallingNum.ToString();
+            _avaterTotallingText.text = "全体収容人数：" + SystemData.Instance.avaterTotallingNum.ToString();
         }
 
         public void PushBasicSettingButton()

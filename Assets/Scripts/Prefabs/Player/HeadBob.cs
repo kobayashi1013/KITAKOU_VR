@@ -49,7 +49,7 @@ namespace Prefabs.Player
         private Vector3 FootStepMotion(float moveState)
         {
             var pos = new Vector3(
-                Mathf.Cos(Time.time * _frequency / 2) * _amplitude * 2 * moveState,
+                Mathf.Cos(Time.time * _frequency / 2) * _amplitude * moveState,
                 Mathf.Sin(Time.time * _frequency) * _amplitude * moveState,
                 0f);
 
