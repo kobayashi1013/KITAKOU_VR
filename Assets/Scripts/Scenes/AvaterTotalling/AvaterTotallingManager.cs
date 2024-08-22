@@ -20,6 +20,9 @@ namespace Scenes.AvaterTotalling
             var seedFloorList = FindObjectsOfType<RoomId>();
             foreach (var floor in seedFloorList)
             {
+                //•”‰®‚ª”z’u‚È‚µ‚ÌŽž
+                if (SystemData.Instance.roomDataList[floor.roomId].state == RoomState.Empty) continue;
+
                 float lengthX = SystemData.Instance.roomDataList[floor.roomId].width0;
                 float lengthZ = SystemData.Instance.roomDataList[floor.roomId].width1;
 
