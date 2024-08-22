@@ -8,9 +8,8 @@ namespace Prefabs.Player
 {
     public class CameraMove : MonoBehaviour
     {
-        [SerializeField]
-        private float y_sensitivity = 3f;
-        private float rot_limit = 50.0f;
+        [SerializeField] private float y_sensitivity = 3f;
+        [SerializeField] private float rot_limit = 50.0f;
 
         private float x_rot = 0f;
 
