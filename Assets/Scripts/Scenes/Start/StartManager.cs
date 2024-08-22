@@ -10,12 +10,18 @@ namespace Scenes.Start
 {
     public class StartManager : MonoBehaviour
     {
-        private void Awake()
+        [SerializeField] private GameObject _applicationHandlerPrefab;
+
+        private void Start()
         {
-            //システムデータ設定
+            //アプリケーション開始
             if (SystemData.Instance == null)
             {
+                //システムデータ生成
                 SystemData.Instance = new SystemData();
+
+                //アプリケーションハンドラの開始
+                //Instantiate(_applicationHandlerPrefab);
 
                 //XRの無効化
                 XRGeneralSettings.Instance.Manager.StopSubsystems();
