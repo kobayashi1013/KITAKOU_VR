@@ -52,6 +52,11 @@ namespace Scenes.LocationSetting
             SceneManager.LoadScene((int)SceneName.StartScene);
         }
 
+        public void PushFileSettingButton()
+        {
+            SceneManager.LoadScene((int)SceneName.FileSettingScene);
+        }
+
         public void PushRoomButtons(string id)
         {
             //部屋コンフィグの表示

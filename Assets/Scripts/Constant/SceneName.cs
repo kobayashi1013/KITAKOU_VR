@@ -4,8 +4,9 @@ namespace Constant
     {
         StartScene,
         InMainScene,
-        AvaterTotallingScene,
         BasicSettingScene,
         LocationSettingScene,
+        FileSettingScene,
+        AvaterTotallingScene,
     }
 }

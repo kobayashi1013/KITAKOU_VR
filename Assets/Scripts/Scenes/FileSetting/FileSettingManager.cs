@@ -1,7 +1,9 @@
+using Constant;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Scenes.FileSetting
 {
@@ -13,6 +15,21 @@ namespace Scenes.FileSetting
             {
                 ImportFile();
             }
+        }
+
+        public void PushBackButton()
+        {
+            SceneManager.LoadScene((int)SceneName.StartScene);
+        }
+
+        public void PushBasicSettingButton()
+        {
+            SceneManager.LoadScene((int)SceneName.BasicSettingScene);
+        }
+
+        public void PushLocationSettingButton()
+        {
+            SceneManager.LoadScene((int)SceneName.LocationSettingScene);
         }
 
         private void ImportFile()

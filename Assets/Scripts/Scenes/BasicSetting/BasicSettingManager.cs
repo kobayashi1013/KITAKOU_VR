@@ -24,6 +24,11 @@ namespace Scenes.BasicSetting
             SceneManager.LoadScene((int)SceneName.LocationSettingScene);
         }
 
+        public void PushFileSettingButton()
+        {
+            SceneManager.LoadScene((int)SceneName.FileSettingScene);
+        }
+
         public void PushBackButton()
         {
             SceneManager.LoadScene((int)SceneName.StartScene);
