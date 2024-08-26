@@ -19,7 +19,7 @@ namespace Utils
         public SystemData()
         {
             //RoomDataì«Ç›çûÇ›
-            var csvFile = Resources.Load("Csv/RoomDataCsv") as TextAsset;
+            var csvFile = Resources.Load("Csv/RoomNameCsv") as TextAsset;
             var csvData = new List<string[]>();
             var roomData = new RoomData();
             var reader = new StringReader(csvFile.text);
