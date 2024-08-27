@@ -74,6 +74,12 @@ namespace Scenes.FileSetting
                     roomDataList.Add(text[0], roomData);
                     _errorMessage.SetActive(false);
                 }
+                else
+                {
+                    Debug.LogError("Error : change data type");
+                    _errorMessage.SetActive(true);
+                    return;
+                }
             }
 
             SystemData.Instance.roomDataList = roomDataList; //データリストへ反映
