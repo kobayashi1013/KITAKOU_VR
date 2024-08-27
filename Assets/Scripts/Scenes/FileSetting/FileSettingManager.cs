@@ -100,6 +100,7 @@ namespace Scenes.FileSetting
             saveFileDialog.Filter = "テキスト ドキュメント (*.txt)| *.txt";
             saveFileDialog.DefaultExt = "txt";
             saveFileDialog.AddExtension = true;
+            saveFileDialog.FileName = "config_room";
 
             saveFileDialog.ShowDialog();
             string filePath = saveFileDialog.FileName;
@@ -107,6 +108,30 @@ namespace Scenes.FileSetting
 
             //ファイルセーブ
             File.WriteAllText(filePath, content);
+        }
+
+        /// <summary>
+        /// テンプレートの読み込み
+        /// </summary>
+        public void ConfigFileDownload()
+        {
+            //テンプレートファイル読み込み
+            var csvFile = Resources.Load("Csv/ConfigTemplateCsv") as TextAsset;
+            string content = csvFile.text;
+
+            //ダイアログ表示
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "テキスト ドキュメント (*.txt)|*.txt";
+            saveFileDialog.DefaultExt = "txt";
+            saveFileDialog.AddExtension = true;
+            saveFileDialog.FileName = "config_room";
+
+            saveFileDialog.ShowDialog();
+            string filePath = saveFileDialog.FileName;
+            if (filePath == "") return;
+
+            //ファイルセーブ
+            File.WriteAllText(filePath , content);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Utils
         public SystemData()
         {
             //RoomDataì«Ç›çûÇ›
-            var csvFile = Resources.Load("Csv/RoomNameCsv") as TextAsset;
+            var csvFile = Resources.Load("Csv/ConfigTemplateCsv") as TextAsset;
             var csvData = new List<string[]>();
             var roomData = new RoomData();
             var reader = new StringReader(csvFile.text);
@@ -35,9 +35,9 @@ namespace Utils
             for (int i = 0; i < height; i++)
             {
                 roomData.name = csvData[i][1];
-                roomData.state = RoomState.Student;
-                roomData.width0 = 1.0f;
-                roomData.width1 = 1.0f;
+                roomData.state = (RoomState)Enum.Parse(typeof(RoomState), csvData[i][2]);
+                roomData.width0 = float.Parse(csvData[i][3]);
+                roomData.width1 = float.Parse(csvData[i][4]);
 
                 roomDataList.Add(csvData[i][0], roomData);
             }
