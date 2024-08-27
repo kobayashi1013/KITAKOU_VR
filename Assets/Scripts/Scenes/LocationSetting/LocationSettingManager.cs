@@ -54,6 +54,7 @@ namespace Scenes.LocationSetting
 
         public void PushFileSettingButton()
         {
+            SaveRoomData(_prevRoomId);
             SceneManager.LoadScene((int)SceneName.FileSettingScene);
         }
 

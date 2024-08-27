@@ -31,19 +31,20 @@ namespace Scenes.FileSetting
         }
 
         /// <summary>
-        /// Csvファイルのインポート
+        /// txtファイルのインポート
         /// </summary>
         public void ImportConfigFile()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog(); //エクスプローラー表示
 
-            openFileDialog.Filter = "txtファイル|*.txt"; //txtを開く
+            openFileDialog.Filter = "テキスト ドキュメント (*.txt)|*.txt"; //txtを開く
             openFileDialog.CheckFileExists = true; //存在しないファイルに警告を出す
 
             openFileDialog.ShowDialog(); //エクスプローラー表示
-            var file = openFileDialog.FileName; //ファイル名
+            string filePath = openFileDialog.FileName; //ファイル名
+            if (filePath == "") return;
 
-            string content = File.ReadAllText(file);
+            string content = File.ReadAllText(filePath);
             string[] lines = content.Split('\n'); //ファイルを改行で分割
 
             var roomDataList = new Dictionary<string, RoomData>();
@@ -76,6 +77,36 @@ namespace Scenes.FileSetting
             }
 
             SystemData.Instance.roomDataList = roomDataList; //データリストへ反映
+        }
+
+        /// <summary>
+        /// txtファイルのエクスポート
+        /// </summary>
+        public void ExportConfigFile()
+        {
+            //部屋データをテキスト化
+            string content = null;
+            foreach (var key in SystemData.Instance.roomDataList.Keys)
+            {
+                content += key + ","
+                    + SystemData.Instance.roomDataList[key].name + ","
+                    + SystemData.Instance.roomDataList[key].state.ToString() + ","
+                    + SystemData.Instance.roomDataList[key].width0.ToString("F1") + ","
+                    + SystemData.Instance.roomDataList[key].width1.ToString("F1") + "\n";
+            }
+
+            //ダイアログ
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "テキスト ドキュメント (*.txt)| *.txt";
+            saveFileDialog.DefaultExt = "txt";
+            saveFileDialog.AddExtension = true;
+
+            saveFileDialog.ShowDialog();
+            string filePath = saveFileDialog.FileName;
+            if (filePath == "") return;
+
+            //ファイルセーブ
+            File.WriteAllText(filePath, content);
         }
     }
 }
