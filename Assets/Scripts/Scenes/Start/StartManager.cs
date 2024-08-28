@@ -10,11 +10,16 @@ namespace Scenes.Start
 {
     public class StartManager : MonoBehaviour
     {
+        [SerializeField] private GameObject _applicationHandler;
+
         private void Start()
         {
             //アプリケーション開始
             if (SystemData.Instance == null)
             {
+                //アプリケーションハンドラ
+                Instantiate(_applicationHandler);
+
                 //システムデータ生成
                 SystemData.Instance = new SystemData();
 

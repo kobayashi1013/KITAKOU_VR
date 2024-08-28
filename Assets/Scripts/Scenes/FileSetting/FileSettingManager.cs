@@ -100,6 +100,7 @@ namespace Scenes.FileSetting
                     + SystemData.Instance.roomDataList[key].width0.ToString("F1") + ","
                     + SystemData.Instance.roomDataList[key].width1.ToString("F1") + "\n";
             }
+            content = content.Remove(content.Length - 1);
 
             //ダイアログ
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -122,7 +123,7 @@ namespace Scenes.FileSetting
         public void ConfigFileDownload()
         {
             //テンプレートファイル読み込み
-            var csvFile = Resources.Load("Csv/ConfigTemplateCsv") as TextAsset;
+            var csvFile = Resources.Load("Csv/RoomConfigOriginal") as TextAsset;
             string content = csvFile.text;
 
             //ダイアログ表示

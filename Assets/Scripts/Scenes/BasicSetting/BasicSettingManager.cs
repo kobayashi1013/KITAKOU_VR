@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using Constant;
 using Utils;
+using Struct;
 
 namespace Scenes.BasicSetting
 {
@@ -51,6 +53,42 @@ namespace Scenes.BasicSetting
         public void PushUseFlooding()
         {
             SystemData.Instance.SetUseFlooding(_useFlooding.isOn);
+        }
+
+        public void PushResetConfigButton()
+        {
+            TextAsset textAsset = null;
+            string[] lines = null;
+
+            //システムコンフィグ
+            textAsset = Resources.Load("File/SystemConfigOriginal") as TextAsset;
+            lines = textAsset.text.Split("\n");
+
+            SystemData.Instance.SetMortonModelDepth((MortonModelDepth)Enum.Parse(typeof(MortonModelDepth), lines[0]));
+            SystemData.Instance.SetUseFlooding(bool.Parse(lines[1]));
+
+            //ルームコンフィグ
+            textAsset = Resources.Load("File/RoomConfigOriginal") as TextAsset;
+            lines = textAsset.text.Split ("\n");
+            var roomDataList = new Dictionary<string, RoomData>();
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string[] textData = lines[i].Split(",");
+                RoomData roomData = new RoomData();
+
+                roomData.name = textData[1];
+                roomData.state = (RoomState)Enum.Parse(typeof (RoomState), textData[2]);
+                roomData.width0 = float.Parse(textData[3]);
+                roomData.width1 = float.Parse(textData[4]);
+
+                roomDataList.Add(textData[0], roomData);
+            }
+
+            SystemData.Instance.roomDataList = roomDataList;
+
+            //BasicSettingシーンの描画更新
+            LoadSetting();
         }
 
         public void LoadSetting()

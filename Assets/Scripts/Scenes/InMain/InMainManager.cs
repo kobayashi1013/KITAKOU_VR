@@ -25,7 +25,7 @@ namespace Scenes.InMain
             else Destroy(this.gameObject);
 
             //洪水の有無
-            if (SystemData.Instance.useFlooding == false) Destroy(_floodingSystem);
+            _floodingSystem.SetActive(SystemData.Instance.useFlooding);
 
             //プレイヤースポーン
             if (SystemData.Instance.sceneMode == SceneMode.VR)

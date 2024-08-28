@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using Constant;
 using Struct;
+using System.Runtime.CompilerServices;
 
 namespace Utils
 {
@@ -18,29 +19,101 @@ namespace Utils
 
         public SystemData()
         {
-            //RoomData読み込み
-            var csvFile = Resources.Load("Csv/ConfigTemplateCsv") as TextAsset;
-            var csvData = new List<string[]>();
-            var roomData = new RoomData();
-            var reader = new StringReader(csvFile.text);
+            LoadSystemConfig();
+            LoadRoomConfig();
+         }
 
-            int height = 0;
-            while (reader.Peek() > -1)
+        /// <summary>
+        /// システムコンフィグの読み出し
+        /// </summary>
+        private void LoadSystemConfig()
+        {
+            //コンフィグファイルが存在しない場合
+            string filePath = Path.Combine(Application.persistentDataPath, "SystemConfig.csv");
+            if (File.Exists(filePath) == false)
             {
-                string line = reader.ReadLine();
-                csvData.Add(line.Split(','));
-                height++;
+                //オリジナルファイルをコピー
+                var textAsset = Resources.Load("File/SystemConfigOriginal") as TextAsset;
+                File.WriteAllText(filePath, textAsset.text);
             }
 
-            for (int i = 0; i < height; i++)
-            {
-                roomData.name = csvData[i][1];
-                roomData.state = (RoomState)Enum.Parse(typeof(RoomState), csvData[i][2]);
-                roomData.width0 = float.Parse(csvData[i][3]);
-                roomData.width1 = float.Parse(csvData[i][4]);
+            //ファイルの内容を読み出す
+            string content = File.ReadAllText(filePath);
+            string[] textData = content.Split("\n");
 
-                roomDataList.Add(csvData[i][0], roomData);
+            //コンフィグ設定
+            mortonModelDepth = (MortonModelDepth)Enum.Parse(typeof(MortonModelDepth), textData[0]);
+            useFlooding = bool.Parse(textData[1]);
+        }
+
+        /// <summary>
+        /// システムコンフィグの書き込み
+        /// </summary>
+        public void SaveSystemConfig()
+        {
+            string filePath = Path.Combine(Application.persistentDataPath, "SystemConfig.csv");
+            string content = null;
+
+            content += mortonModelDepth.ToString() + "\n"
+                + useFlooding.ToString();
+
+            File.WriteAllText(filePath, content);
+        }
+
+        /// <summary>
+        /// ルームコンフィグの読み出し
+        /// </summary>
+        private void LoadRoomConfig()
+        {
+            //コンフィグファイルが存在しない場合
+            string filePath = Path.Combine(Application.persistentDataPath, "RoomConfig.csv");
+            if (File.Exists(filePath) == false)
+            {
+                //オリジナルファイルをコピー
+                var textAsset = Resources.Load("File/RoomConfigOriginal") as TextAsset;
+                File.WriteAllText(filePath, textAsset.text);
             }
+
+            //ファイルの内容を読み出す
+            string content = File.ReadAllText(filePath);
+            var roomDataList = new Dictionary<string, RoomData>();
+
+            string[] lines = content.Split("\n");
+            foreach (string line in lines)
+            {
+                string[] textData = line.Split(",");
+                RoomData roomData = new RoomData();
+
+                roomData.name = textData[1];
+                roomData.state = (RoomState)Enum.Parse(typeof(RoomState), textData[2]);
+                roomData.width0 = float.Parse(textData[3]);
+                roomData.width1 = float.Parse(textData[4]);
+
+                roomDataList.Add(textData[0], roomData);
+            }
+
+            this.roomDataList = roomDataList;
+        }
+
+        /// <summary>
+        /// ルームコンフィグの書き出し
+        /// </summary>
+        public void SaveRoomConfig()
+        {
+            string filePath = Path.Combine(Application.persistentDataPath, "RoomConfig.csv");
+
+            string content = null;
+            foreach (var key in roomDataList.Keys)
+            {
+                content += key + ","
+                    + roomDataList[key].name + ","
+                    + roomDataList[key].state.ToString() + ","
+                    + roomDataList[key].width0.ToString("F1") + ","
+                    + roomDataList[key].width1.ToString("F1") + "\n";
+            }
+            content = content.Remove(content.Length - 1);
+
+            File.WriteAllText(filePath, content);
         }
 
         public void SetSceneMode(SceneMode mode)
@@ -49,22 +122,22 @@ namespace Utils
             sceneMode = mode;
         }
 
+        public void SetAvaterTotallingNum(int num)
+        {
+            //Debug.Log("SetAvaterTotallingNum(" + num + ")");
+            avaterTotallingNum = num;
+        }
+
         public void SetMortonModelDepth(MortonModelDepth depth)
         {
             //Debug.Log("SetMortonModelDepth(" + depth + ")");
             mortonModelDepth = depth;
         }
 
-        public void SetUseFlooding(bool value)
+        public void SetUseFlooding(bool state)
         {
-            //Debug.Log("SetUseFlooding(" + value + ")");
-            useFlooding = value;
-        }
-
-        public void SetAvaterTotallingNum(int num)
-        {
-            //Debug.Log("SetAvaterTotallingNum(" + num + ")");
-            avaterTotallingNum = num;
+            //Debug.Log("SetUseFlooding(" + state + ")");
+            useFlooding = state;
         }
     }
 }
