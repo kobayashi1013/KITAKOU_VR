@@ -118,6 +118,13 @@ namespace Scenes.InMain
             var seedFloorList = FindObjectsOfType<RoomId>();
             foreach (var floor in seedFloorList)
             {
+                //配置なし
+                if (SystemData.Instance.roomDataList[floor.roomId].state == RoomState.Empty)
+                {
+                    Destroy(floor.transform.gameObject);
+                    continue;
+                }
+
                 //SeedFloorのベースポイント
                 var basePosition = new Vector3(
                     floor.transform.position.x - floor.transform.localScale.x / 2 * PLANEOBJECT_SCALERATE,
