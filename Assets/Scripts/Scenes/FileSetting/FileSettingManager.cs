@@ -37,7 +37,7 @@ namespace Scenes.FileSetting
         {
             OpenFileDialog openFileDialog = new OpenFileDialog(); //エクスプローラー表示
 
-            openFileDialog.Filter = "テキスト ドキュメント (*.txt)|*.txt"; //txtを開く
+            openFileDialog.Filter = "テキスト ドキュメント (*.txt)|*.txt|テキスト ドキュメント (*.csv)|*.csv"; //txtを開く
             openFileDialog.CheckFileExists = true; //存在しないファイルに警告を出す
 
             openFileDialog.ShowDialog(); //エクスプローラー表示
@@ -104,7 +104,7 @@ namespace Scenes.FileSetting
 
             //ダイアログ
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "テキスト ドキュメント (*.txt)| *.txt";
+            saveFileDialog.Filter = "テキスト ドキュメント (*.txt)|*.txt|テキスト ドキュメント (*.csv)|*.csv";
             saveFileDialog.DefaultExt = "txt";
             saveFileDialog.AddExtension = true;
             saveFileDialog.FileName = "config_room";
@@ -123,7 +123,7 @@ namespace Scenes.FileSetting
         public void ConfigFileDownload()
         {
             //テンプレートファイル読み込み
-            var csvFile = Resources.Load("Csv/RoomConfigOriginal") as TextAsset;
+            var csvFile = Resources.Load("File/RoomConfigOriginal") as TextAsset;
             string content = csvFile.text;
 
             //ダイアログ表示

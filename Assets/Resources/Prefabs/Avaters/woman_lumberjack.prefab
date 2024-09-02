@@ -1282,8 +1282,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2976804014286253056}
-  - component: {fileID: 2417753612031286907}
-  m_Layer: 0
+  - component: {fileID: 7663650833159980687}
+  - component: {fileID: 8242754753625157467}
+  m_Layer: 6
   m_Name: woman_lumberjack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1305,10 +1306,10 @@ Transform:
   - {fileID: 8348584286960251406}
   - {fileID: 9161733636879275281}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &2417753612031286907
-CapsuleCollider:
+--- !u!143 &7663650833159980687
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1325,11 +1326,27 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.2
+  serializedVersion: 3
   m_Height: 1.8
-  m_Direction: 1
+  m_Radius: 0.2
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.0001
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &8242754753625157467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4367094557410169441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af9c8a0f544a79145ba82a36c44e6797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterCntroller: {fileID: 7663650833159980687}
 --- !u!1 &4378790670423070875
 GameObject:
   m_ObjectHideFlags: 0
