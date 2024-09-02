@@ -14,6 +14,7 @@ namespace Utils
         public SceneMode sceneMode { get; private set; }
         public MortonModelDepth mortonModelDepth { get; private set; } = MortonModelDepth.depth4;
         public bool useFlooding { get; private set; } = false;
+        public bool useEvent { get; private set; } = false;
         public int avaterTotallingNum { get; private set; }
         public Dictionary<string, RoomData> roomDataList = new Dictionary<string, RoomData>();
 
@@ -44,6 +45,7 @@ namespace Utils
             //コンフィグ設定
             mortonModelDepth = (MortonModelDepth)Enum.Parse(typeof(MortonModelDepth), textData[0]);
             useFlooding = bool.Parse(textData[1]);
+            useEvent = bool.Parse(textData[2]);
         }
 
         /// <summary>
@@ -55,7 +57,8 @@ namespace Utils
             string content = null;
 
             content += mortonModelDepth.ToString() + "\n"
-                + useFlooding.ToString();
+                + useFlooding.ToString() + "\n"
+                + useEvent.ToString();
 
             File.WriteAllText(filePath, content);
         }
@@ -138,6 +141,12 @@ namespace Utils
         {
             //Debug.Log("SetUseFlooding(" + state + ")");
             useFlooding = state;
+        }
+
+        public void SetUseEvent(bool state)
+        {
+            //Debug.Log("SetUseEvent(" + state + ")");
+            useEvent = state;
         }
     }
 }

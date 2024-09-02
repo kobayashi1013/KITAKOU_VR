@@ -14,6 +14,7 @@ namespace Scenes.InMain
         [SerializeField] private GameObject _pcPlayerPrefab;
         [Header("SceneObjects")]
         [SerializeField] private GameObject _floodingSystem;
+        [SerializeField] private GameObject _eventSystem;
 
         public static InMainManager Instance;
         public GameObject playerObject { get; private set; }
@@ -26,6 +27,7 @@ namespace Scenes.InMain
 
             //洪水の有無
             _floodingSystem.SetActive(SystemData.Instance.useFlooding);
+            _eventSystem.SetActive(SystemData.Instance.useEvent);
 
             //プレイヤースポーン
             if (SystemData.Instance.sceneMode == SceneMode.VR)

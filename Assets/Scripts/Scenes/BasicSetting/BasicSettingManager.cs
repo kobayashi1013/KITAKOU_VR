@@ -15,6 +15,7 @@ namespace Scenes.BasicSetting
     {
         [SerializeField] private TMP_Dropdown _mortonModelButton;
         [SerializeField] private Toggle _useFlooding;
+        [SerializeField] private Toggle _useEvent;
 
         private void Start()
         {
@@ -55,6 +56,11 @@ namespace Scenes.BasicSetting
             SystemData.Instance.SetUseFlooding(_useFlooding.isOn);
         }
 
+        public void PushUseEvent()
+        {
+            SystemData.Instance.SetUseEvent(_useEvent.isOn);
+        }
+
         public void PushResetConfigButton()
         {
             TextAsset textAsset = null;
@@ -66,6 +72,7 @@ namespace Scenes.BasicSetting
 
             SystemData.Instance.SetMortonModelDepth((MortonModelDepth)Enum.Parse(typeof(MortonModelDepth), lines[0]));
             SystemData.Instance.SetUseFlooding(bool.Parse(lines[1]));
+            SystemData.Instance.SetUseEvent(bool.Parse(lines[2]));
 
             //ルームコンフィグ
             textAsset = Resources.Load("File/RoomConfigOriginal") as TextAsset;
@@ -105,6 +112,7 @@ namespace Scenes.BasicSetting
                 _mortonModelButton.value = 4;
 
             _useFlooding.isOn = SystemData.Instance.useFlooding;
+            _useEvent.isOn = SystemData.Instance.useEvent;
         }
     }
 }
