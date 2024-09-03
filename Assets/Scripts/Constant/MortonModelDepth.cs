@@ -2,10 +2,10 @@ namespace Constant
 {
     public enum MortonModelDepth
     {
-        depth4 = 4,
-        depth8 = 8,
-        depth16 = 16,
-        depth32 = 32,
-        depth64 = 64,
+        Depth4 = 4,
+        Depth8 = 8,
+        Depth16 = 16,
+        Depth32 = 32,
+        Depth64 = 64,
     }
 }

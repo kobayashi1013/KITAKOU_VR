@@ -4,19 +4,19 @@ using System.IO;
 using UnityEngine;
 using Constant;
 using Struct;
-using System.Runtime.CompilerServices;
 
 namespace Utils
 {
     public class SystemData
     {
         public static SystemData Instance;
-        public SceneMode sceneMode { get; private set; }
-        public MortonModelDepth mortonModelDepth { get; private set; } = MortonModelDepth.depth4;
+        public SceneMode sceneMode { get; private set; } = SceneMode.PC;
+        public MortonModelDepth mortonModelDepth { get; private set; } = MortonModelDepth.Depth4;
         public bool useFlooding { get; private set; } = false;
         public bool useEvent { get; private set; } = false;
         public bool useRestrictedArea { get; private set; } = false;
-        public int avaterTotallingNum { get; private set; }
+        public SimulationTime simulationTime { get; private set; } = SimulationTime.Morning;
+        public int avaterTotallingNum { get; private set; } = 0;
         public Dictionary<string, RoomData> roomDataList = new Dictionary<string, RoomData>();
 
         public SystemData()
@@ -48,6 +48,7 @@ namespace Utils
             useFlooding = bool.Parse(textData[1]);
             useEvent = bool.Parse(textData[2]);
             useRestrictedArea = bool.Parse(textData[3]);
+            simulationTime = (SimulationTime)Enum.Parse(typeof(SimulationTime), textData[4]);
         }
 
         /// <summary>
@@ -61,7 +62,8 @@ namespace Utils
             content += mortonModelDepth.ToString() + "\n"
                 + useFlooding.ToString() + "\n"
                 + useEvent.ToString() + "\n"
-                + useRestrictedArea.ToString();
+                + useRestrictedArea.ToString() + "\n"
+                + simulationTime.ToString();
 
             File.WriteAllText(filePath, content);
         }
@@ -156,6 +158,12 @@ namespace Utils
         {
             //Debug.Log("SetUseRestrictedArea(" + state + ")");
             useRestrictedArea = state;
+        }
+
+        public void SetSimulationTime(SimulationTime time)
+        {
+            //Debug.Log("SetSimulationTime(" + time + ")");
+            simulationTime = time;
         }
     }
 }

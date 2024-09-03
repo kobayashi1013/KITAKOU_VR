@@ -48,7 +48,10 @@ namespace Scenes.Start
                 SystemData.Instance.SetSceneMode(SceneMode.VR);
 
                 //メインシーンへ移動
-                SceneManager.LoadScene((int)SceneName.InMainScene);
+                if (SystemData.Instance.simulationTime == SimulationTime.Morning)
+                    SceneManager.LoadScene((int)SceneName.InMainMorningScene);
+                else if (SystemData.Instance.simulationTime == SimulationTime.Night)
+                    SceneManager.LoadScene((int)SceneName.InMainNightScene);
             }
         }
 
@@ -60,7 +63,10 @@ namespace Scenes.Start
             SystemData.Instance.SetSceneMode(SceneMode.PC);
 
             //メインシーンへ移動
-            SceneManager.LoadScene((int)SceneName.InMainScene);
+            if (SystemData.Instance.simulationTime == SimulationTime.Morning)
+                SceneManager.LoadScene((int)SceneName.InMainMorningScene);
+            else if (SystemData.Instance.simulationTime == SimulationTime.Night)
+                SceneManager.LoadScene((int)SceneName.InMainNightScene);
         }
 
         public void PushSettingButton()

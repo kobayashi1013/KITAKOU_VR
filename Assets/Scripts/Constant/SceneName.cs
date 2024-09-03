@@ -3,7 +3,8 @@ namespace Constant
     public enum SceneName : int
     {
         StartScene,
-        InMainScene,
+        InMainMorningScene,
+        InMainNightScene,
         BasicSettingScene,
         LocationSettingScene,
         FileSettingScene,
