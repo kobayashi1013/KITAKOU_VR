@@ -33,11 +33,10 @@ MiddleLectureRoom3F,中校舎講義室3F,People,1.0,1.0
 NorthCorridor1,北校舎廊下1F,People,1.0,1.0
 NorthCorridor2,北校舎廊下2F,People,1.0,1.0
 NorthCorridor3,北校舎廊下3F,People,1.0,1.0
-NorthLectureRoom1F_1,北校舎講義室1_1F,People,1.0,1.0
-NorthLectureRoom1F_2,北校舎講義室2_1F,People,1.0,1.0
-NorthLectureRoom2F_1,北校舎講義室1_2F,People,1.0,1.0
-NorthLectureRoom2F_2,北校舎講義室2_2F,People,1.0,1.0
-NorthLectureRoom3F_1,北校舎講義室1_3F,People,1.0,1.0
-NorthLectureRoom3F_2,北校舎講義室2_3F,People,1.0,1.0
+NorthLectureRoom1F_1,北校舎講義室1F_1,People,1.0,1.0
+NorthLectureRoom1F_2,北校舎講義室1F_2,People,1.0,1.0
+NorthLectureRoom2F_1,北校舎講義室2F_1,People,1.0,1.0
+NorthLectureRoom2F_2,北校舎講義室2F_2,People,1.0,1.0
+NorthLectureRoom3F,北校舎講義室3F,People,1.0,1.0
 Hall,多目的ホール,People,1.0,1.0
 Gym,体育館アリーナ,People,1.0,1.0

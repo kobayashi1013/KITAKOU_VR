@@ -15,6 +15,7 @@ namespace Utils
         public MortonModelDepth mortonModelDepth { get; private set; } = MortonModelDepth.depth4;
         public bool useFlooding { get; private set; } = false;
         public bool useEvent { get; private set; } = false;
+        public bool useRestrictedArea { get; private set; } = false;
         public int avaterTotallingNum { get; private set; }
         public Dictionary<string, RoomData> roomDataList = new Dictionary<string, RoomData>();
 
@@ -46,6 +47,7 @@ namespace Utils
             mortonModelDepth = (MortonModelDepth)Enum.Parse(typeof(MortonModelDepth), textData[0]);
             useFlooding = bool.Parse(textData[1]);
             useEvent = bool.Parse(textData[2]);
+            useRestrictedArea = bool.Parse(textData[3]);
         }
 
         /// <summary>
@@ -58,7 +60,8 @@ namespace Utils
 
             content += mortonModelDepth.ToString() + "\n"
                 + useFlooding.ToString() + "\n"
-                + useEvent.ToString();
+                + useEvent.ToString() + "\n"
+                + useRestrictedArea.ToString();
 
             File.WriteAllText(filePath, content);
         }
@@ -147,6 +150,12 @@ namespace Utils
         {
             //Debug.Log("SetUseEvent(" + state + ")");
             useEvent = state;
+        }
+
+        public void SetUseRestrictedArea(bool state)
+        {
+            //Debug.Log("SetUseRestrictedArea(" + state + ")");
+            useRestrictedArea = state;
         }
     }
 }

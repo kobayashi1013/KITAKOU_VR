@@ -15,6 +15,7 @@ namespace Scenes.InMain
         [Header("SceneObjects")]
         [SerializeField] private GameObject _floodingSystem;
         [SerializeField] private GameObject _eventSystem;
+        [SerializeField] private GameObject _doorObjects;
 
         public static InMainManager Instance;
         public GameObject playerObject { get; private set; }
@@ -28,6 +29,7 @@ namespace Scenes.InMain
             //洪水の有無
             _floodingSystem.SetActive(SystemData.Instance.useFlooding);
             _eventSystem.SetActive(SystemData.Instance.useEvent);
+            _doorObjects.SetActive(SystemData.Instance.useRestrictedArea);
 
             //プレイヤースポーン
             if (SystemData.Instance.sceneMode == SceneMode.VR)

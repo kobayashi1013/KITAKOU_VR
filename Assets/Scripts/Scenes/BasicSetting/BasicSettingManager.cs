@@ -16,6 +16,7 @@ namespace Scenes.BasicSetting
         [SerializeField] private TMP_Dropdown _mortonModelButton;
         [SerializeField] private Toggle _useFlooding;
         [SerializeField] private Toggle _useEvent;
+        [SerializeField] private Toggle _useRestrictedArea;
 
         private void Start()
         {
@@ -59,6 +60,11 @@ namespace Scenes.BasicSetting
         public void PushUseEvent()
         {
             SystemData.Instance.SetUseEvent(_useEvent.isOn);
+        }
+
+        public void PushUseRestrictedArea()
+        {
+            SystemData.Instance.SetUseRestrictedArea(_useRestrictedArea.isOn);
         }
 
         public void PushResetConfigButton()
@@ -113,6 +119,7 @@ namespace Scenes.BasicSetting
 
             _useFlooding.isOn = SystemData.Instance.useFlooding;
             _useEvent.isOn = SystemData.Instance.useEvent;
+            _useRestrictedArea.isOn = SystemData.Instance.useRestrictedArea;
         }
     }
 }
