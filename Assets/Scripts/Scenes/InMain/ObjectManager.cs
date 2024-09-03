@@ -151,7 +151,9 @@ namespace Scenes.InMain
 
                         var offset = position - floor.transform.position;
                         offset = rotation * offset;
-                        position = offset + floor.transform.position;
+                        var circleMoveNum = (int)Random.Range(0, 360);
+                        var circleMove = new Vector3(0.2f * Mathf.Cos(circleMoveNum), 0, 0.2f * Mathf.Sin(circleMoveNum));
+                        position = offset + floor.transform.position + circleMove;
 
                         //座標の登録
                         var mortonModelPosition = ConvertToMortonModelPosition(position); //モートンモデル座標に変換
