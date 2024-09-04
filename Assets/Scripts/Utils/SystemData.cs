@@ -21,8 +21,6 @@ namespace Utils
 
         public SystemData()
         {
-            Cursor.visible = false;
-
             LoadSystemConfig();
             LoadRoomConfig();
          }

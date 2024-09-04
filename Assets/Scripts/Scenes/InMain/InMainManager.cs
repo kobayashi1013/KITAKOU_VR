@@ -26,6 +26,9 @@ namespace Scenes.InMain
             if (Instance == null) Instance = this;
             else Destroy(this.gameObject);
 
+            //カーソル非表示
+            Cursor.visible = false;
+
             //洪水の有無
             _floodingSystem.SetActive(SystemData.Instance.useFlooding);
             _eventSystem.SetActive(SystemData.Instance.useEvent);
