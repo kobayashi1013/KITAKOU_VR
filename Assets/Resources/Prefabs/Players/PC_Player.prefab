@@ -146,9 +146,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2763886196404283496}
-  - component: {fileID: 2004957896905896075}
-  - component: {fileID: 7870300887354976243}
   - component: {fileID: 6120818623591121639}
+  - component: {fileID: -655263587188679074}
   m_Layer: 0
   m_Name: PC_Player
   m_TagString: Player
@@ -172,35 +171,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &2004957896905896075
-Rigidbody:
+--- !u!114 &6120818623591121639
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1717615204849754559}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff40de6a44e777f4fae61f0083f04e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _walkSpeed: 3
+  _dashSpeed: 5
+  _rayLength: 0.01
+  _rayMask:
     serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!136 &7870300887354976243
-CapsuleCollider:
+    m_Bits: 1
+  _rotationSensitive: 1
+  _gravity: 15
+  _externnalForceDamping: 5
+--- !u!143 &-655263587188679074
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -217,26 +210,14 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3
+  serializedVersion: 3
   m_Height: 1.8
-  m_Direction: 1
+  m_Radius: 0.3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &6120818623591121639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717615204849754559}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff40de6a44e777f4fae61f0083f04e30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  acceleration: 100
-  maxVelocity: 3
-  _rotationSensitive: 1
 --- !u!1 &2038518507483279573
 GameObject:
   m_ObjectHideFlags: 0
