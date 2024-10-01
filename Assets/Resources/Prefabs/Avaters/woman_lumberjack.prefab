@@ -1283,7 +1283,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2976804014286253056}
   - component: {fileID: 7663650833159980687}
-  - component: {fileID: 8242754753625157467}
   m_Layer: 6
   m_Name: woman_lumberjack
   m_TagString: Untagged
@@ -1334,19 +1333,6 @@ CharacterController:
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &8242754753625157467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4367094557410169441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af9c8a0f544a79145ba82a36c44e6797, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterCntroller: {fileID: 7663650833159980687}
 --- !u!1 &4378790670423070875
 GameObject:
   m_ObjectHideFlags: 0

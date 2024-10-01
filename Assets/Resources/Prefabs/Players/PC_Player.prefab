@@ -146,8 +146,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2763886196404283496}
-  - component: {fileID: 6120818623591121639}
   - component: {fileID: -655263587188679074}
+  - component: {fileID: 6120818623591121639}
   m_Layer: 0
   m_Name: PC_Player
   m_TagString: Player
@@ -171,27 +171,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6120818623591121639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717615204849754559}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff40de6a44e777f4fae61f0083f04e30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _walkSpeed: 3
-  _dashSpeed: 5
-  _rayLength: 0.01
-  _rayMask:
-    serializedVersion: 2
-    m_Bits: 1
-  _rotationSensitive: 1
-  _gravity: 15
-  _externnalForceDamping: 5
 --- !u!143 &-655263587188679074
 CharacterController:
   m_ObjectHideFlags: 0
@@ -212,12 +191,34 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.8
-  m_Radius: 0.3
+  m_Radius: 0.25
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.0001
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &6120818623591121639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717615204849754559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff40de6a44e777f4fae61f0083f04e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _walkSpeed: 3
+  _dashSpeed: 5
+  _rayLength: 0.001
+  _rayMask:
+    serializedVersion: 2
+    m_Bits: 1
+  _rotationSensitive: 1
+  _gravity: 14.72
+  _externnalForceDamping: 5
+  _addForceSensitive: 0.1
 --- !u!1 &2038518507483279573
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2038518507483279573}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

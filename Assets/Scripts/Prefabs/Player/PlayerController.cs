@@ -10,7 +10,7 @@ namespace Prefabs.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        private static readonly float _gravity = 9.81f;
+        /*private static readonly float _gravity = 9.81f;
         private static readonly float _colliderRange = 0.8f; //ƒvƒŒƒCƒ„[‚ÌüˆÍ‚Ô‚Â‚©‚è”ÍˆÍ
 
         [Header("Components")]
@@ -112,6 +112,6 @@ namespace Prefabs.Player
             }
 
             _collectionTime += Time.deltaTime;
-        }
+        }*/
     }
 }

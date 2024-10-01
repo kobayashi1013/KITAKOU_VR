@@ -1632,7 +1632,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5895750235958015816}
   - component: {fileID: 6180314071458904649}
-  - component: {fileID: 6340906363740122087}
   m_Layer: 6
   m_Name: man_farm
   m_TagString: Untagged
@@ -1683,19 +1682,6 @@ CharacterController:
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &6340906363740122087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4273808484007543407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af9c8a0f544a79145ba82a36c44e6797, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterCntroller: {fileID: 6180314071458904649}
 --- !u!1 &4326099766497854412
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,8 +27,8 @@ namespace Prefabs.Player
             _moveProvider = GetComponent<ContinuousMoveProviderBase>();
 
             //周囲のアバターを押しのける
-            this.UpdateAsObservable()
-                .Subscribe(_ => AvaterMove());
+            /*this.UpdateAsObservable()
+                .Subscribe(_ => AvaterMove());*/
         }
 
         public void OnDash(InputAction.CallbackContext context)
@@ -47,7 +47,7 @@ namespace Prefabs.Player
         /// <summary>
         /// アバターを押しのける処理
         /// </summary>
-        private void AvaterMove()
+        /*private void AvaterMove()
         {
             if (_collectionTime > 0.5f)
             {
@@ -72,6 +72,6 @@ namespace Prefabs.Player
             }
 
             _collectionTime += Time.deltaTime;
-        }
+        }*/
     }
 }

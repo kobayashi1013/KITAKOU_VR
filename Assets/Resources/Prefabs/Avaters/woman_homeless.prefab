@@ -1323,7 +1323,6 @@ GameObject:
   m_Component:
   - component: {fileID: 272812456905136936}
   - component: {fileID: 7705012974130233060}
-  - component: {fileID: 8135015443962036065}
   m_Layer: 6
   m_Name: woman_homeless
   m_TagString: Untagged
@@ -1374,19 +1373,6 @@ CharacterController:
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &8135015443962036065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4907223649693413822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af9c8a0f544a79145ba82a36c44e6797, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterCntroller: {fileID: 7705012974130233060}
 --- !u!1 &4937421357351099052
 GameObject:
   m_ObjectHideFlags: 0

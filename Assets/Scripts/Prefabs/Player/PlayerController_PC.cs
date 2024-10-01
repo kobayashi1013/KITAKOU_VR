@@ -4,41 +4,42 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using TMPro;
+using Prefabs.Avater;
 
 namespace Prefabs.Player
 {
     public class PlayerController_PC : MonoBehaviour
     {
         [Header("移動速度")]
-        [SerializeField] private float _walkSpeed = 1.0f;
-        [SerializeField] private float _dashSpeed = 1.0f;
+        [SerializeField] private float _walkSpeed = 0f;
+        [SerializeField] private float _dashSpeed = 0f;
         [Header("接地")]
-        [SerializeField] private float _rayLength = 1.0f;
+        [SerializeField] private float _rayLength = 0f;
         [SerializeField] private LayerMask _rayMask;
         [Header("その他")]
-        [SerializeField] private float _rotationSensitive = 1.0f;
+        [SerializeField] private float _rotationSensitive = 0f;
         [SerializeField] private float _gravity = 9.81f;
-        [SerializeField] private float _externnalForceDamping = 1.0f;
+        [SerializeField] private float _externnalForceDamping = 0f;
+        [SerializeField] private float _addForceSensitive = 0f;
 
         private CharacterController _controller;
-        private bool _isGrounded = false;
-        private float _velocityY = 0f;
-        private Vector3 _externalForce = Vector3.zero;
+        private bool _isGrounded = false; //接地判定
+        private float _gravitySpeed = 0f; //重力速度y
+        private Vector3 _externalForce = Vector3.zero; //外力速度
+        private Vector3 _velocity = Vector3.zero; //速度
 
         private void Start()
         {
             _controller = GetComponent<CharacterController>();
 
-            this.UpdateAsObservable().Subscribe(_ => PlayerRotation());
-            this.UpdateAsObservable().Subscribe(_ => PlayerMove());
-            this.UpdateAsObservable().Subscribe(_ => UseGravity());
-            this.UpdateAsObservable().Subscribe(_ => AttenuationForce());
+            this.UpdateAsObservable().Subscribe(_ => PlayerRotation()); //プレイヤー回転
+            this.UpdateAsObservable().Subscribe(_ => PlayerPhysics()); //プレイヤー物理挙動
+            this.FixedUpdateAsObservable().Subscribe(_ => IsGround()); //接地判定
 
-            this.FixedUpdateAsObservable().Subscribe(_ => IsGround());
-
-            this.ObserveEveryValueChanged(x => x._isGrounded)
-                .Where(x => x)
-                .Subscribe(x => _velocityY = 0f);
+            this.ObserveEveryValueChanged(_ => _isGrounded) //重力速度リセット
+                .Pairwise()
+                .Where(pair => !pair.Previous && pair.Current)
+                .Subscribe(_ => _gravitySpeed = 0f);
         }
 
         /// <summary>
@@ -48,28 +49,7 @@ namespace Prefabs.Player
         private void IsGround()
         {
             var ray = new Ray(transform.position, Vector3.down);
-            _isGrounded =  Physics.Raycast(ray, _rayLength, _rayMask);
-        }
-
-        /// <summary>
-        /// プレイヤー移動
-        /// </summary>
-        private void PlayerMove()
-        {
-            //入力
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
-            bool dashInput = Input.GetKey(KeyCode.LeftShift);
-
-            //移動速度
-            Vector3 inputDirection = new Vector3(horizontal, 0, vertical).normalized;
-            Vector3 playerDirection = transform.TransformDirection(inputDirection);
-            Vector3 movement = Vector3.zero;
-            if (dashInput == true) movement = playerDirection * _dashSpeed;
-            else movement = playerDirection * _walkSpeed;
-
-            //移動
-            _controller.Move(movement * Time.deltaTime);
+            _isGrounded = Physics.Raycast(ray, _rayLength, _rayMask);
         }
 
         /// <summary>
@@ -87,31 +67,60 @@ namespace Prefabs.Player
             transform.Rotate(0, rotateY, 0);
         }
 
+        private void PlayerPhysics()
+        {
+            Vector3 velocity = Vector3.zero;
+            velocity += PlayerMove();
+            velocity += UseGravity();
+            velocity += AttenuationForce();
+
+            _controller.Move(velocity * Time.deltaTime);
+            _velocity = velocity;
+        }
+
+        /// <summary>
+        /// プレイヤー移動
+        /// </summary>
+        private Vector3 PlayerMove()
+        {
+            //入力
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+            bool dashInput = Input.GetKey(KeyCode.LeftShift);
+
+            //移動速度
+            Vector3 inputDirection = new Vector3(horizontal, 0, vertical).normalized; //入力方向
+            Vector3 playerDirection = transform.TransformDirection(inputDirection); //プレイヤー方向に補正
+            Vector3 movement = Vector3.zero; //スピード調整
+            if (dashInput == true) movement = playerDirection * _dashSpeed;
+            else movement = playerDirection * _walkSpeed;
+
+            return movement;
+        }
+
         /// <summary>
         /// 重力
         /// </summary>
-        private void UseGravity()
+        private Vector3 UseGravity()
         {
             //重力計算
-            if (_isGrounded == false) _velocityY -= _gravity * Time.deltaTime;
+            if (_isGrounded == false) _gravitySpeed -= _gravity * Time.deltaTime;
 
             //落下速度
-            Vector3 movement = new Vector3(0, _velocityY, 0);
+            Vector3 movement = new Vector3(0, _gravitySpeed, 0);
 
-            //落下
-            _controller.Move(movement * Time.deltaTime);
+            return movement;
         }
 
         /// <summary>
         /// 外力減衰の計算
         /// </summary>
-        private void AttenuationForce()
+        private Vector3 AttenuationForce()
         {
             //外力計算
             _externalForce = Vector3.Lerp(_externalForce, Vector3.zero, _externnalForceDamping * Time.deltaTime);
 
-            //移動
-            _controller.Move(_externalForce * Time.deltaTime);
+            return _externalForce;
         }
 
         /// <summary>
@@ -120,8 +129,16 @@ namespace Prefabs.Player
         /// <param name="force"></param>
         private void AddForce(Vector3 force)
         {
-            _externalForce += new Vector3(force.x, 0f, force.z);
-            if (_isGrounded) _velocityY += force.y;
+            _externalForce += force;
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (!hit.gameObject.CompareTag("Avater")) return;
+            if (!hit.gameObject.TryGetComponent<Rigidbody>(out var rigidbody)) return;
+
+            Debug.Log("**********");
+            rigidbody.AddForce(_velocity * Time.deltaTime, ForceMode.Impulse);
         }
     }
 }
