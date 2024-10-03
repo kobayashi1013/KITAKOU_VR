@@ -1,97 +1,51 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UniRx;
-using UniRx.Triggers;
 
 namespace Prefabs.Avater
 {
     public class AvaterController : MonoBehaviour
     {
-        [Header("接地")]
-        [SerializeField] private float _rayLength = 0f;
-        [SerializeField] private LayerMask _rayMask;
-        [Header("その他")]
-        [SerializeField] private float _gravity = 9.81f;
-        [SerializeField] private float _externalForceDamping = 0f;
-
-        private CharacterController _controller;
-        private bool _isGrounded = false; //接地判定
-        private float _gravitySpeed = 0f; //重力速度y
-        private Vector3 _externalForce = Vector3.zero; //外力速度
-        private Vector3 _velocity = Vector3.zero; //速度
+        [Header("回転")]
+        [SerializeField] private float _rotationTime = 0f;
+        [SerializeField] private float _minWaitingTime = 0f;
+        [SerializeField] private float _maxWaitingTime = 0f;
 
         private void Start()
         {
-            _controller = GetComponent<CharacterController>();
-
-            this.UpdateAsObservable().Subscribe(_ => AvaterPhysics()); //アバター物理挙動
-            this.FixedUpdateAsObservable().Subscribe(_ => IsGround()); //接地判定
-
-            this.ObserveEveryValueChanged(_ => _isGrounded) //重力速度リセット
-                .Pairwise()
-                .Where(pair => !pair.Previous && pair.Current)
-                .Subscribe(_ => _gravitySpeed = 0f);
+            Action(); //アクション開始
         }
 
-        /// <summary>
-        /// 接地を判定する
-        /// </summary>
-        /// <returns></returns>
-        private void IsGround()
+        private async void Action()
         {
-            var ray = new Ray(transform.position, Vector3.down);
-            _isGrounded = Physics.Raycast(ray, _rayLength, _rayMask);
+            while (true)
+            {
+                await Rotation();
+            }
         }
 
-        /// <summary>
-        /// アバターの物理計算
-        /// </summary>
-        private void AvaterPhysics()
+        private async UniTask Rotation()
         {
-            Vector3 velocity = Vector3.zero;
-            velocity += UseGravity();
-            velocity += AttenuationForce();
+            //回転角度の決定
+            Quaternion currentRotation = transform.rotation;
+            Quaternion randomRotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
 
-            //_controller.Move(velocity * Time.deltaTime);
-            Debug.Log(velocity);
-            _velocity = velocity;
-        }
+            //プレイヤーの回転
+            float timer = 0f;
+            while (timer < _rotationTime)
+            {
+                if (this == null) break; //エラーハンドリング
+                timer += Time.deltaTime;
+                transform.rotation = Quaternion.Lerp(currentRotation, randomRotation, timer / _rotationTime);
+                await UniTask.Yield(PlayerLoopTiming.Update);
+            }
 
-        /// <summary>
-        /// 重力
-        /// </summary>
-        /// <returns></returns>
-        private Vector3 UseGravity()
-        {
-            //重力計算
-            if (_isGrounded == false) _gravitySpeed -= _gravity * Time.deltaTime;
-
-            //落下速度
-            Vector3 movement = new Vector3(0, _gravitySpeed, 0);
-
-            return movement;
-        }
-
-        /// <summary>
-        /// 外力減衰の計算
-        /// </summary>
-        /// <returns></returns>
-        private Vector3 AttenuationForce()
-        {
-            //外力計算
-            _externalForce = Vector3.Lerp(_externalForce, Vector3.zero, _externalForceDamping * Time.deltaTime);
-
-            return _externalForce;
-        }
-
-        /// <summary>
-        /// 外力の加算
-        /// </summary>
-        /// <param name="force"></param>
-        public void AddForce(Vector3 force)
-        {
-            _externalForce += force;
+            //ランダム時間待機
+            float waitingTime = UnityEngine.Random.Range(_minWaitingTime, _maxWaitingTime);
+            await UniTask.Delay(TimeSpan.FromSeconds(waitingTime));
         }
     }
 }

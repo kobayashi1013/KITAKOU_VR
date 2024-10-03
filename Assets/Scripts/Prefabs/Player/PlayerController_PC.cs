@@ -24,16 +24,20 @@ namespace Prefabs.Player
 
         private CharacterController _controller;
         private bool _isGrounded = false; //接地判定
-        private float _gravitySpeed = 0f; //重力速度y
+        private float _gravitySpeed = 0f; //重力速さy
         private Vector3 _externalForce = Vector3.zero; //外力速度
-        private Vector3 _velocity = Vector3.zero; //速度
+        private Vector3 _movement = Vector3.zero; //動作
+        private Vector3 _prevPosition = Vector3.zero; //前フレームの位置
+        private float _playerSpeed = 0f; //プレイヤーの実行速さ
 
         private void Start()
         {
             _controller = GetComponent<CharacterController>();
+            _prevPosition = transform.position;
 
             this.UpdateAsObservable().Subscribe(_ => PlayerRotation()); //プレイヤー回転
             this.UpdateAsObservable().Subscribe(_ => PlayerPhysics()); //プレイヤー物理挙動
+            this.UpdateAsObservable().Subscribe(_ => PlayerSpeed()); //プレイヤーの速さを計測
             this.FixedUpdateAsObservable().Subscribe(_ => IsGround()); //接地判定
 
             this.ObserveEveryValueChanged(_ => _isGrounded) //重力速度リセット
@@ -67,15 +71,33 @@ namespace Prefabs.Player
             transform.Rotate(0, rotateY, 0);
         }
 
+        /// <summary>
+        /// プレイヤー物理
+        /// </summary>
         private void PlayerPhysics()
         {
-            Vector3 velocity = Vector3.zero;
-            velocity += PlayerMove();
-            velocity += UseGravity();
-            velocity += AttenuationForce();
+            Vector3 movement = Vector3.zero;
+            movement += PlayerMove();
+            movement += UseGravity();
+            movement += AttenuationForce();
 
-            _controller.Move(velocity * Time.deltaTime);
-            _velocity = velocity;
+            _controller.Move(movement * Time.deltaTime);
+            _movement = movement;
+        }
+
+        /// <summary>
+        /// 速さ計算
+        /// </summary>
+        private void PlayerSpeed()
+        {
+            //速度
+            Vector3 velocity = transform.position - _prevPosition;
+            _prevPosition = transform.position;
+
+            //速さ
+            float distance = velocity.magnitude;
+            float speed = distance / Time.deltaTime;
+            _playerSpeed = speed;
         }
 
         /// <summary>
@@ -137,8 +159,7 @@ namespace Prefabs.Player
             if (!hit.gameObject.CompareTag("Avater")) return;
             if (!hit.gameObject.TryGetComponent<Rigidbody>(out var rigidbody)) return;
 
-            Debug.Log("**********");
-            rigidbody.AddForce(_velocity * Time.deltaTime, ForceMode.Impulse);
+            rigidbody.AddForce(_movement * _addForceSensitive, ForceMode.Impulse);
         }
     }
 }
