@@ -9,6 +9,7 @@ namespace Prefabs.Avater
 {
     public class AvaterController : MonoBehaviour
     {
+        [SerializeField] private AvaterConfig _avaterConfig;
         [Header("ŽžŠÔ")]
         [SerializeField] private float _rotationTime = 0f;
         [SerializeField] private float _moveTime = 0f;
@@ -98,10 +99,10 @@ namespace Prefabs.Avater
         private void OnCollisionEnter(Collision collision)
         {
             if (!collision.gameObject.CompareTag("Player")) return;
-            if (!collision.gameObject.TryGetComponent<PlayerController_PC>(out var playerController)) return;
+            if (!collision.gameObject.TryGetComponent<PlayerControllerBase>(out var playerController)) return;
 
             Vector3 direction = collision.contacts[0].normal * -1;
-            playerController.AddForce(direction);
+            playerController.AddForce(direction * _avaterConfig.addForceSensitive);
         }
     }
 }

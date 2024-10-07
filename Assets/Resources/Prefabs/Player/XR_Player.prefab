@@ -689,8 +689,8 @@ GameObject:
   - component: {fileID: 6195094594401195837}
   - component: {fileID: 8523362034275993378}
   - component: {fileID: 2158997445996587890}
-  - component: {fileID: 114796998743479953}
   - component: {fileID: 1882129217298666539}
+  - component: {fileID: 2901994621462336336}
   m_Layer: 0
   m_Name: XR_Player
   m_TagString: Player
@@ -875,28 +875,12 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.8
-  m_Radius: 0.3
+  m_Radius: 0.25
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.0001
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &114796998743479953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2814109903584468359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24ce0f8c51db358409bcfa38576c7f7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _avaterLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  _playerSpeed: 2
 --- !u!114 &1882129217298666539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,8 +940,8 @@ MonoBehaviour:
     m_ActionName: RightHandLocomotion/Turn
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114796998743479953}
-        m_TargetAssemblyTypeName: Prefabs.Player.PlayerController_VR, Assembly-CSharp
+      - m_Target: {fileID: 2901994621462336336}
+        m_TargetAssemblyTypeName: Prefabs.Player.VrPlayerController, Assembly-CSharp
         m_MethodName: OnDash
         m_Mode: 0
         m_Arguments:
@@ -975,6 +959,20 @@ MonoBehaviour:
   m_DefaultActionMap: RightHandLocomotion
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2901994621462336336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2814109903584468359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8240cfe6d3e1f3a44b4c037339d5ecec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _externalForceVelocity: {x: 0, y: 0, z: 0}
+  _playerConfig: {fileID: 11400000, guid: 79482be2365886641acdf0a52d5b3506, type: 2}
 --- !u!1 &3774851680373904135
 GameObject:
   m_ObjectHideFlags: 0

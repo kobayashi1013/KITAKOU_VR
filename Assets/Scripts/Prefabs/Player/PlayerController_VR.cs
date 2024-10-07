@@ -43,35 +43,5 @@ namespace Prefabs.Player
                 _moveProvider.moveSpeed = _playerSpeed;
             }
         }
-
-        /// <summary>
-        /// アバターを押しのける処理
-        /// </summary>
-        /*private void AvaterMove()
-        {
-            if (_collectionTime > 0.5f)
-            {
-                _collectionTime = 0f;
-                _avaterControllerList.Clear();
-
-                var hits = Physics.OverlapSphere(this.transform.position, _colliderRange, _avaterLayer);
-                foreach (var hit in hits)
-                {
-                    _avaterControllerList.Add(hit.GetComponent<AvaterController>());
-                }
-            }
-
-            foreach (var controller in _avaterControllerList)
-            {
-                var direction = new Vector3(
-                    controller.transform.position.x - this.transform.position.x,
-                    0f,
-                    controller.transform.position.z - this.transform.position.z);
-
-                controller.Move(direction.normalized * Time.deltaTime);
-            }
-
-            _collectionTime += Time.deltaTime;
-        }*/
     }
 }

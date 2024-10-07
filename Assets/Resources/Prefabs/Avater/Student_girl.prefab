@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af9c8a0f544a79145ba82a36c44e6797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _avaterConfig: {fileID: 11400000, guid: 97f9a0cf13b51b84caf56a1a2e8aeb55, type: 2}
   _rotationTime: 1
   _moveTime: 0.5
   _minWaitingTime: 3
