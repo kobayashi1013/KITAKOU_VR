@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -1094858937733257065}
   - component: {fileID: -6789916277646307552}
   m_Layer: 0
-  m_Name: Student_Girl
+  m_Name: Student_girl
   m_TagString: Avater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,9 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationTime: 1
-  _moveTime: 1
-  _minWaitingTime: 10
-  _maxWaitingTime: 15
+  _moveTime: 0.5
+  _minWaitingTime: 3
+  _maxWaitingTime: 5
 --- !u!1 &5178854365225575672
 GameObject:
   m_ObjectHideFlags: 0

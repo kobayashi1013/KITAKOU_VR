@@ -16,11 +16,13 @@ namespace Prefabs.Player
         [Header("ê⁄ín")]
         [SerializeField] private float _rayLength = 0f;
         [SerializeField] private LayerMask _rayMask;
-        [Header("ÇªÇÃëº")]
-        [SerializeField] private float _rotationSensitive = 0f;
+        [Header("óÕ")]
         [SerializeField] private float _gravity = 9.81f;
         [SerializeField] private float _externnalForceDamping = 0f;
         [SerializeField] private float _addForceSensitive = 0f;
+        [SerializeField] private float _recieveForceSensitive = 0f;
+        [Header("ÇªÇÃëº")]
+        [SerializeField] private float _rotationSensitive = 0f;
 
         private CharacterController _controller;
         private bool _isGrounded = false; //ê⁄ínîªíË
@@ -148,10 +150,10 @@ namespace Prefabs.Player
         /// <summary>
         /// äOóÕÇÃâ¡éZ
         /// </summary>
-        /// <param name="force"></param>
-        private void AddForce(Vector3 force)
+        /// <param name="direction"></param>
+        public void AddForce(Vector3 direction)
         {
-            _externalForce += force;
+            _externalForce += direction.normalized * _recieveForceSensitive;
         }
 
         private void OnControllerColliderHit(ControllerColliderHit hit)

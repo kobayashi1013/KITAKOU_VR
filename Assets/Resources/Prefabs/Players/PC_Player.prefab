@@ -215,10 +215,11 @@ MonoBehaviour:
   _rayMask:
     serializedVersion: 2
     m_Bits: 1
-  _rotationSensitive: 1
   _gravity: 14.72
   _externnalForceDamping: 5
   _addForceSensitive: 0.5
+  _recieveForceSensitive: 1
+  _rotationSensitive: 1
 --- !u!1 &2038518507483279573
 GameObject:
   m_ObjectHideFlags: 0

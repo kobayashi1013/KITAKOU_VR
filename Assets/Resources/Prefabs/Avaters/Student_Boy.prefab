@@ -265,6 +265,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationTime: 1
-  _moveTime: 1
-  _minWaitingTime: 10
-  _maxWaitingTime: 15
+  _moveTime: 0.5
+  _minWaitingTime: 3
+  _maxWaitingTime: 5

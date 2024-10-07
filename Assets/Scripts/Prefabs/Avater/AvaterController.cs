@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Prefabs.Player;
 using UnityEngine;
 
 namespace Prefabs.Avater
@@ -92,6 +93,15 @@ namespace Prefabs.Avater
             //ƒ‰ƒ“ƒ_ƒ€ŽžŠÔ‘Ò‹@
             float waitingTime = UnityEngine.Random.Range(_minWaitingTime, _maxWaitingTime);
             await UniTask.Delay(TimeSpan.FromSeconds(waitingTime));
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (!collision.gameObject.CompareTag("Player")) return;
+            if (!collision.gameObject.TryGetComponent<PlayerController_PC>(out var playerController)) return;
+
+            Vector3 direction = collision.contacts[0].normal * -1;
+            playerController.AddForce(direction);
         }
     }
 }
