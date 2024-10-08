@@ -147,7 +147,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2763886196404283496}
   - component: {fileID: -655263587188679074}
-  - component: {fileID: 6120818623591121639}
+  - component: {fileID: -6658414337901987789}
+  - component: {fileID: 2650423848477966013}
   m_Layer: 0
   m_Name: PC_Player
   m_TagString: Player
@@ -197,7 +198,7 @@ CharacterController:
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &6120818623591121639
+--- !u!114 &-6658414337901987789
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,20 +207,124 @@ MonoBehaviour:
   m_GameObject: {fileID: 1717615204849754559}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff40de6a44e777f4fae61f0083f04e30, type: 3}
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkSpeed: 2
-  _dashSpeed: 4
-  _rayLength: 0.001
-  _rayMask:
-    serializedVersion: 2
-    m_Bits: 1
-  _gravity: 14.72
-  _externnalForceDamping: 5
-  _addForceSensitive: 0.5
-  _recieveForceSensitive: 1
-  _rotationSensitive: 1
+  m_Actions: {fileID: -944628639613478452, guid: f491e62db7fb1674489e2edf90ae73f2, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a79607df-9c40-4e6b-9bb4-bf8ac291af1b
+    m_ActionName: Head/Position
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a02997bb-bd49-4775-a58f-329e3fd4be5d
+    m_ActionName: Head/Rotation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8800c609-1da2-4897-b915-14fba3151a30
+    m_ActionName: LeftHand/Position
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6a0613e3-e2fc-403d-b92d-6124e67575d8
+    m_ActionName: LeftHand/Rotation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b6192f28-8342-42f8-8321-a086795d43e8
+    m_ActionName: RightHand/Position
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c16334ba-7c4b-40f9-aea4-ce7c7d503e62
+    m_ActionName: RightHand/Rotation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2a02fd7c-1e90-4b90-be0b-d0adb5e3d869
+    m_ActionName: LeftHandLocomotion/Move
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0acb1a7e-46e5-4b8c-8b8f-ce84f23bb4e0
+    m_ActionName: RightHandLocomotion/Turn
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 710bdaae-eb0e-4166-af90-1a9b939391a2
+    m_ActionName: RightHandLocomotion/Dash
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2650423848477966013}
+        m_TargetAssemblyTypeName: Prefabs.Player.PcPlayerController, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8eadc304-961c-4fd9-939a-6aa1e024b009
+    m_ActionName: PcModeInput/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2650423848477966013}
+        m_TargetAssemblyTypeName: Prefabs.Player.PcPlayerController, Assembly-CSharp
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5e2d2c94-b8de-46bd-ae0a-7bc1a774b817
+    m_ActionName: PcModeInput/Dash[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2650423848477966013}
+        m_TargetAssemblyTypeName: Prefabs.Player.PcPlayerController, Assembly-CSharp
+        m_MethodName: OnRotate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 28b5f679-c9f1-450a-88ab-d47468ec0e13
+    m_ActionName: PcModeInput/Rotate[/Mouse/delta]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: PcModeInput
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &2650423848477966013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717615204849754559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03bc7838eddd44643862349270f2a649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerConfig: {fileID: 11400000, guid: 79482be2365886641acdf0a52d5b3506, type: 2}
 --- !u!1 &2038518507483279573
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,6 +334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6607216685625563074}
+  - component: {fileID: 3492278008696990742}
   - component: {fileID: 5897300107875353821}
   m_Layer: 0
   m_Name: CameraHolder
@@ -253,6 +359,96 @@ Transform:
   m_Father: {fileID: 2763886196404283496}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3492278008696990742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038518507483279573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: f491e62db7fb1674489e2edf90ae73f2, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a79607df-9c40-4e6b-9bb4-bf8ac291af1b
+    m_ActionName: Head/Position
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a02997bb-bd49-4775-a58f-329e3fd4be5d
+    m_ActionName: Head/Rotation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8800c609-1da2-4897-b915-14fba3151a30
+    m_ActionName: LeftHand/Position
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6a0613e3-e2fc-403d-b92d-6124e67575d8
+    m_ActionName: LeftHand/Rotation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b6192f28-8342-42f8-8321-a086795d43e8
+    m_ActionName: RightHand/Position
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c16334ba-7c4b-40f9-aea4-ce7c7d503e62
+    m_ActionName: RightHand/Rotation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2a02fd7c-1e90-4b90-be0b-d0adb5e3d869
+    m_ActionName: LeftHandLocomotion/Move
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0acb1a7e-46e5-4b8c-8b8f-ce84f23bb4e0
+    m_ActionName: RightHandLocomotion/Turn
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 710bdaae-eb0e-4166-af90-1a9b939391a2
+    m_ActionName: RightHandLocomotion/Dash
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8eadc304-961c-4fd9-939a-6aa1e024b009
+    m_ActionName: PcModeInput/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5e2d2c94-b8de-46bd-ae0a-7bc1a774b817
+    m_ActionName: PcModeInput/Dash[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5897300107875353821}
+        m_TargetAssemblyTypeName: Prefabs.Player.CameraMove, Assembly-CSharp
+        m_MethodName: OnRotate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 28b5f679-c9f1-450a-88ab-d47468ec0e13
+    m_ActionName: PcModeInput/Rotate[/Mouse/delta]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: PcModeInput
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!114 &5897300107875353821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,5 +461,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f77721bf117e6e94aa0e651a00a34869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  y_sensitivity: 3
-  rot_limit: 50
+  _playerConfig: {fileID: 11400000, guid: 79482be2365886641acdf0a52d5b3506, type: 2}

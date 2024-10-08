@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0034de63e730dd44bff68de20b4ad91, type: 3}
   m_Name: AvaterConfig
   m_EditorClassIdentifier: 
-  addForceSensitive: 10
+  addForceSensitive: 1
+  rotationTime: 1
+  moveTime: 0.5
+  minWaitingTime: 10
+  maxWaitingTime: 20

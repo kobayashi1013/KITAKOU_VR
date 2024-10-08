@@ -954,6 +954,18 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 710bdaae-eb0e-4166-af90-1a9b939391a2
     m_ActionName: RightHandLocomotion/Dash
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8eadc304-961c-4fd9-939a-6aa1e024b009
+    m_ActionName: PcModeInput/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5e2d2c94-b8de-46bd-ae0a-7bc1a774b817
+    m_ActionName: PcModeInput/Dash[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 28b5f679-c9f1-450a-88ab-d47468ec0e13
+    m_ActionName: PcModeInput/Rotate[/Mouse/delta]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: RightHandLocomotion
@@ -971,7 +983,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8240cfe6d3e1f3a44b4c037339d5ecec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _externalForceVelocity: {x: 0, y: 0, z: 0}
   _playerConfig: {fileID: 11400000, guid: 79482be2365886641acdf0a52d5b3506, type: 2}
 --- !u!1 &3774851680373904135
 GameObject:

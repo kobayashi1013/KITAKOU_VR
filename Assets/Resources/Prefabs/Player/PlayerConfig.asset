@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4a65d5f191fd34481e7520afb2741d, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  walkSpeed: 2
-  dashSpeed: 4
-  addForceSensitive: 10
-  attenuationRate: 1
+  isGroundedMask:
+    serializedVersion: 2
+    m_Bits: 1
+  walkSpeed: 1.5
+  dashSpeed: 3
+  rotationSensitive: 0.1
+  verticalLimit: 45
+  gravitySensitive: 9.81
+  addForceSensitive: 5
+  attenuationSensitive: 5

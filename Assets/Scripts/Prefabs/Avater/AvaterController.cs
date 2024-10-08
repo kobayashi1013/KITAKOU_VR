@@ -10,13 +10,9 @@ namespace Prefabs.Avater
     public class AvaterController : MonoBehaviour
     {
         [SerializeField] private AvaterConfig _avaterConfig;
-        [Header("時間")]
-        [SerializeField] private float _rotationTime = 0f;
-        [SerializeField] private float _moveTime = 0f;
-        [SerializeField] private float _minWaitingTime = 0f;
-        [SerializeField] private float _maxWaitingTime = 0f;
 
         private Rigidbody _rigidbody;
+        private float _isMove = 0f;
 
         private void Start()
         {
@@ -49,16 +45,16 @@ namespace Prefabs.Avater
 
             //回転
             float timer = 0f;
-            while (timer < _rotationTime)
+            while (timer < _avaterConfig.rotationTime)
             {
                 if (this == null) break; //エラーハンドリング
                 timer += Time.deltaTime;
-                transform.rotation = Quaternion.Lerp(currentRotation, randomRotation, timer / _rotationTime);
+                transform.rotation = Quaternion.Lerp(currentRotation, randomRotation, timer / _avaterConfig.rotationTime);
                 await UniTask.Yield(PlayerLoopTiming.Update);
             }
 
             //ランダム時間待機
-            float waitingTime = UnityEngine.Random.Range(_minWaitingTime, _maxWaitingTime);
+            float waitingTime = UnityEngine.Random.Range(_avaterConfig.minWaitingTime, _avaterConfig.maxWaitingTime);
             await UniTask.Delay(TimeSpan.FromSeconds(waitingTime));
         }
 
@@ -70,11 +66,11 @@ namespace Prefabs.Avater
 
             //回転
             float timer = 0f;
-            while (timer < _rotationTime)
+            while (timer < _avaterConfig.rotationTime)
             {
                 if (this == null) break; //エラーハンドリング
                 timer += Time.deltaTime;
-                transform.rotation = Quaternion.Lerp(currentRotation, randomRotation, timer / _rotationTime);
+                transform.rotation = Quaternion.Lerp(currentRotation, randomRotation, timer / _avaterConfig.rotationTime);
                 await UniTask.Yield(PlayerLoopTiming.Update);
             }
 
@@ -83,16 +79,18 @@ namespace Prefabs.Avater
 
             //移動
             timer = 0f;
-            while (timer < _rotationTime)
+            _isMove = 1f;
+            while (timer < _avaterConfig.rotationTime)
             {
                 if (this == null) break; //エラーハンドリング
                 timer += Time.deltaTime;
                 _rigidbody.MovePosition(_rigidbody.position + movement * Time.deltaTime);
                 await UniTask.Yield(PlayerLoopTiming.Update);
             }
+            _isMove = 0f;
 
             //ランダム時間待機
-            float waitingTime = UnityEngine.Random.Range(_minWaitingTime, _maxWaitingTime);
+            float waitingTime = UnityEngine.Random.Range(_avaterConfig.minWaitingTime, _avaterConfig.maxWaitingTime);
             await UniTask.Delay(TimeSpan.FromSeconds(waitingTime));
         }
 
@@ -102,7 +100,7 @@ namespace Prefabs.Avater
             if (!collision.gameObject.TryGetComponent<PlayerControllerBase>(out var playerController)) return;
 
             Vector3 direction = collision.contacts[0].normal * -1;
-            playerController.AddForce(direction * _avaterConfig.addForceSensitive);
+            playerController.AddForce(direction * _isMove * _avaterConfig.addForceSensitive);
         }
     }
 }
