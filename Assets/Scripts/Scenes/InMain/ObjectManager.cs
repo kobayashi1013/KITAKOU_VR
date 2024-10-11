@@ -160,13 +160,7 @@ namespace Scenes.InMain
                         var mortonSpaceNumber = GetSpaceNumber3D(mortonModelPosition); //スペース番号の取得
 
                         //配置
-                        if (Random.Range(0f, 100f) < _additionPrefabSpawnRate)
-                        {
-                            var rand = (int)Random.Range(0, _prefabTable.addition.Count);
-                            var num = _prefabTable.addition[rand];
-                            _managers[num].SetPosition(mortonSpaceNumber, position);
-                        }
-                        else if (SystemData.Instance.roomDataList[floor.roomId].state == RoomState.Student)
+                        if (SystemData.Instance.roomDataList[floor.roomId].state == RoomState.Student)
                         {
                             var rand = (int)Random.Range(0, _prefabTable.student.Count);
                             var num = _prefabTable.student[rand];
