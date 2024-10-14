@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5880098146782430600}
   - component: {fileID: -1094858937733257065}
   - component: {fileID: -6789916277646307552}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Student_girl
   m_TagString: Avater
   m_Icon: {fileID: 0}

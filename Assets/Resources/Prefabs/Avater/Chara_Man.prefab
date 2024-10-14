@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 8239690761172703258}
   m_Layer: 6
   m_Name: Chara_Man
-  m_TagString: Untagged
+  m_TagString: Avater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
