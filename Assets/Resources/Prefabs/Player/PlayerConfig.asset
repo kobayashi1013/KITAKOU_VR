@@ -15,8 +15,8 @@ MonoBehaviour:
   isGroundedMask:
     serializedVersion: 2
     m_Bits: 1
-  walkSpeed: 1.5
-  dashSpeed: 3
+  walkSpeed: 2
+  dashSpeed: 4
   rotationSensitive: 0.1
   verticalLimit: 45
   gravitySensitive: 9.81
