@@ -1322,8 +1322,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 272812456905136936}
-  - component: {fileID: -8161428355680646071}
-  - component: {fileID: -8954367417989208559}
+  - component: {fileID: -4720043652020949831}
   - component: {fileID: -9188825845195164414}
   m_Layer: 6
   m_Name: woman_homeless
@@ -1349,35 +1348,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &-8161428355680646071
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4907223649693413822}
-  serializedVersion: 4
-  m_Mass: 120
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!136 &-8954367417989208559
-CapsuleCollider:
+--- !u!143 &-4720043652020949831
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1394,10 +1366,13 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.25
+  serializedVersion: 3
   m_Height: 1.8
-  m_Direction: 1
+  m_Radius: 0.25
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.0001
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &-9188825845195164414
 MonoBehaviour:
@@ -1411,6 +1386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af9c8a0f544a79145ba82a36c44e6797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _physicsConfig: {fileID: 11400000, guid: 719de6ff1780f68429ec59c2f2c51d4e, type: 2}
   _avaterConfig: {fileID: 11400000, guid: 97f9a0cf13b51b84caf56a1a2e8aeb55, type: 2}
 --- !u!1 &4937421357351099052
 GameObject:

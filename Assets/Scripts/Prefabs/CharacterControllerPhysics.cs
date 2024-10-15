@@ -21,12 +21,13 @@ namespace Prefabs
             return _externalForceVelocity;
         }
 
-        private void OnControllerColliderHit(ControllerColliderHit hit)
+        /*private void OnControllerColliderHit(ControllerColliderHit hit)
         {
+            if (this.gameObject.CompareTag("Avater") && hit.gameObject.CompareTag("Avater")) return;
             if (hit.gameObject.TryGetComponent<CharacterControllerPhysics>(out var physics) == false) return;
 
             Vector3 direction = hit.normal * -1;
             physics.AddForce(direction * _physicsConfig.addForceSensitive);
-        }
+        }*/
     }
 }
