@@ -983,6 +983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8240cfe6d3e1f3a44b4c037339d5ecec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _physicsConfig: {fileID: 11400000, guid: 719de6ff1780f68429ec59c2f2c51d4e, type: 2}
   _playerConfig: {fileID: 11400000, guid: 79482be2365886641acdf0a52d5b3506, type: 2}
 --- !u!1 &3774851680373904135
 GameObject:

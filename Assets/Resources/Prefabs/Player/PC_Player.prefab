@@ -324,6 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03bc7838eddd44643862349270f2a649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _physicsConfig: {fileID: 11400000, guid: 719de6ff1780f68429ec59c2f2c51d4e, type: 2}
   _playerConfig: {fileID: 11400000, guid: 79482be2365886641acdf0a52d5b3506, type: 2}
 --- !u!1 &2038518507483279573
 GameObject:

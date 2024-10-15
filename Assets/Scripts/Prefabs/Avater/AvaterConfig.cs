@@ -7,8 +7,7 @@ namespace Prefabs.Avater
     [CreateAssetMenu(menuName = "ScriptableObjects/Prefabs/Avater")]
     public class AvaterConfig : ScriptableObject
     {
-        public float addForceSensitive = 0f;
-        [Header("ŽžŠÔ")]
+        [Header("Time")]
         public float rotationTime = 0f;
         public float moveTime = 0f;
         public float minWaitingTime = 0f;

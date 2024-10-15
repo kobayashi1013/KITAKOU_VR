@@ -8,8 +8,10 @@ using UniRx.Triggers;
 
 namespace Prefabs.Player
 {
-    public class VrPlayerController : PlayerControllerBase
+    public class VrPlayerController : CharacterControllerPhysics
     {
+        [SerializeField] private PlayerConfig _playerConfig;
+
         private ContinuousMoveProviderBase _moveProvider;
         private CharacterController _characterController;
 

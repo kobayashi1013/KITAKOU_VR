@@ -2,25 +2,37 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Prefabs.Player;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace Prefabs.Avater
 {
-    public class AvaterController : MonoBehaviour
+    public class AvaterController : CharacterControllerPhysics
     {
         [SerializeField] private AvaterConfig _avaterConfig;
 
-        private Rigidbody _rigidbody;
+        private CharacterController _characterController;
+        private Vector3 _externalForceVelocity = Vector3.zero;
         private float _isMove = 0f;
 
         private void Start()
         {
             //コンポーネント取得
-            _rigidbody = GetComponent<Rigidbody>();
+            _characterController = GetComponent<CharacterController>();
+
+            this.UpdateAsObservable().Subscribe(_ => AvaterPhysics());
 
             //アクション開始
             Action();
+        }
+
+        private void AvaterPhysics()
+        {
+            Vector3 movement = Vector3.zero;
+            movement += ExternalForce();
+
+            _characterController.Move(movement * Time.deltaTime);
         }
 
         private async void Action()
@@ -84,7 +96,7 @@ namespace Prefabs.Avater
             {
                 if (this == null) break; //エラーハンドリング
                 timer += Time.deltaTime;
-                _rigidbody.MovePosition(_rigidbody.position + movement * Time.deltaTime);
+                _characterController.Move(movement * Time.deltaTime);
                 await UniTask.Yield(PlayerLoopTiming.Update);
             }
             _isMove = 0f;
@@ -92,15 +104,6 @@ namespace Prefabs.Avater
             //ランダム時間待機
             float waitingTime = UnityEngine.Random.Range(_avaterConfig.minWaitingTime, _avaterConfig.maxWaitingTime);
             await UniTask.Delay(TimeSpan.FromSeconds(waitingTime));
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (!collision.gameObject.CompareTag("Player")) return;
-            if (!collision.gameObject.TryGetComponent<PlayerControllerBase>(out var playerController)) return;
-
-            Vector3 direction = collision.contacts[0].normal * -1;
-            playerController.AddForce(direction * _isMove * _avaterConfig.addForceSensitive);
         }
     }
 }

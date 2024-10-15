@@ -7,8 +7,10 @@ using UniRx.Triggers;
 
 namespace Prefabs.Player
 {
-    public class PcPlayerController : PlayerControllerBase
+    public class PcPlayerController : CharacterControllerPhysics
     {
+        [SerializeField] private PlayerConfig _playerConfig;
+
         private CharacterController _characterController;
         private Vector2 _moveInput = Vector2.zero; //ˆÚ“®“ü—Í
         private Vector2 _rotateInput = Vector2.zero; //‰ñ“]“ü—Í
