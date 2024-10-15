@@ -6,10 +6,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UniRx;
 using UniRx.Triggers;
 
-namespace Prefabs.Player
+namespace Prefabs.Character.Player
 {
-    public class VrPlayerController : PlayerControllerBase
+    public class VrPlayerController : CharacterPhysics
     {
+        [SerializeField] private PlayerConfig _playerConfig;
+
         private ContinuousMoveProviderBase _moveProvider;
         private CharacterController _characterController;
 
@@ -39,7 +41,7 @@ namespace Prefabs.Player
         private void PlayerPhysics()
         {
             Vector3 movement = Vector3.zero;
-            movement = ExternalForce();
+            movement = ExternalForce(Time.deltaTime);
 
             _characterController.Move(movement * Time.deltaTime);
         }

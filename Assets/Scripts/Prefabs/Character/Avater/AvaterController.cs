@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Prefabs.Player;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
-namespace Prefabs.Avater
+namespace Prefabs.Character.Avater
 {
-    public class AvaterController : MonoBehaviour
+    public class AvaterController : CharacterPhysics
     {
         [SerializeField] private AvaterConfig _avaterConfig;
 
@@ -19,8 +21,25 @@ namespace Prefabs.Avater
             //コンポーネント取得
             _rigidbody = GetComponent<Rigidbody>();
 
+            this.FixedUpdateAsObservable().Subscribe(_ => AvaterPhysics());
+
             //アクション開始
-            Action();
+            //Action();
+        }
+
+        private void AvaterPhysics()
+        {
+            /*Vector3 movement = Vector3.zero;
+
+            movement += ExternalForce(Time.fixedDeltaTime);
+
+            _rigidbody.MovePosition(_rigidbody.position + movement);*/
+            // 現在の位置と目標位置を補間する
+            Vector3 newPosition = Vector3.Lerp(_rigidbody.position, _rigidbody.position + new Vector3(5, 0, 0), Time.fixedDeltaTime);
+
+            // MovePositionを使って移動
+            _rigidbody.MovePosition(newPosition);
+            //Debug.Log(movement);
         }
 
         private async void Action()
@@ -83,9 +102,9 @@ namespace Prefabs.Avater
             while (timer < _avaterConfig.rotationTime)
             {
                 if (this == null) break; //エラーハンドリング
-                timer += Time.deltaTime;
-                _rigidbody.MovePosition(_rigidbody.position + movement * Time.deltaTime);
-                await UniTask.Yield(PlayerLoopTiming.Update);
+                timer += Time.fixedDeltaTime;
+                _rigidbody.MovePosition(_rigidbody.position + movement * Time.fixedDeltaTime);
+                await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
             }
             _isMove = 0f;
 
@@ -96,11 +115,10 @@ namespace Prefabs.Avater
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (!collision.gameObject.CompareTag("Player")) return;
-            if (!collision.gameObject.TryGetComponent<PlayerControllerBase>(out var playerController)) return;
+            if (collision.gameObject.TryGetComponent<CharacterPhysics>(out var characterPhysics) == false) return;
 
             Vector3 direction = collision.contacts[0].normal * -1;
-            playerController.AddForce(direction * _isMove * _avaterConfig.addForceSensitive);
+            characterPhysics.AddForce(direction * _isMove * characterPhysicsConfig.addForceSensitive);
         }
     }
 }

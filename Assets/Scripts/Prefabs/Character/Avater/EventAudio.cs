@@ -4,7 +4,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using UniRx;
 
-namespace Prefabs.Avater
+namespace Prefabs.Character.Avater
 {
     public class EventAudio : MonoBehaviour
     {

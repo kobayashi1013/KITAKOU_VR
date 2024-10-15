@@ -5,10 +5,12 @@ using UnityEngine.InputSystem;
 using UniRx;
 using UniRx.Triggers;
 
-namespace Prefabs.Player
+namespace Prefabs.Character.Player
 {
-    public class PcPlayerController : PlayerControllerBase
+    public class PcPlayerController : CharacterPhysics
     {
+        [SerializeField] private PlayerConfig _playerConfig;
+
         private CharacterController _characterController;
         private Vector2 _moveInput = Vector2.zero; //ˆÚ“®“ü—Í
         private Vector2 _rotateInput = Vector2.zero; //‰ñ“]“ü—Í
@@ -54,7 +56,7 @@ namespace Prefabs.Player
             Vector3 movement = Vector3.zero;
             movement += PlayerMove();
             movement += GravityForce();
-            movement += ExternalForce();
+            movement += ExternalForce(Time.deltaTime);
 
             _characterController.Move(movement * Time.deltaTime);
         }
@@ -93,6 +95,14 @@ namespace Prefabs.Player
         {
             var ray = new Ray(transform.position, Vector3.down);
             _isGrounded = Physics.Raycast(ray, 0.001f, _playerConfig.isGroundedMask);
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (hit.gameObject.TryGetComponent<CharacterPhysics>(out var characterPhysics) == false) return;
+
+            Vector3 direction = hit.point * -1;
+            characterPhysics.AddForce(direction * characterPhysicsConfig.addForceSensitive);
         }
     }
 }

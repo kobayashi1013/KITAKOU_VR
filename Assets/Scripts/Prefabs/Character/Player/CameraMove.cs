@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UniRx;
 using UniRx.Triggers;
 
-namespace Prefabs.Player
+namespace Prefabs.Character.Player
 {
     public class CameraMove : MonoBehaviour
     {
