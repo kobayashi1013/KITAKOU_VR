@@ -15,5 +15,5 @@ MonoBehaviour:
   addForceSensitive: 1
   rotationTime: 1
   moveTime: 0.5
-  minWaitingTime: 10
+  minWaitingTime: 5
   maxWaitingTime: 20

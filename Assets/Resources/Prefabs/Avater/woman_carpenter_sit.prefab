@@ -1441,7 +1441,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7104850191531883041}
-  - component: {fileID: -3762422953547044133}
   - component: {fileID: 6417457049903717164}
   m_Layer: 6
   m_Name: woman_carpenter_sit
@@ -1467,33 +1466,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &-3762422953547044133
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5213584315844322799}
-  serializedVersion: 4
-  m_Mass: 120
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!65 &6417457049903717164
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1513,8 +1485,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.4895472, y: 0.97783357, z: 0.5946608}
-  m_Center: {x: 0.017748266, y: 0.42790696, z: 0.026833564}
+  m_Size: {x: 0.24937445, y: 1.1102093, z: 0.4354042}
+  m_Center: {x: 0.00031220913, y: 0.4940948, z: 0.0551043}
 --- !u!1 &5674980171851879136
 GameObject:
   m_ObjectHideFlags: 0
