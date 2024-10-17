@@ -2521,7 +2521,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 7854703214489259813}
-  _interval: 30
+  _minInterval: 30
+  _maxInterval: 60
   _audioClipList:
   - {fileID: 8300000, guid: 44711179837fff54ca564cd9c38c5d0b, type: 3}
   - {fileID: 8300000, guid: dd748e5eda859584eb127292f12d52c4, type: 3}
