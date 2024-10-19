@@ -1501,7 +1501,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.8
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1598,8 +1598,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 8750636696153694220}
-  _minInterval: 60
-  _maxInterval: 120
+  _minInterval: 120
+  _maxInterval: 240
   _audioClipList:
   - {fileID: 8300000, guid: dd748e5eda859584eb127292f12d52c4, type: 3}
 --- !u!1 &5674980171851879136

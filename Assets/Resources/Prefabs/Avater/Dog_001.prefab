@@ -693,7 +693,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &2660008089371998867
 BoxCollider:
@@ -825,8 +825,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 6892722779861421518}
-  _minInterval: 60
-  _maxInterval: 120
+  _minInterval: 120
+  _maxInterval: 240
   _audioClipList:
   - {fileID: 8300000, guid: ac14c3f98695c2e458c2993c18c35fa4, type: 3}
 --- !u!114 &-2875137395858147035

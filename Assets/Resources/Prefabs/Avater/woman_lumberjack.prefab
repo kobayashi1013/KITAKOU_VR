@@ -1336,7 +1336,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!136 &-7558077519703293192
 CapsuleCollider:
@@ -1386,7 +1386,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.8
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1483,8 +1483,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: -8508227237435026620}
-  _minInterval: 60
-  _maxInterval: 120
+  _minInterval: 120
+  _maxInterval: 240
   _audioClipList:
   - {fileID: 8300000, guid: 36198c4d8590fb9418d074dcde2edf9e, type: 3}
 --- !u!1 &4378790670423070875
