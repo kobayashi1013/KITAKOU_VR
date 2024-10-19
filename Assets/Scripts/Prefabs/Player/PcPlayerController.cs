@@ -22,6 +22,8 @@ namespace Prefabs.Player
 
             this.UpdateAsObservable().Subscribe(_ => PlayerRotate());
             this.UpdateAsObservable().Subscribe(_ => PlayerPhysics());
+
+            this.FixedUpdateAsObservable().Subscribe(_ => IsGrounded());
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -92,7 +94,10 @@ namespace Prefabs.Player
         private void IsGrounded()
         {
             var ray = new Ray(transform.position, Vector3.down);
-            _isGrounded = Physics.Raycast(ray, 0.001f, _playerConfig.isGroundedMask);
+            var result = Physics.Raycast(ray, 0.001f, _playerConfig.isGroundedMask);
+
+            if (_isGrounded == false && result == true) _gravitySpeed = 0f;
+            _isGrounded = result;
         }
     }
 }
