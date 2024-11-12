@@ -1,6 +1,9 @@
 name: Generate Class Diagram
 
 on:
+  push:
+   branches:
+    - main
   schedule:
     - cron: 0 15 * * *
   workflow_dispatch:
@@ -30,11 +33,8 @@ jobs:
       - name: Generate UML
         run: puml-gen ./Assets/Scripts -dir ./uml.puml
 
-      - name: Generate Image From UML
-        run: plantuml ./uml.puml -tpng -o ./uml.png
-        
       - name: Upload Image
         uses: actions/upload-artifact@v4
         with:
           name: uml
-          path: ./uml.png
+          path: ./uml.puml
