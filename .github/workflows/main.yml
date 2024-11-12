@@ -30,7 +30,7 @@ jobs:
       - name: Generate UML
         run: |
           ls
-          puml-gen ./Assets/Scripts uml.puml
+          puml-gen ./Assets/Scripts uml.puml -dir
 
       - name: Generate Image From UML
         run: plantuml uml.puml -o uml.png
