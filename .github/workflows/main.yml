@@ -1,9 +1,8 @@
 name: Generate Class Diagram
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: 0 15 * * *
   workflow_dispatch:
 
 jobs:
@@ -14,32 +13,28 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
         with:
-          python-version: "3.12"
-
-      - name: Run Python Script
-        run: |
-          python ClassDiagramGenerator.py
-
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: "temurin"
-          java-version: "17"
-
+          dotnet-version: 6.0
+          
       - name: Update package list
         run: sudo apt-get update
         
       - name: Install PlantUML
         run: sudo apt-get install -y plantuml
 
-      - name: Generate Class Diagram Image
-        run: plantuml ClassDiagram.puml
+      - name: Install C# UML Generator Tool
+        run: dotnet tool install --global UmlGenerator
+        
+      - name: Generate UML
+        run: uml-generator -o uml.puml
 
-      - name: Upload Class Diagram Image
+      - name: Generate Image From UML
+        run: plantuml uml.puml -o uml.png
+        
+      - name: Upload Image
         uses: actions/upload-artifact@v4
         with:
-          name: ClassDiagram
-          path: ClassDiagram.png
+          name: uml
+          path: uml.png
