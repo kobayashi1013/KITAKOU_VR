@@ -28,7 +28,7 @@ jobs:
         run: dotnet tool install --global PlantUmlClassDiagramGenerator --version 1.4.0
         
       - name: Generate UML
-        run: puml-gen $(pwd)Assets/Scripts uml.puml
+        run: puml-gen $(pwd)/Assets/Scripts uml.puml
 
       - name: Generate Image From UML
         run: plantuml uml.puml -o uml.png
