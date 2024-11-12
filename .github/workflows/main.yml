@@ -26,6 +26,7 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
+          distribution: "temurin"
           java-version: "21"
 
       - name: Install PlantUML
