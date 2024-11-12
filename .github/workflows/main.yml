@@ -25,10 +25,10 @@ jobs:
         run: sudo apt-get install -y plantuml
 
       - name: Install C# UML Generator Tool
-        run: dotnet tool install --global UmlGenerator
+        run: dotnet tool install --global PlantUmlClassDiagramGenerator.SourceGenerator
         
       - name: Generate UML
-        run: uml-generator -o uml.puml
+        run: dotnet plantuml-class-diagram-generator -o uml.puml
 
       - name: Generate Image From UML
         run: plantuml uml.puml -o uml.png
