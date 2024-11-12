@@ -2,7 +2,7 @@ import os
 import re
 
 def get_class_info(file_path):
-    with open(file_path, "r") as file:
+    with open(file_path, "r", encoding="utf-8-sig") as file:
         content = file.read()
 
     class_pattern = re.compile(r"class\s+(\w+)")
