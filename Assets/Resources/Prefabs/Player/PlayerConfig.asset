@@ -19,6 +19,6 @@ MonoBehaviour:
   dashSpeed: 4
   rotationSensitive: 0.1
   verticalLimit: 45
-  gravitySensitive: 9.81
+  gravitySensitive: 14.72
   addForceSensitive: 1
   attenuationSensitive: 5
