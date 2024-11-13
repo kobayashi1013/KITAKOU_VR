@@ -35,7 +35,9 @@ jobs:
         run: sudo apt-get install -y plantuml
 
       - name: Generate UML file
-        run: puml-gen ./Assets/Scripts ./ -dir -allInOne
+        run: |
+          puml-gen ./Assets/Scripts ./ -dir -allInOne
+          cat include.puml
         
       - name: Generate Image from UML file
         run: |
