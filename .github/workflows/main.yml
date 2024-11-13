@@ -27,7 +27,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
-          java-version: "17"
+          java-version: "21"
 
       - name: Update package list
         run: sudo apt-get update
@@ -36,11 +36,7 @@ jobs:
         run: sudo apt-get install -y plantuml
 
       - name: Generate Image from UML
-        run: |
-          ls
-          cd UML
-          ls
-          plantuml uml.puml
+        run: plantuml UML/uml.puml
 
       - name: Upload Class Diagram Image
         uses: actions/upload-artifact@v4
