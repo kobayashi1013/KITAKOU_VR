@@ -21,6 +21,12 @@ jobs:
         with:
           python-version: 3.12
 
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
+
       - name: Install PlantUML
         run: |
           sudo apt-get update
