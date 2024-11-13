@@ -9,32 +9,30 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  generate-uml:
     runs-on: ubuntu-latest
     
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+
+      - name: Set up cs2plant
+        run: |
+          sudo apt update
+          sudo apt install -y graphviz
+          git clone https://github.com/ZooKong/cs2plant.git
+          cd cs2plant
+          pip install -r requirements.txt
+          cd ..
+
+      - name: Generate C# files to PlantUML
+        run: python cs2plant/cs2plant.py Assets/Scripts -o uml.puml
           
-      - name: Update package list
-        run: sudo apt-get update
-        
-      - name: Install PlantUML
-        run: sudo apt-get install -y plantuml
-
-      - name: Install C# UML Generator Tool
-        run: dotnet tool install --global PlantUmlClassDiagramGenerator --version 1.4.0
-        
-      - name: Generate UML
-        run: puml-gen ./Assets/Scripts -dir ./uml
-
       - name: Upload Image
         uses: actions/upload-artifact@v4
         with:
           name: uml
-          path: ./uml
+          path: uml.puml
