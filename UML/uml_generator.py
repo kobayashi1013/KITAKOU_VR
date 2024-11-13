@@ -34,8 +34,8 @@ def generate_plantuml_content(classes):
     lines.append("@enduml")
     return "\n".join(lines)
 
-scripts_dir = "Assets/Scripts"
-output_file = "UML/uml.puml"
+scripts_dir = "../Assets/Scripts"
+output_file = "uml.puml"
 
 class_infos = []
 for root, dirs, files in os.walk(scripts_dir):
