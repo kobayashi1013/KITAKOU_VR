@@ -19,25 +19,28 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v3
 
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: 21
-          distribution: temurin
+      #- name: Set up Java
+        #uses: actions/setup-java@v3
+        #with:
+          #java-version: 21
+          #distribution: temurin
 
-      - name: Package list update
-        run: sudo apt-get update
+      #- name: Package list update
+        #run: sudo apt-get update
         
       - name: Install PlantUmlClassDiagramGenerator
         run: dotnet tool install --global PlantUmlClassDiagramGenerator
 
-      - name: Install PlantUML
-        run: sudo apt-get install -y plantuml
+      #- name: Install PlantUML
+        #run: sudo apt-get install -y plantuml
 
       - name: Generate UML file
-        run: puml-gen ./Assets/Scripts ./Assets/Scripts -dir
-
-      - name: Generate Image from UML file
         run: |
-          plantuml ./Assets/Scripts/include.puml -o uml.png
+          puml-gen ./Assets/Scripts ./ -dir -allInOne
           ls
+          cat include.puml
+
+      #- name: Generate Image from UML file
+        #run: |
+          #plantuml ./Assets/Scripts/include.puml -o uml.png
+          #ls
