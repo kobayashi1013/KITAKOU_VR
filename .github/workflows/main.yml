@@ -13,33 +13,23 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout Code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v3
-
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: 21
-          distribution: temurin
-
-      - name: Package list update
-        run: sudo apt-get update
-        
-      - name: Install PlantUmlClassDiagramGenerator
-        run: dotnet tool install --global PlantUmlClassDiagramGenerator
+      - name: Set up Python
+        uses: actions/setup-python@v5
 
       - name: Install PlantUML
-        run: sudo apt-get install -y plantuml
+        run: pip install plantuml
 
       - name: Generate UML file
-        run: |
-          puml-gen ./Assets/Scripts ./ -dir -allInOne
-          cat include.puml
+        run: python uml_generator.py
         
       - name: Generate Image from UML file
-        run: |
-          plantuml include.puml -o uml.png
-          ls
+        run: plantuml uml.puml
+
+      - name: Upload UML diagram
+        uses: actions/upload-artifact@v4
+        with:
+          name: uml
+          path: uml.png
