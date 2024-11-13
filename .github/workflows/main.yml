@@ -36,8 +36,8 @@ jobs:
 
       - name: Generate UML file
         run: |
-          puml-gen ./Assets/Scripts -dir
-          cd Assets
+          puml-gen ./Assets/Scripts ./Assets/Scripts -dir
+          cd Assets/Scripts
           ls
 
       #- name: Generate Image from UML file
