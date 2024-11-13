@@ -24,5 +24,6 @@ jobs:
 
       - name: Generate UML file
         run: |
-          puml-gen ./Assets/Scripts uml.puml -dir
-          cat uml.puml
+          puml-gen ./Assets/Scripts ./ -dir
+          ls
+          cat include.puml
