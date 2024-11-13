@@ -26,3 +26,4 @@ jobs:
         run: |
           puml-gen ./Assets/Scripts ./ -dir
           ls
+          cat include.puml
