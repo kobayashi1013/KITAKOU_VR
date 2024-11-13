@@ -1,4 +1,4 @@
-name: Generate Class Diagram
+name: UML Generator
 
 on:
   push:
@@ -16,21 +16,18 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3
 
-      - name: Set up cs2plant
+      - name: Install PlantUmlClassDiagramGenerator
         run: |
-          sudo apt update
-          sudo apt install -y graphviz
-          git clone https://github.com/ZooKong/cs2plant.git
-          cd cs2plant
-          pip install -r requirements.txt
-          cd ..
+          git clone https://github.com/pierre3/PlantUmlClassDiagramGenerator.git
+          cd PlantUmlClassDiagramGenerator
+          dotnet build
 
-      - name: Generate C# files to PlantUML
-        run: python cs2plant/cs2plant.py Assets/Scripts -o uml.puml
-          
+      - name: Generate UML file
+        run: dotnet run --project PlantUmlClassDiagramGenerator/PlantUmlClassDiagramGenerator.csproj -- ./Assets/Scripts > uml.puml
+        
       - name: Upload Image
         uses: actions/upload-artifact@v4
         with:
