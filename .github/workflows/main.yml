@@ -19,11 +19,22 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v3
 
+      - name: Set up Java
+        uses: actions/setup-java@v3
+
+      - name: Package list update
+        run: sudo apt-get update
+        
       - name: Install PlantUmlClassDiagramGenerator
         run: dotnet tool install --global PlantUmlClassDiagramGenerator
 
+      - name: Install PlantUML
+        run: sudo apt-get install -y plantuml
+
       - name: Generate UML file
+        run: puml-gen ./Assets/Scripts ./ -dir
+
+      - name: Generate Image from UML file
         run: |
-          puml-gen ./Assets/Scripts ./ -dir
+          plantuml include.puml -o uml.png
           ls
-          cat include.puml
