@@ -20,16 +20,9 @@ jobs:
         uses: actions/setup-dotnet@v3
 
       - name: Install PlantUmlClassDiagramGenerator
-        run: |
-          git clone https://github.com/pierre3/PlantUmlClassDiagramGenerator.git
-          cd PlantUmlClassDiagramGenerator
-          dotnet build
+        run: dotnet tool install --global PlantUmlClassDiagramGenerator
 
       - name: Generate UML file
-        run: dotnet run --project PlantUmlClassDiagramGenerator/PlantUmlClassDiagramGenerator.csproj -- ./Assets/Scripts > uml.puml
-        
-      - name: Upload Image
-        uses: actions/upload-artifact@v4
-        with:
-          name: uml
-          path: uml.puml
+        run: |
+          puml-gen Assets/Scripts -dir
+          ls
