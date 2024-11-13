@@ -21,7 +21,7 @@ jobs:
 
       - name: Run Python Script
         run: |
-          python ClassDiagramGenerator.py
+          python UML/uml_generator.py
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -35,11 +35,15 @@ jobs:
       - name: Install PlantUML
         run: sudo apt-get install -y plantuml
 
-      - name: Generate Class Diagram Image
-        run: plantuml ClassDiagram.puml
+      - name: Generate Image from UML
+        run: |
+          ls
+          cd UML
+          ls
+          plantuml uml.puml
 
       - name: Upload Class Diagram Image
         uses: actions/upload-artifact@v4
         with:
-          name: ClassDiagram
-          path: ClassDiagram.png
+          name: uml
+          path: UML/uml.png
