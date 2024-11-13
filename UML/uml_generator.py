@@ -50,5 +50,5 @@ plantuml_content = generate_plantuml_content(class_infos)
 with open(output_file, "w") as file:
     file.write(plantuml_content)
 
-print("Class Diagram generated as ClassDiagram.puml")
+print("UML Image generated as uml.puml")
             
