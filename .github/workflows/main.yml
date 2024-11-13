@@ -36,10 +36,11 @@ jobs:
 
       - name: Generate UML file
         run: |
-          puml-gen ./Assets/Scripts ./ -dir
-          cat include.puml
-
-      - name: Generate Image from UML file
-        run: |
-          plantuml include.puml -o uml.png
+          puml-gen ./Assets/Scripts -dir
+          cd Assets/Scripts
           ls
+
+      #- name: Generate Image from UML file
+        #run: |
+          #plantuml include.puml -o uml.png
+          #ls
