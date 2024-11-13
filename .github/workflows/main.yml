@@ -35,8 +35,12 @@ jobs:
       - name: Install PlantUML
         run: sudo apt-get install -y plantuml
 
-      - name: Generate Class Diagram Image
-        run: plantuml UML/uml.puml
+      - name: Generate Image from UML
+        run: |
+          ls
+          cd UML
+          ls
+          plantuml uml.puml
 
       - name: Upload Class Diagram Image
         uses: actions/upload-artifact@v4
