@@ -35,7 +35,7 @@ def generate_plantuml_content(classes):
     return "\n".join(lines)
 
 scripts_dir = "Assets/Scripts"
-output_file = "ClassDiagram.puml"
+output_file = "uml.puml"
 
 class_infos = []
 for root, dirs, files in os.walk(scripts_dir):
