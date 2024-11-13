@@ -1,15 +1,13 @@
-name: UML Generator
+name: Generate Class Diagram
 
 on:
   push:
-   branches:
-    - main
-  schedule:
-    - cron: 0 15 * * *
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  generate-uml:
+  build:
     runs-on: ubuntu-latest
     
     steps:
@@ -17,29 +15,31 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.12
+          python-version: "3.12"
+
+      - name: Run Python Script
+        run: |
+          python ClassDiagramGenerator.py
 
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          java-version: 21
-          distribution: temurin
+          distribution: "temurin"
+          java-version: "17"
 
-      - name: Install PlantUML
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y plantuml
-
-      - name: Generate UML file
-        run: python UML/uml_generator.py
+      - name: Update package list
+        run: sudo apt-get update
         
-      - name: Generate Image from UML file
-        run: plantuml UML/uml.puml
+      - name: Install PlantUML
+        run: sudo apt-get install -y plantuml
 
-      - name: Upload UML diagram
+      - name: Generate Class Diagram Image
+        run: plantuml ClassDiagram.puml
+
+      - name: Upload Class Diagram Image
         uses: actions/upload-artifact@v4
         with:
-          name: uml
-          path: UML/uml.png
+          name: ClassDiagram
+          path: ClassDiagram.png
