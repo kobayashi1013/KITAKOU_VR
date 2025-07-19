@@ -116,8 +116,8 @@ namespace Utils
                 content += key + ","
                     + roomDataList[key].name + ","
                     + roomDataList[key].state.ToString() + ","
-                    + roomDataList[key].width0.ToString("F1") + ","
-                    + roomDataList[key].width1.ToString("F1") + "\n";
+                    + roomDataList[key].width0.ToString("F2") + ","
+                    + roomDataList[key].width1.ToString("F2") + "\n";
             }
             content = content.Remove(content.Length - 1);
 

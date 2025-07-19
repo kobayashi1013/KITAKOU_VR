@@ -83,12 +83,12 @@ namespace Scenes.LocationSetting
 
         public void MoveSlider0()
         {
-            _widthValueText0.text = _widthSlider0.value.ToString("F1");
+            _widthValueText0.text = _widthSlider0.value.ToString("F2");
         }
 
         public void MoveSlider1()
         {
-            _widthValueText1.text = _widthSlider1.value.ToString("F1");
+            _widthValueText1.text = _widthSlider1.value.ToString("F2");
         }
 
         public void OnEditInputField0()
@@ -96,7 +96,7 @@ namespace Scenes.LocationSetting
             if (_widthInputField0.text == "") return;
             var value = WidthValueLimit(float.Parse(_widthInputField0.text));
 
-            _widthValueText0.text = value.ToString("F1");
+            _widthValueText0.text = value.ToString("F2");
             _widthSlider0.value = value;
             _widthInputField0.text = null;
         }
@@ -106,7 +106,7 @@ namespace Scenes.LocationSetting
             if (_widthInputField1.text == "") return;
             var value = WidthValueLimit(float.Parse(_widthInputField1.text));
 
-            _widthValueText1.text = value.ToString("F1");
+            _widthValueText1.text = value.ToString("F2");
             _widthSlider1.value = value;
             _widthInputField1.text = null;
         }
@@ -136,10 +136,10 @@ namespace Scenes.LocationSetting
 
             //ïîâÆèÛë‘
             _roomState.value = (int)SystemData.Instance.roomDataList[id].state;
-            _widthValueText0.text = SystemData.Instance.roomDataList[id].width0.ToString("F1");
+            _widthValueText0.text = SystemData.Instance.roomDataList[id].width0.ToString("F2");
             _widthSlider0.value = SystemData.Instance.roomDataList[id].width0;
 
-            _widthValueText1.text = SystemData.Instance.roomDataList[id].width1.ToString("F1");
+            _widthValueText1.text = SystemData.Instance.roomDataList[id].width1.ToString("F2");
             _widthSlider1.value = SystemData.Instance.roomDataList[id].width1;
         }
 
