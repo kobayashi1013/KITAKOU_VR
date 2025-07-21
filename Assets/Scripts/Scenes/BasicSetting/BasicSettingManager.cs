@@ -74,6 +74,8 @@ namespace Scenes.BasicSetting
                 SystemData.Instance.SetSimulationTime(SimulationTime.Morning);
             else if (_simulationTime.value == 1)
                 SystemData.Instance.SetSimulationTime(SimulationTime.Night);
+            else if (_simulationTime.value == 2)
+                SystemData.Instance.SetSimulationTime(SimulationTime.Experiment);
         }
 
         public void PushResetConfigButton()
@@ -136,6 +138,8 @@ namespace Scenes.BasicSetting
                 _simulationTime.value = 0;
             else if (SystemData.Instance.simulationTime == SimulationTime.Night)
                 _simulationTime.value = 1;
+            else if (SystemData.Instance.simulationTime == SimulationTime.Experiment)
+                _simulationTime.value = 2;
         }
     }
 }

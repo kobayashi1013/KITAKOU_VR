@@ -4,5 +4,6 @@ namespace Constant
     {
         Morning,
         Night,
+        Experiment,
     }
 }

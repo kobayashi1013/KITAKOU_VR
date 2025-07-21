@@ -2521,7 +2521,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6642\u9593\u8A2D\u5B9A"
+  m_text: "\u72B6\u6CC1\u8A2D\u5B9A"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7ffb4cedf37c4424c97c0629e4f6f4f5, type: 2}
   m_sharedMaterial: {fileID: 4170535840332020440, guid: 7ffb4cedf37c4424c97c0629e4f6f4f5, type: 2}
@@ -3929,6 +3929,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: "\u591C\uFF08\u505C\u96FB\uFF09"
       m_Image: {fileID: 0}
+    - m_Text: "\u5B9F\u9A13"
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -4192,7 +4194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1173251015}
   m_Layer: 5
-  m_Name: SimulationTime
+  m_Name: Situation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

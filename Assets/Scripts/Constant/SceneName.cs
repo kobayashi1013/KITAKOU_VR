@@ -9,5 +9,6 @@ namespace Constant
         LocationSettingScene,
         FileSettingScene,
         AvaterTotallingScene,
+        Experiment,
     }
 }

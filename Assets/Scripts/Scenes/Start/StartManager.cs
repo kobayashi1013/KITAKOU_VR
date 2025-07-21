@@ -52,6 +52,8 @@ namespace Scenes.Start
                     SceneManager.LoadScene((int)SceneName.InMainMorningScene);
                 else if (SystemData.Instance.simulationTime == SimulationTime.Night)
                     SceneManager.LoadScene((int)SceneName.InMainNightScene);
+                else if (SystemData.Instance.simulationTime == SimulationTime.Experiment)
+                    SceneManager.LoadScene((int)SceneName.Experiment);
             }
         }
 
@@ -67,6 +69,8 @@ namespace Scenes.Start
                 SceneManager.LoadScene((int)SceneName.InMainMorningScene);
             else if (SystemData.Instance.simulationTime == SimulationTime.Night)
                 SceneManager.LoadScene((int)SceneName.InMainNightScene);
+            else if (SystemData.Instance.simulationTime == SimulationTime.Experiment)
+                SceneManager.LoadScene((int)SceneName.Experiment);
         }
 
         public void PushSettingButton()
