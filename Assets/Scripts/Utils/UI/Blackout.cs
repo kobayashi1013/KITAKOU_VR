@@ -8,15 +8,20 @@ namespace Utils.UI
 {
     public class Blackout : MonoBehaviour
     {
-        [SerializeField] private Image _mask;
-        
+        [SerializeField] private Material _material;
+
+        private void Start()
+        {
+            SetAlpha(0f);
+        }
+
         private void SetAlpha(float alpha)
         {
-            if (_mask != null)
+            if (_material != null)
             {
-                Color color = _mask.color;
+                Color color = _material.color;
                 color.a = alpha;
-                _mask.color = color;
+                _material.color = color;
             }
         }
 
